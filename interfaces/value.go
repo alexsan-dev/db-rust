@@ -2,7 +2,7 @@ package interfaces
 
 import "strconv"
 
-// TOKEN BASE
+// VALOR BASE
 type Value struct {
 	Type  ExpressionType
 	Value string
@@ -16,7 +16,9 @@ func (sym Value) getValue() interface{} {
 	} else if sym.Type == FLOAT {
 		floatVar, _ := strconv.ParseFloat(sym.Value, 64)
 		return floatVar
-	} else if sym.Type == BOOLEAN {
+	} else if sym.Type == CHAR {
+		return sym.Value[0]
+	} else if sym.Type == BOOL {
 		return sym.Value == "true"
 	} else {
 		return sym.Value
@@ -35,7 +37,8 @@ const (
 	INTEGER ExpressionType = iota
 	FLOAT
 	STRING
-	BOOLEAN
+	CHAR
+	BOOL
 	STRINGCLASS
 )
 

@@ -18,7 +18,7 @@ func main() {
 	// CREAR PARSER
 	p := parser.NewDBRustParser(stream)
 
-	// Finally parse the expression
+	// EJECUTAR PARSER
 	var listener l.DBRustListener
 	antlr.ParseTreeWalkerDefault.Walk(&listener, p.Start())
 }

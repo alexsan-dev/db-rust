@@ -20,8 +20,8 @@ public class DBRustParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NUMBER=1, STRING=2, ID=3, EQUALS=4, MUL=5, DIV=6, MOD=7, ADD=8, SUB=9, 
-		WHITESPACE=10;
+		NUMBER=1, FLOAT=2, STRING=3, CHAR=4, ID=5, BFALSE=6, BTRUE=7, SEMI=8, 
+		EQUALS=9, MUL=10, DIV=11, MOD=12, ADD=13, SUB=14, WHITESPACE=15;
 	public static final int
 		RULE_start = 0, RULE_instructions = 1, RULE_instruction = 2, RULE_assignment = 3, 
 		RULE_expression = 4, RULE_expOp = 5, RULE_value = 6;
@@ -35,14 +35,15 @@ public class DBRustParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, "'='", "'*'", "'/'", "'%'", "'+'", "'-'"
+			null, null, null, null, null, null, "'false'", "'true'", "';'", "'='", 
+			"'*'", "'/'", "'%'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NUMBER", "STRING", "ID", "EQUALS", "MUL", "DIV", "MOD", "ADD", 
-			"SUB", "WHITESPACE"
+			null, "NUMBER", "FLOAT", "STRING", "CHAR", "ID", "BFALSE", "BTRUE", "SEMI", 
+			"EQUALS", "MUL", "DIV", "MOD", "ADD", "SUB", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -193,6 +194,7 @@ public class DBRustParser extends Parser {
 	public static class InstructionContext extends ParserRuleContext {
 		public I.IInstruction state;
 		public AssignmentContext assign;
+		public TerminalNode SEMI() { return getToken(DBRustParser.SEMI, 0); }
 		public AssignmentContext assignment() {
 			return getRuleContext(AssignmentContext.class,0);
 		}
@@ -210,6 +212,8 @@ public class DBRustParser extends Parser {
 			{
 			setState(25);
 			((InstructionContext)_localctx).assign = assignment();
+			setState(26);
+			match(SEMI);
 			 
 						_localctx.state = ((InstructionContext)_localctx).assign.state
 				
@@ -247,11 +251,11 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28);
-			((AssignmentContext)_localctx).idText = match(ID);
 			setState(29);
-			match(EQUALS);
+			((AssignmentContext)_localctx).idText = match(ID);
 			setState(30);
+			match(EQUALS);
+			setState(31);
 			((AssignmentContext)_localctx).exp = expression(0);
 
 					expPoint := ((AssignmentContext)_localctx).exp.state
@@ -310,7 +314,7 @@ public class DBRustParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(34);
+			setState(35);
 			((ExpressionContext)_localctx).value = value();
 			 
 					sym := ((ExpressionContext)_localctx).value.state
@@ -319,7 +323,7 @@ public class DBRustParser extends Parser {
 				
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(44);
+			setState(45);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -332,11 +336,11 @@ public class DBRustParser extends Parser {
 					_localctx.leftExp = _prevctx;
 					_localctx.leftExp = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_expression);
-					setState(37);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 					setState(38);
-					((ExpressionContext)_localctx).expOp = expOp();
+					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 					setState(39);
+					((ExpressionContext)_localctx).expOp = expOp();
+					setState(40);
 					((ExpressionContext)_localctx).rightExp = expression(3);
 
 					          		left, right := ((ExpressionContext)_localctx).leftExp.state, ((ExpressionContext)_localctx).rightExp.state;
@@ -346,7 +350,7 @@ public class DBRustParser extends Parser {
 					}
 					} 
 				}
-				setState(46);
+				setState(47);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			}
@@ -367,8 +371,9 @@ public class DBRustParser extends Parser {
 		public I.Operation state;
 		public TerminalNode MUL() { return getToken(DBRustParser.MUL, 0); }
 		public TerminalNode DIV() { return getToken(DBRustParser.DIV, 0); }
-		public TerminalNode SUB() { return getToken(DBRustParser.SUB, 0); }
+		public TerminalNode MOD() { return getToken(DBRustParser.MOD, 0); }
 		public TerminalNode ADD() { return getToken(DBRustParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(DBRustParser.SUB, 0); }
 		public ExpOpContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -379,13 +384,13 @@ public class DBRustParser extends Parser {
 		ExpOpContext _localctx = new ExpOpContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_expOp);
 		try {
-			setState(55);
+			setState(58);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MUL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(47);
+				setState(48);
 				match(MUL);
 
 							_localctx.state = I.MUL
@@ -395,31 +400,41 @@ public class DBRustParser extends Parser {
 			case DIV:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(49);
+				setState(50);
 				match(DIV);
 
 							_localctx.state = I.DIV
 						 
 				}
 				break;
-			case SUB:
+			case MOD:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(51);
-				match(SUB);
+				setState(52);
+				match(MOD);
 
-							_localctx.state = I.SUB
+								_localctx.state = I.MOD
 						 
 				}
 				break;
 			case ADD:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(53);
+				setState(54);
 				match(ADD);
 
 							_localctx.state = I.ADD
 					 
+				}
+				break;
+			case SUB:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(56);
+				match(SUB);
+
+								_localctx.state = I.SUB
+						 
 				}
 				break;
 			default:
@@ -440,9 +455,17 @@ public class DBRustParser extends Parser {
 	public static class ValueContext extends ParserRuleContext {
 		public I.Value state;
 		public Token NUMBER;
+		public Token FLOAT;
 		public Token STRING;
+		public Token CHAR;
+		public Token BFALSE;
+		public Token BTRUE;
 		public TerminalNode NUMBER() { return getToken(DBRustParser.NUMBER, 0); }
+		public TerminalNode FLOAT() { return getToken(DBRustParser.FLOAT, 0); }
 		public TerminalNode STRING() { return getToken(DBRustParser.STRING, 0); }
+		public TerminalNode CHAR() { return getToken(DBRustParser.CHAR, 0); }
+		public TerminalNode BFALSE() { return getToken(DBRustParser.BFALSE, 0); }
+		public TerminalNode BTRUE() { return getToken(DBRustParser.BTRUE, 0); }
 		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -453,26 +476,66 @@ public class DBRustParser extends Parser {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_value);
 		try {
-			setState(61);
+			setState(72);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUMBER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(57);
+				setState(60);
 				((ValueContext)_localctx).NUMBER = match(NUMBER);
 
 							_localctx.state = I.Value{I.INTEGER, (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getText():null)}
 					
 				}
 				break;
-			case STRING:
+			case FLOAT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(59);
+				setState(62);
+				((ValueContext)_localctx).FLOAT = match(FLOAT);
+
+							_localctx.state = I.Value{I.FLOAT, (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getText():null)} 
+						
+				}
+				break;
+			case STRING:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(64);
 				((ValueContext)_localctx).STRING = match(STRING);
 
-							_localctx.state = I.Value{I.INTEGER, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1]} 
+							_localctx.state = I.Value{I.STRING, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1]} 
+						
+				}
+				break;
+			case CHAR:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(66);
+				((ValueContext)_localctx).CHAR = match(CHAR);
+
+							_localctx.state = I.Value{I.CHAR, (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null)[1:len((((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null))-1]} 
+						
+				}
+				break;
+			case BFALSE:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(68);
+				((ValueContext)_localctx).BFALSE = match(BFALSE);
+
+							_localctx.state = I.Value{I.BOOL, (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getText():null)} 
+						
+				}
+				break;
+			case BTRUE:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(70);
+				((ValueContext)_localctx).BTRUE = match(BTRUE);
+
+							_localctx.state = I.Value{I.BOOL, (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getText():null)} 
 					
 				}
 				break;
@@ -507,22 +570,25 @@ public class DBRustParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\fB\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21M\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\3\2\3\2\3\3\7\3\25\n\3"+
-		"\f\3\16\3\30\13\3\3\3\3\3\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6"+
-		"\3\6\3\6\3\6\3\6\3\6\3\6\7\6-\n\6\f\6\16\6\60\13\6\3\7\3\7\3\7\3\7\3\7"+
-		"\3\7\3\7\3\7\5\7:\n\7\3\b\3\b\3\b\3\b\5\b@\n\b\3\b\2\3\n\t\2\4\6\b\n\f"+
-		"\16\2\2\2@\2\20\3\2\2\2\4\26\3\2\2\2\6\33\3\2\2\2\b\36\3\2\2\2\n#\3\2"+
-		"\2\2\f9\3\2\2\2\16?\3\2\2\2\20\21\5\4\3\2\21\22\b\2\1\2\22\3\3\2\2\2\23"+
-		"\25\5\6\4\2\24\23\3\2\2\2\25\30\3\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27"+
-		"\31\3\2\2\2\30\26\3\2\2\2\31\32\b\3\1\2\32\5\3\2\2\2\33\34\5\b\5\2\34"+
-		"\35\b\4\1\2\35\7\3\2\2\2\36\37\7\5\2\2\37 \7\6\2\2 !\5\n\6\2!\"\b\5\1"+
-		"\2\"\t\3\2\2\2#$\b\6\1\2$%\5\16\b\2%&\b\6\1\2&.\3\2\2\2\'(\f\4\2\2()\5"+
-		"\f\7\2)*\5\n\6\5*+\b\6\1\2+-\3\2\2\2,\'\3\2\2\2-\60\3\2\2\2.,\3\2\2\2"+
-		"./\3\2\2\2/\13\3\2\2\2\60.\3\2\2\2\61\62\7\7\2\2\62:\b\7\1\2\63\64\7\b"+
-		"\2\2\64:\b\7\1\2\65\66\7\13\2\2\66:\b\7\1\2\678\7\n\2\28:\b\7\1\29\61"+
-		"\3\2\2\29\63\3\2\2\29\65\3\2\2\29\67\3\2\2\2:\r\3\2\2\2;<\7\3\2\2<@\b"+
-		"\b\1\2=>\7\4\2\2>@\b\b\1\2?;\3\2\2\2?=\3\2\2\2@\17\3\2\2\2\6\26.9?";
+		"\f\3\16\3\30\13\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6"+
+		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\7\6.\n\6\f\6\16\6\61\13\6\3\7\3\7\3\7\3\7"+
+		"\3\7\3\7\3\7\3\7\3\7\3\7\5\7=\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b"+
+		"\3\b\3\b\3\b\5\bK\n\b\3\b\2\3\n\t\2\4\6\b\n\f\16\2\2\2P\2\20\3\2\2\2\4"+
+		"\26\3\2\2\2\6\33\3\2\2\2\b\37\3\2\2\2\n$\3\2\2\2\f<\3\2\2\2\16J\3\2\2"+
+		"\2\20\21\5\4\3\2\21\22\b\2\1\2\22\3\3\2\2\2\23\25\5\6\4\2\24\23\3\2\2"+
+		"\2\25\30\3\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27\31\3\2\2\2\30\26\3\2\2"+
+		"\2\31\32\b\3\1\2\32\5\3\2\2\2\33\34\5\b\5\2\34\35\7\n\2\2\35\36\b\4\1"+
+		"\2\36\7\3\2\2\2\37 \7\7\2\2 !\7\13\2\2!\"\5\n\6\2\"#\b\5\1\2#\t\3\2\2"+
+		"\2$%\b\6\1\2%&\5\16\b\2&\'\b\6\1\2\'/\3\2\2\2()\f\4\2\2)*\5\f\7\2*+\5"+
+		"\n\6\5+,\b\6\1\2,.\3\2\2\2-(\3\2\2\2.\61\3\2\2\2/-\3\2\2\2/\60\3\2\2\2"+
+		"\60\13\3\2\2\2\61/\3\2\2\2\62\63\7\f\2\2\63=\b\7\1\2\64\65\7\r\2\2\65"+
+		"=\b\7\1\2\66\67\7\16\2\2\67=\b\7\1\289\7\17\2\29=\b\7\1\2:;\7\20\2\2;"+
+		"=\b\7\1\2<\62\3\2\2\2<\64\3\2\2\2<\66\3\2\2\2<8\3\2\2\2<:\3\2\2\2=\r\3"+
+		"\2\2\2>?\7\3\2\2?K\b\b\1\2@A\7\4\2\2AK\b\b\1\2BC\7\5\2\2CK\b\b\1\2DE\7"+
+		"\6\2\2EK\b\b\1\2FG\7\b\2\2GK\b\b\1\2HI\7\t\2\2IK\b\b\1\2J>\3\2\2\2J@\3"+
+		"\2\2\2JB\3\2\2\2JD\3\2\2\2JF\3\2\2\2JH\3\2\2\2K\17\3\2\2\2\6\26/<J";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

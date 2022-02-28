@@ -69,9 +69,9 @@ func (exp Expression) getValue() Value {
 				}
 			} else if lType == FLOAT {
 				if rType == INTEGER {
-					sym = Value{FLOAT, strconv.FormatFloat(math.Mod((math.Log10(float64(lVal.(float64)))/math.Log10(float64(rVal.(int)))), 1.0), 'E', -1, 64)}
+					sym = Value{FLOAT, strconv.FormatFloat(math.Mod(lVal.(float64), float64(rVal.(int))), 'E', -1, 64)}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(math.Mod((math.Log10(float64(lVal.(float64)))/math.Log10(rVal.(float64))), 1.0), 'E', -1, 64)}
+					sym = Value{FLOAT, strconv.FormatFloat(math.Mod(lVal.(float64), rVal.(float64)), 'E', -1, 64)}
 				}
 			}
 		case ADD:
@@ -89,11 +89,11 @@ func (exp Expression) getValue() Value {
 				}
 			} else if lType == STRING {
 				if rType == STRING || rType == STRINGCLASS {
-					sym = Value{FLOAT, lVal.(string) + rVal.(string)}
+					sym = Value{STRING, lVal.(string) + rVal.(string)}
 				}
 			} else if lType == STRINGCLASS {
 				if rType == STRING || rType == STRINGCLASS {
-					sym = Value{FLOAT, lVal.(string) + rVal.(string)}
+					sym = Value{STRING, lVal.(string) + rVal.(string)}
 				}
 			}
 		case SUB:

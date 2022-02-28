@@ -13,9 +13,8 @@ type DBRustListener struct {
 	tokens []I.Token
 }
 
-// MOSTRAR TODAS LAS INSTRUCCIONES (MODO PRUEBA)
+// EJECUTAR TODAS LAS INSTRUCCIONES
 func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
-	// EJECUTAR INSTRUCCIONES
 	for _, s := range ctx.GetList().ToArray() {
 		s.(I.IInstruction).Execute()
 	}

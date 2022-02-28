@@ -30,7 +30,7 @@ instructions
 // INSTRUCCIONES
 instruction
 	returns[I.IInstruction state]:
-	assign = assignment { 
+	assign = assignment SEMI { 
 			$state = $assign.state
 	};
 
@@ -65,12 +65,15 @@ expOp
 	| DIV {
 			$state = I.DIV
 		 }
-	| SUB {
-			$state = I.SUB
+	| MOD {
+				$state = I.MOD
 		 }
 	| ADD {
 			$state = I.ADD
-	 };
+	 }
+	| SUB {
+				$state = I.SUB
+		 };
 
 // VALORES PRIMITIVOS
 value
@@ -78,6 +81,18 @@ value
 	NUMBER {
 			$state = I.Value{I.INTEGER, $NUMBER.text}
 	}
+	| FLOAT {
+			$state = I.Value{I.FLOAT, $FLOAT.text} 
+		}
 	| STRING {
-			$state = I.Value{I.INTEGER, $STRING.text[1:len($STRING.text)-1]} 
+			$state = I.Value{I.STRING, $STRING.text[1:len($STRING.text)-1]} 
+		}
+	| CHAR {
+			$state = I.Value{I.CHAR, $CHAR.text[1:len($CHAR.text)-1]} 
+		}
+	| BFALSE {
+			$state = I.Value{I.BOOL, $BFALSE.text} 
+		}
+	| BTRUE {
+			$state = I.Value{I.BOOL, $BTRUE.text} 
 	};
