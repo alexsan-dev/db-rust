@@ -4,12 +4,18 @@ import "strconv"
 
 // VALOR BASE
 type Value struct {
-	Type  ExpressionType
-	Value string
+	Line   int
+	Column int
+	Type   ValueType
+	Value  string
+}
+
+type IValue interface {
+	GetValue()
 }
 
 // OBTENER VALOR DE SIMBOLO
-func (sym Value) getValue() interface{} {
+func (sym Value) GetValue() interface{} {
 	if sym.Type == INTEGER {
 		intVar, _ := strconv.Atoi(sym.Value)
 		return intVar
@@ -26,21 +32,43 @@ func (sym Value) getValue() interface{} {
 }
 
 // OBTENER EL TIPO DE LA VARIABLE
-func (sym Value) getType() ExpressionType {
+func (sym Value) GetType() ValueType {
 	return sym.Type
 }
 
 // ENUMS DE TIPO
-type ExpressionType int
+type ValueType int
 
 const (
-	INTEGER ExpressionType = iota
+	INTEGER ValueType = iota
 	FLOAT
-	STRING
+	STR
 	CHAR
 	BOOL
-	STRINGCLASS
+	STRING
+	UNDEF
 )
+
+func (vType ValueType) String() string {
+	switch vType {
+	case INTEGER:
+		return "INTEGER"
+	case FLOAT:
+		return "FLOAT"
+	case STR:
+		return "STR"
+	case CHAR:
+		return "CHAR"
+	case BOOL:
+		return "BOOL"
+	case STRING:
+		return "STRING"
+	case UNDEF:
+		return "UNDEFINED"
+	default:
+		return "UNDEFINED"
+	}
+}
 
 // ENUMS DE OPERACION
 type Operation int
@@ -53,3 +81,22 @@ const (
 	ADD
 	SUB
 )
+
+func (oper Operation) String() string {
+	switch oper {
+	case NOOP:
+		return " "
+	case MUL:
+		return "*"
+	case DIV:
+		return "/"
+	case MOD:
+		return "%"
+	case ADD:
+		return "+"
+	case SUB:
+		return "-"
+	default:
+		return " "
+	}
+}

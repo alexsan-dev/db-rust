@@ -7,9 +7,11 @@ import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
 
+var listener l.DBRustListener
+
 func main() {
 	// ENTRADA
-	input, _ := antlr.NewFileStream("./test/input.txt")
+	input, _ := antlr.NewFileStream("./test/input.rs")
 
 	// CREAR LEXER
 	lexer := parser.NewDBRustLexer(input)
@@ -19,6 +21,5 @@ func main() {
 	p := parser.NewDBRustParser(stream)
 
 	// EJECUTAR PARSER
-	var listener l.DBRustListener
 	antlr.ParseTreeWalkerDefault.Walk(&listener, p.Start())
 }

@@ -19,50 +19,66 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 17, 77, 4,
-	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4,
-	8, 9, 8, 3, 2, 3, 2, 3, 2, 3, 3, 7, 3, 21, 10, 3, 12, 3, 14, 3, 24, 11,
-	3, 3, 3, 3, 3, 3, 4, 3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3,
-	6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 7, 6, 46, 10, 6, 12,
-	6, 14, 6, 49, 11, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3,
-	7, 3, 7, 5, 7, 61, 10, 7, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3,
-	8, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 75, 10, 8, 3, 8, 2, 3, 10, 9, 2, 4, 6,
-	8, 10, 12, 14, 2, 2, 2, 80, 2, 16, 3, 2, 2, 2, 4, 22, 3, 2, 2, 2, 6, 27,
-	3, 2, 2, 2, 8, 31, 3, 2, 2, 2, 10, 36, 3, 2, 2, 2, 12, 60, 3, 2, 2, 2,
-	14, 74, 3, 2, 2, 2, 16, 17, 5, 4, 3, 2, 17, 18, 8, 2, 1, 2, 18, 3, 3, 2,
-	2, 2, 19, 21, 5, 6, 4, 2, 20, 19, 3, 2, 2, 2, 21, 24, 3, 2, 2, 2, 22, 20,
-	3, 2, 2, 2, 22, 23, 3, 2, 2, 2, 23, 25, 3, 2, 2, 2, 24, 22, 3, 2, 2, 2,
-	25, 26, 8, 3, 1, 2, 26, 5, 3, 2, 2, 2, 27, 28, 5, 8, 5, 2, 28, 29, 7, 10,
-	2, 2, 29, 30, 8, 4, 1, 2, 30, 7, 3, 2, 2, 2, 31, 32, 7, 7, 2, 2, 32, 33,
-	7, 11, 2, 2, 33, 34, 5, 10, 6, 2, 34, 35, 8, 5, 1, 2, 35, 9, 3, 2, 2, 2,
-	36, 37, 8, 6, 1, 2, 37, 38, 5, 14, 8, 2, 38, 39, 8, 6, 1, 2, 39, 47, 3,
-	2, 2, 2, 40, 41, 12, 4, 2, 2, 41, 42, 5, 12, 7, 2, 42, 43, 5, 10, 6, 5,
-	43, 44, 8, 6, 1, 2, 44, 46, 3, 2, 2, 2, 45, 40, 3, 2, 2, 2, 46, 49, 3,
-	2, 2, 2, 47, 45, 3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 11, 3, 2, 2, 2, 49,
-	47, 3, 2, 2, 2, 50, 51, 7, 12, 2, 2, 51, 61, 8, 7, 1, 2, 52, 53, 7, 13,
-	2, 2, 53, 61, 8, 7, 1, 2, 54, 55, 7, 14, 2, 2, 55, 61, 8, 7, 1, 2, 56,
-	57, 7, 15, 2, 2, 57, 61, 8, 7, 1, 2, 58, 59, 7, 16, 2, 2, 59, 61, 8, 7,
-	1, 2, 60, 50, 3, 2, 2, 2, 60, 52, 3, 2, 2, 2, 60, 54, 3, 2, 2, 2, 60, 56,
-	3, 2, 2, 2, 60, 58, 3, 2, 2, 2, 61, 13, 3, 2, 2, 2, 62, 63, 7, 3, 2, 2,
-	63, 75, 8, 8, 1, 2, 64, 65, 7, 4, 2, 2, 65, 75, 8, 8, 1, 2, 66, 67, 7,
-	5, 2, 2, 67, 75, 8, 8, 1, 2, 68, 69, 7, 6, 2, 2, 69, 75, 8, 8, 1, 2, 70,
-	71, 7, 8, 2, 2, 71, 75, 8, 8, 1, 2, 72, 73, 7, 9, 2, 2, 73, 75, 8, 8, 1,
-	2, 74, 62, 3, 2, 2, 2, 74, 64, 3, 2, 2, 2, 74, 66, 3, 2, 2, 2, 74, 68,
-	3, 2, 2, 2, 74, 70, 3, 2, 2, 2, 74, 72, 3, 2, 2, 2, 75, 15, 3, 2, 2, 2,
-	6, 22, 47, 60, 74,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 25, 109,
+	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
+	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 3, 2, 3, 2, 3, 2, 3, 3, 7, 3, 25,
+	10, 3, 12, 3, 14, 3, 28, 11, 3, 3, 3, 3, 3, 3, 4, 3, 4, 3, 4, 3, 4, 3,
+	4, 3, 4, 3, 4, 3, 4, 5, 4, 40, 10, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3,
+	5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3,
+	7, 3, 7, 3, 7, 3, 7, 3, 7, 7, 7, 64, 10, 7, 12, 7, 14, 7, 67, 11, 7, 3,
+	8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 79, 10,
+	8, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3,
+	9, 5, 9, 93, 10, 9, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3,
+	10, 3, 10, 3, 10, 3, 10, 3, 10, 5, 10, 107, 10, 10, 3, 10, 2, 3, 12, 11,
+	2, 4, 6, 8, 10, 12, 14, 16, 18, 2, 2, 2, 116, 2, 20, 3, 2, 2, 2, 4, 26,
+	3, 2, 2, 2, 6, 39, 3, 2, 2, 2, 8, 41, 3, 2, 2, 2, 10, 49, 3, 2, 2, 2, 12,
+	54, 3, 2, 2, 2, 14, 78, 3, 2, 2, 2, 16, 92, 3, 2, 2, 2, 18, 106, 3, 2,
+	2, 2, 20, 21, 5, 4, 3, 2, 21, 22, 8, 2, 1, 2, 22, 3, 3, 2, 2, 2, 23, 25,
+	5, 6, 4, 2, 24, 23, 3, 2, 2, 2, 25, 28, 3, 2, 2, 2, 26, 24, 3, 2, 2, 2,
+	26, 27, 3, 2, 2, 2, 27, 29, 3, 2, 2, 2, 28, 26, 3, 2, 2, 2, 29, 30, 8,
+	3, 1, 2, 30, 5, 3, 2, 2, 2, 31, 32, 5, 8, 5, 2, 32, 33, 7, 18, 2, 2, 33,
+	34, 8, 4, 1, 2, 34, 40, 3, 2, 2, 2, 35, 36, 5, 10, 6, 2, 36, 37, 7, 18,
+	2, 2, 37, 38, 8, 4, 1, 2, 38, 40, 3, 2, 2, 2, 39, 31, 3, 2, 2, 2, 39, 35,
+	3, 2, 2, 2, 40, 7, 3, 2, 2, 2, 41, 42, 7, 3, 2, 2, 42, 43, 7, 14, 2, 2,
+	43, 44, 7, 17, 2, 2, 44, 45, 5, 16, 9, 2, 45, 46, 7, 19, 2, 2, 46, 47,
+	5, 12, 7, 2, 47, 48, 8, 5, 1, 2, 48, 9, 3, 2, 2, 2, 49, 50, 7, 14, 2, 2,
+	50, 51, 7, 19, 2, 2, 51, 52, 5, 12, 7, 2, 52, 53, 8, 6, 1, 2, 53, 11, 3,
+	2, 2, 2, 54, 55, 8, 7, 1, 2, 55, 56, 5, 18, 10, 2, 56, 57, 8, 7, 1, 2,
+	57, 65, 3, 2, 2, 2, 58, 59, 12, 4, 2, 2, 59, 60, 5, 14, 8, 2, 60, 61, 5,
+	12, 7, 5, 61, 62, 8, 7, 1, 2, 62, 64, 3, 2, 2, 2, 63, 58, 3, 2, 2, 2, 64,
+	67, 3, 2, 2, 2, 65, 63, 3, 2, 2, 2, 65, 66, 3, 2, 2, 2, 66, 13, 3, 2, 2,
+	2, 67, 65, 3, 2, 2, 2, 68, 69, 7, 20, 2, 2, 69, 79, 8, 8, 1, 2, 70, 71,
+	7, 21, 2, 2, 71, 79, 8, 8, 1, 2, 72, 73, 7, 22, 2, 2, 73, 79, 8, 8, 1,
+	2, 74, 75, 7, 23, 2, 2, 75, 79, 8, 8, 1, 2, 76, 77, 7, 24, 2, 2, 77, 79,
+	8, 8, 1, 2, 78, 68, 3, 2, 2, 2, 78, 70, 3, 2, 2, 2, 78, 72, 3, 2, 2, 2,
+	78, 74, 3, 2, 2, 2, 78, 76, 3, 2, 2, 2, 79, 15, 3, 2, 2, 2, 80, 81, 7,
+	4, 2, 2, 81, 93, 8, 9, 1, 2, 82, 83, 7, 5, 2, 2, 83, 93, 8, 9, 1, 2, 84,
+	85, 7, 6, 2, 2, 85, 93, 8, 9, 1, 2, 86, 87, 7, 7, 2, 2, 87, 93, 8, 9, 1,
+	2, 88, 89, 7, 8, 2, 2, 89, 93, 8, 9, 1, 2, 90, 91, 7, 9, 2, 2, 91, 93,
+	8, 9, 1, 2, 92, 80, 3, 2, 2, 2, 92, 82, 3, 2, 2, 2, 92, 84, 3, 2, 2, 2,
+	92, 86, 3, 2, 2, 2, 92, 88, 3, 2, 2, 2, 92, 90, 3, 2, 2, 2, 93, 17, 3,
+	2, 2, 2, 94, 95, 7, 10, 2, 2, 95, 107, 8, 10, 1, 2, 96, 97, 7, 11, 2, 2,
+	97, 107, 8, 10, 1, 2, 98, 99, 7, 12, 2, 2, 99, 107, 8, 10, 1, 2, 100, 101,
+	7, 13, 2, 2, 101, 107, 8, 10, 1, 2, 102, 103, 7, 15, 2, 2, 103, 107, 8,
+	10, 1, 2, 104, 105, 7, 16, 2, 2, 105, 107, 8, 10, 1, 2, 106, 94, 3, 2,
+	2, 2, 106, 96, 3, 2, 2, 2, 106, 98, 3, 2, 2, 2, 106, 100, 3, 2, 2, 2, 106,
+	102, 3, 2, 2, 2, 106, 104, 3, 2, 2, 2, 107, 19, 3, 2, 2, 2, 8, 26, 39,
+	65, 78, 92, 106,
 }
 var literalNames = []string{
-	"", "", "", "", "", "", "'false'", "'true'", "';'", "'='", "'*'", "'/'",
+	"", "'let'", "'i64'", "'f64'", "'bool'", "'char'", "'&str'", "'String'",
+	"", "", "", "", "", "'false'", "'true'", "':'", "';'", "'='", "'*'", "'/'",
 	"'%'", "'+'", "'-'",
 }
 var symbolicNames = []string{
-	"", "NUMBER", "FLOAT", "STRING", "CHAR", "ID", "BFALSE", "BTRUE", "SEMI",
-	"EQUALS", "MUL", "DIV", "MOD", "ADD", "SUB", "WHITESPACE",
+	"", "LET", "I64", "F64", "BOOL", "CHARTYPE", "STR", "STRCLASS", "NUMBER",
+	"FLOAT", "STRING", "CHAR", "ID", "BFALSE", "BTRUE", "COLOM", "SEMI", "EQUALS",
+	"MUL", "DIV", "MOD", "ADD", "SUB", "WHITESPACE",
 }
 
 var ruleNames = []string{
-	"start", "instructions", "instruction", "assignment", "expression", "expOp",
-	"value",
+	"start", "instructions", "instruction", "declaration", "assignment", "expression",
+	"expOp", "valueType", "value",
 }
 
 type DBRustParser struct {
@@ -97,21 +113,29 @@ func NewDBRustParser(input antlr.TokenStream) *DBRustParser {
 // DBRustParser tokens.
 const (
 	DBRustParserEOF        = antlr.TokenEOF
-	DBRustParserNUMBER     = 1
-	DBRustParserFLOAT      = 2
-	DBRustParserSTRING     = 3
-	DBRustParserCHAR       = 4
-	DBRustParserID         = 5
-	DBRustParserBFALSE     = 6
-	DBRustParserBTRUE      = 7
-	DBRustParserSEMI       = 8
-	DBRustParserEQUALS     = 9
-	DBRustParserMUL        = 10
-	DBRustParserDIV        = 11
-	DBRustParserMOD        = 12
-	DBRustParserADD        = 13
-	DBRustParserSUB        = 14
-	DBRustParserWHITESPACE = 15
+	DBRustParserLET        = 1
+	DBRustParserI64        = 2
+	DBRustParserF64        = 3
+	DBRustParserBOOL       = 4
+	DBRustParserCHARTYPE   = 5
+	DBRustParserSTR        = 6
+	DBRustParserSTRCLASS   = 7
+	DBRustParserNUMBER     = 8
+	DBRustParserFLOAT      = 9
+	DBRustParserSTRING     = 10
+	DBRustParserCHAR       = 11
+	DBRustParserID         = 12
+	DBRustParserBFALSE     = 13
+	DBRustParserBTRUE      = 14
+	DBRustParserCOLOM      = 15
+	DBRustParserSEMI       = 16
+	DBRustParserEQUALS     = 17
+	DBRustParserMUL        = 18
+	DBRustParserDIV        = 19
+	DBRustParserMOD        = 20
+	DBRustParserADD        = 21
+	DBRustParserSUB        = 22
+	DBRustParserWHITESPACE = 23
 )
 
 // DBRustParser rules.
@@ -119,10 +143,12 @@ const (
 	DBRustParserRULE_start        = 0
 	DBRustParserRULE_instructions = 1
 	DBRustParserRULE_instruction  = 2
-	DBRustParserRULE_assignment   = 3
-	DBRustParserRULE_expression   = 4
-	DBRustParserRULE_expOp        = 5
-	DBRustParserRULE_value        = 6
+	DBRustParserRULE_declaration  = 3
+	DBRustParserRULE_assignment   = 4
+	DBRustParserRULE_expression   = 5
+	DBRustParserRULE_expOp        = 6
+	DBRustParserRULE_valueType    = 7
+	DBRustParserRULE_value        = 8
 )
 
 // IStartContext is an interface to support dynamic dispatch.
@@ -237,7 +263,7 @@ func (p *DBRustParser) Start() (localctx IStartContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(14)
+		p.SetState(18)
 
 		var _x = p.Instructions()
 
@@ -387,13 +413,13 @@ func (p *DBRustParser) Instructions() (localctx IInstructionsContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(20)
+	p.SetState(24)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == DBRustParserID {
+	for _la == DBRustParserLET || _la == DBRustParserID {
 		{
-			p.SetState(17)
+			p.SetState(21)
 
 			var _x = p.Instruction()
 
@@ -401,7 +427,7 @@ func (p *DBRustParser) Instructions() (localctx IInstructionsContext) {
 		}
 		localctx.(*InstructionsContext).e = append(localctx.(*InstructionsContext).e, localctx.(*InstructionsContext)._instruction)
 
-		p.SetState(22)
+		p.SetState(26)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -421,8 +447,14 @@ type IInstructionContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetDecltn returns the decltn rule contexts.
+	GetDecltn() IDeclarationContext
+
 	// GetAssign returns the assign rule contexts.
 	GetAssign() IAssignmentContext
+
+	// SetDecltn sets the decltn rule contexts.
+	SetDecltn(IDeclarationContext)
 
 	// SetAssign sets the assign rule contexts.
 	SetAssign(IAssignmentContext)
@@ -441,6 +473,7 @@ type InstructionContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 	state  I.IInstruction
+	decltn IDeclarationContext
 	assign IAssignmentContext
 }
 
@@ -466,7 +499,11 @@ func NewInstructionContext(parser antlr.Parser, parent antlr.ParserRuleContext, 
 
 func (s *InstructionContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *InstructionContext) GetDecltn() IDeclarationContext { return s.decltn }
+
 func (s *InstructionContext) GetAssign() IAssignmentContext { return s.assign }
+
+func (s *InstructionContext) SetDecltn(v IDeclarationContext) { s.decltn = v }
 
 func (s *InstructionContext) SetAssign(v IAssignmentContext) { s.assign = v }
 
@@ -476,6 +513,16 @@ func (s *InstructionContext) SetState(v I.IInstruction) { s.state = v }
 
 func (s *InstructionContext) SEMI() antlr.TerminalNode {
 	return s.GetToken(DBRustParserSEMI, 0)
+}
+
+func (s *InstructionContext) Declaration() IDeclarationContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDeclarationContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IDeclarationContext)
 }
 
 func (s *InstructionContext) Assignment() IAssignmentContext {
@@ -528,20 +575,253 @@ func (p *DBRustParser) Instruction() (localctx IInstructionContext) {
 		}
 	}()
 
+	p.SetState(37)
+	p.GetErrorHandler().Sync(p)
+
+	switch p.GetTokenStream().LA(1) {
+	case DBRustParserLET:
+		p.EnterOuterAlt(localctx, 1)
+		{
+			p.SetState(29)
+
+			var _x = p.Declaration()
+
+			localctx.(*InstructionContext).decltn = _x
+		}
+		{
+			p.SetState(30)
+			p.Match(DBRustParserSEMI)
+		}
+		localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetDecltn().GetState()
+
+	case DBRustParserID:
+		p.EnterOuterAlt(localctx, 2)
+		{
+			p.SetState(33)
+
+			var _x = p.Assignment()
+
+			localctx.(*InstructionContext).assign = _x
+		}
+		{
+			p.SetState(34)
+			p.Match(DBRustParserSEMI)
+		}
+		localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetAssign().GetState()
+
+	default:
+		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+	}
+
+	return localctx
+}
+
+// IDeclarationContext is an interface to support dynamic dispatch.
+type IDeclarationContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Get_ID returns the _ID token.
+	Get_ID() antlr.Token
+
+	// Set_ID sets the _ID token.
+	Set_ID(antlr.Token)
+
+	// Get_valueType returns the _valueType rule contexts.
+	Get_valueType() IValueTypeContext
+
+	// Get_expression returns the _expression rule contexts.
+	Get_expression() IExpressionContext
+
+	// Set_valueType sets the _valueType rule contexts.
+	Set_valueType(IValueTypeContext)
+
+	// Set_expression sets the _expression rule contexts.
+	Set_expression(IExpressionContext)
+
+	// GetState returns the state attribute.
+	GetState() I.Declaration
+
+	// SetState sets the state attribute.
+	SetState(I.Declaration)
+
+	// IsDeclarationContext differentiates from other interfaces.
+	IsDeclarationContext()
+}
+
+type DeclarationContext struct {
+	*antlr.BaseParserRuleContext
+	parser      antlr.Parser
+	state       I.Declaration
+	_ID         antlr.Token
+	_valueType  IValueTypeContext
+	_expression IExpressionContext
+}
+
+func NewEmptyDeclarationContext() *DeclarationContext {
+	var p = new(DeclarationContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = DBRustParserRULE_declaration
+	return p
+}
+
+func (*DeclarationContext) IsDeclarationContext() {}
+
+func NewDeclarationContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *DeclarationContext {
+	var p = new(DeclarationContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = DBRustParserRULE_declaration
+
+	return p
+}
+
+func (s *DeclarationContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *DeclarationContext) Get_ID() antlr.Token { return s._ID }
+
+func (s *DeclarationContext) Set_ID(v antlr.Token) { s._ID = v }
+
+func (s *DeclarationContext) Get_valueType() IValueTypeContext { return s._valueType }
+
+func (s *DeclarationContext) Get_expression() IExpressionContext { return s._expression }
+
+func (s *DeclarationContext) Set_valueType(v IValueTypeContext) { s._valueType = v }
+
+func (s *DeclarationContext) Set_expression(v IExpressionContext) { s._expression = v }
+
+func (s *DeclarationContext) GetState() I.Declaration { return s.state }
+
+func (s *DeclarationContext) SetState(v I.Declaration) { s.state = v }
+
+func (s *DeclarationContext) LET() antlr.TerminalNode {
+	return s.GetToken(DBRustParserLET, 0)
+}
+
+func (s *DeclarationContext) ID() antlr.TerminalNode {
+	return s.GetToken(DBRustParserID, 0)
+}
+
+func (s *DeclarationContext) COLOM() antlr.TerminalNode {
+	return s.GetToken(DBRustParserCOLOM, 0)
+}
+
+func (s *DeclarationContext) ValueType() IValueTypeContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IValueTypeContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IValueTypeContext)
+}
+
+func (s *DeclarationContext) EQUALS() antlr.TerminalNode {
+	return s.GetToken(DBRustParserEQUALS, 0)
+}
+
+func (s *DeclarationContext) Expression() IExpressionContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IExpressionContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExpressionContext)
+}
+
+func (s *DeclarationContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *DeclarationContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *DeclarationContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.EnterDeclaration(s)
+	}
+}
+
+func (s *DeclarationContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.ExitDeclaration(s)
+	}
+}
+
+func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
+	localctx = NewDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, DBRustParserRULE_declaration)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(25)
-
-		var _x = p.Assignment()
-
-		localctx.(*InstructionContext).assign = _x
+		p.SetState(39)
+		p.Match(DBRustParserLET)
 	}
 	{
-		p.SetState(26)
-		p.Match(DBRustParserSEMI)
+		p.SetState(40)
+
+		var _m = p.Match(DBRustParserID)
+
+		localctx.(*DeclarationContext)._ID = _m
+	}
+	{
+		p.SetState(41)
+		p.Match(DBRustParserCOLOM)
+	}
+	{
+		p.SetState(42)
+
+		var _x = p.ValueType()
+
+		localctx.(*DeclarationContext)._valueType = _x
+	}
+	{
+		p.SetState(43)
+		p.Match(DBRustParserEQUALS)
+	}
+	{
+		p.SetState(44)
+
+		var _x = p.expression(0)
+
+		localctx.(*DeclarationContext)._expression = _x
 	}
 
-	localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetAssign().GetState()
+	expPoint := localctx.(*DeclarationContext).Get_expression().GetState()
+	localctx.(*DeclarationContext).state = I.Declaration{
+		Instruction: I.Instruction{"Declaration"},
+		Type:        localctx.(*DeclarationContext).Get_valueType().GetState(),
+		Id: (func() string {
+			if localctx.(*DeclarationContext).Get_ID() == nil {
+				return ""
+			} else {
+				return localctx.(*DeclarationContext).Get_ID().GetText()
+			}
+		}()),
+		Expression: &expPoint,
+	}
 
 	return localctx
 }
@@ -553,17 +833,17 @@ type IAssignmentContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// GetIdText returns the idText token.
-	GetIdText() antlr.Token
+	// Get_ID returns the _ID token.
+	Get_ID() antlr.Token
 
-	// SetIdText sets the idText token.
-	SetIdText(antlr.Token)
+	// Set_ID sets the _ID token.
+	Set_ID(antlr.Token)
 
-	// GetExp returns the exp rule contexts.
-	GetExp() IExpressionContext
+	// Get_expression returns the _expression rule contexts.
+	Get_expression() IExpressionContext
 
-	// SetExp sets the exp rule contexts.
-	SetExp(IExpressionContext)
+	// Set_expression sets the _expression rule contexts.
+	Set_expression(IExpressionContext)
 
 	// GetState returns the state attribute.
 	GetState() I.Assignment
@@ -577,10 +857,10 @@ type IAssignmentContext interface {
 
 type AssignmentContext struct {
 	*antlr.BaseParserRuleContext
-	parser antlr.Parser
-	state  I.Assignment
-	idText antlr.Token
-	exp    IExpressionContext
+	parser      antlr.Parser
+	state       I.Assignment
+	_ID         antlr.Token
+	_expression IExpressionContext
 }
 
 func NewEmptyAssignmentContext() *AssignmentContext {
@@ -605,24 +885,24 @@ func NewAssignmentContext(parser antlr.Parser, parent antlr.ParserRuleContext, i
 
 func (s *AssignmentContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *AssignmentContext) GetIdText() antlr.Token { return s.idText }
+func (s *AssignmentContext) Get_ID() antlr.Token { return s._ID }
 
-func (s *AssignmentContext) SetIdText(v antlr.Token) { s.idText = v }
+func (s *AssignmentContext) Set_ID(v antlr.Token) { s._ID = v }
 
-func (s *AssignmentContext) GetExp() IExpressionContext { return s.exp }
+func (s *AssignmentContext) Get_expression() IExpressionContext { return s._expression }
 
-func (s *AssignmentContext) SetExp(v IExpressionContext) { s.exp = v }
+func (s *AssignmentContext) Set_expression(v IExpressionContext) { s._expression = v }
 
 func (s *AssignmentContext) GetState() I.Assignment { return s.state }
 
 func (s *AssignmentContext) SetState(v I.Assignment) { s.state = v }
 
-func (s *AssignmentContext) EQUALS() antlr.TerminalNode {
-	return s.GetToken(DBRustParserEQUALS, 0)
-}
-
 func (s *AssignmentContext) ID() antlr.TerminalNode {
 	return s.GetToken(DBRustParserID, 0)
+}
+
+func (s *AssignmentContext) EQUALS() antlr.TerminalNode {
+	return s.GetToken(DBRustParserEQUALS, 0)
 }
 
 func (s *AssignmentContext) Expression() IExpressionContext {
@@ -657,7 +937,7 @@ func (s *AssignmentContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *DBRustParser) Assignment() (localctx IAssignmentContext) {
 	localctx = NewAssignmentContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, DBRustParserRULE_assignment)
+	p.EnterRule(localctx, 8, DBRustParserRULE_assignment)
 
 	defer func() {
 		p.ExitRule()
@@ -677,32 +957,36 @@ func (p *DBRustParser) Assignment() (localctx IAssignmentContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(29)
+		p.SetState(47)
 
 		var _m = p.Match(DBRustParserID)
 
-		localctx.(*AssignmentContext).idText = _m
+		localctx.(*AssignmentContext)._ID = _m
 	}
 	{
-		p.SetState(30)
+		p.SetState(48)
 		p.Match(DBRustParserEQUALS)
 	}
 	{
-		p.SetState(31)
+		p.SetState(49)
 
 		var _x = p.expression(0)
 
-		localctx.(*AssignmentContext).exp = _x
+		localctx.(*AssignmentContext)._expression = _x
 	}
 
-	expPoint := localctx.(*AssignmentContext).GetExp().GetState()
-	localctx.(*AssignmentContext).state = I.Assignment{(func() string {
-		if localctx.(*AssignmentContext).GetIdText() == nil {
-			return ""
-		} else {
-			return localctx.(*AssignmentContext).GetIdText().GetText()
-		}
-	}()), &expPoint}
+	expPoint := localctx.(*AssignmentContext).Get_expression().GetState()
+	localctx.(*AssignmentContext).state = I.Assignment{
+		Instruction: I.Instruction{"Assignment"},
+		Id: (func() string {
+			if localctx.(*AssignmentContext).Get_ID() == nil {
+				return ""
+			} else {
+				return localctx.(*AssignmentContext).Get_ID().GetText()
+			}
+		}()),
+		Expression: &expPoint,
+	}
 
 	return localctx
 }
@@ -873,8 +1157,8 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 	localctx = NewExpressionContext(p, p.GetParserRuleContext(), _parentState)
 	var _prevctx IExpressionContext = localctx
 	var _ antlr.ParserRuleContext = _prevctx // TODO: To prevent unused variable warning.
-	_startState := 8
-	p.EnterRecursionRule(localctx, 8, DBRustParserRULE_expression, _p)
+	_startState := 10
+	p.EnterRecursionRule(localctx, 10, DBRustParserRULE_expression, _p)
 
 	defer func() {
 		p.UnrollRecursionContexts(_parentctx)
@@ -896,7 +1180,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(35)
+		p.SetState(53)
 
 		var _x = p.Value()
 
@@ -905,12 +1189,16 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 
 	sym := localctx.(*ExpressionContext).Get_value().GetState()
 	localctx.(*ExpressionContext).state = I.Expression{
-		Value: &sym, Left: nil, Right: nil, Operation: I.NOOP}
+		Value:     &sym,
+		Left:      nil,
+		Right:     nil,
+		Operation: I.NOOP,
+	}
 
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(45)
+	p.SetState(63)
 	p.GetErrorHandler().Sync(p)
-	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext())
+	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 
 	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
 		if _alt == 1 {
@@ -921,20 +1209,20 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 			localctx = NewExpressionContext(p, _parentctx, _parentState)
 			localctx.(*ExpressionContext).leftExp = _prevctx
 			p.PushNewRecursionContext(localctx, _startState, DBRustParserRULE_expression)
-			p.SetState(38)
+			p.SetState(56)
 
 			if !(p.Precpred(p.GetParserRuleContext(), 2)) {
 				panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 2)", ""))
 			}
 			{
-				p.SetState(39)
+				p.SetState(57)
 
 				var _x = p.ExpOp()
 
 				localctx.(*ExpressionContext)._expOp = _x
 			}
 			{
-				p.SetState(40)
+				p.SetState(58)
 
 				var _x = p.expression(3)
 
@@ -943,12 +1231,16 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 
 			left, right := localctx.(*ExpressionContext).GetLeftExp().GetState(), localctx.(*ExpressionContext).GetRightExp().GetState()
 			localctx.(*ExpressionContext).state = I.Expression{
-				Value: nil, Left: &left, Right: &right, Operation: localctx.(*ExpressionContext).Get_expOp().GetState()}
+				Value:     nil,
+				Left:      &left,
+				Right:     &right,
+				Operation: localctx.(*ExpressionContext).Get_expOp().GetState(),
+			}
 
 		}
-		p.SetState(47)
+		p.SetState(65)
 		p.GetErrorHandler().Sync(p)
-		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext())
+		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 	}
 
 	return localctx
@@ -1045,7 +1337,7 @@ func (s *ExpOpContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	localctx = NewExpOpContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 10, DBRustParserRULE_expOp)
+	p.EnterRule(localctx, 12, DBRustParserRULE_expOp)
 
 	defer func() {
 		p.ExitRule()
@@ -1063,54 +1355,221 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 		}
 	}()
 
-	p.SetState(58)
+	p.SetState(76)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserMUL:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(48)
+			p.SetState(66)
 			p.Match(DBRustParserMUL)
 		}
-
 		localctx.(*ExpOpContext).state = I.MUL
 
 	case DBRustParserDIV:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(50)
+			p.SetState(68)
 			p.Match(DBRustParserDIV)
 		}
-
 		localctx.(*ExpOpContext).state = I.DIV
 
 	case DBRustParserMOD:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(52)
+			p.SetState(70)
 			p.Match(DBRustParserMOD)
 		}
-
 		localctx.(*ExpOpContext).state = I.MOD
 
 	case DBRustParserADD:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(54)
+			p.SetState(72)
 			p.Match(DBRustParserADD)
 		}
-
 		localctx.(*ExpOpContext).state = I.ADD
 
 	case DBRustParserSUB:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(56)
+			p.SetState(74)
 			p.Match(DBRustParserSUB)
 		}
-
 		localctx.(*ExpOpContext).state = I.SUB
+
+	default:
+		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+	}
+
+	return localctx
+}
+
+// IValueTypeContext is an interface to support dynamic dispatch.
+type IValueTypeContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetState returns the state attribute.
+	GetState() I.ValueType
+
+	// SetState sets the state attribute.
+	SetState(I.ValueType)
+
+	// IsValueTypeContext differentiates from other interfaces.
+	IsValueTypeContext()
+}
+
+type ValueTypeContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+	state  I.ValueType
+}
+
+func NewEmptyValueTypeContext() *ValueTypeContext {
+	var p = new(ValueTypeContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = DBRustParserRULE_valueType
+	return p
+}
+
+func (*ValueTypeContext) IsValueTypeContext() {}
+
+func NewValueTypeContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ValueTypeContext {
+	var p = new(ValueTypeContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = DBRustParserRULE_valueType
+
+	return p
+}
+
+func (s *ValueTypeContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *ValueTypeContext) GetState() I.ValueType { return s.state }
+
+func (s *ValueTypeContext) SetState(v I.ValueType) { s.state = v }
+
+func (s *ValueTypeContext) I64() antlr.TerminalNode {
+	return s.GetToken(DBRustParserI64, 0)
+}
+
+func (s *ValueTypeContext) F64() antlr.TerminalNode {
+	return s.GetToken(DBRustParserF64, 0)
+}
+
+func (s *ValueTypeContext) BOOL() antlr.TerminalNode {
+	return s.GetToken(DBRustParserBOOL, 0)
+}
+
+func (s *ValueTypeContext) CHARTYPE() antlr.TerminalNode {
+	return s.GetToken(DBRustParserCHARTYPE, 0)
+}
+
+func (s *ValueTypeContext) STR() antlr.TerminalNode {
+	return s.GetToken(DBRustParserSTR, 0)
+}
+
+func (s *ValueTypeContext) STRCLASS() antlr.TerminalNode {
+	return s.GetToken(DBRustParserSTRCLASS, 0)
+}
+
+func (s *ValueTypeContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ValueTypeContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *ValueTypeContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.EnterValueType(s)
+	}
+}
+
+func (s *ValueTypeContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.ExitValueType(s)
+	}
+}
+
+func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
+	localctx = NewValueTypeContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 14, DBRustParserRULE_valueType)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.SetState(90)
+	p.GetErrorHandler().Sync(p)
+
+	switch p.GetTokenStream().LA(1) {
+	case DBRustParserI64:
+		p.EnterOuterAlt(localctx, 1)
+		{
+			p.SetState(78)
+			p.Match(DBRustParserI64)
+		}
+		localctx.(*ValueTypeContext).state = I.INTEGER
+
+	case DBRustParserF64:
+		p.EnterOuterAlt(localctx, 2)
+		{
+			p.SetState(80)
+			p.Match(DBRustParserF64)
+		}
+		localctx.(*ValueTypeContext).state = I.FLOAT
+
+	case DBRustParserBOOL:
+		p.EnterOuterAlt(localctx, 3)
+		{
+			p.SetState(82)
+			p.Match(DBRustParserBOOL)
+		}
+		localctx.(*ValueTypeContext).state = I.BOOL
+
+	case DBRustParserCHARTYPE:
+		p.EnterOuterAlt(localctx, 4)
+		{
+			p.SetState(84)
+			p.Match(DBRustParserCHARTYPE)
+		}
+		localctx.(*ValueTypeContext).state = I.CHAR
+
+	case DBRustParserSTR:
+		p.EnterOuterAlt(localctx, 5)
+		{
+			p.SetState(86)
+			p.Match(DBRustParserSTR)
+		}
+		localctx.(*ValueTypeContext).state = I.STR
+
+	case DBRustParserSTRCLASS:
+		p.EnterOuterAlt(localctx, 6)
+		{
+			p.SetState(88)
+			p.Match(DBRustParserSTRCLASS)
+		}
+		localctx.(*ValueTypeContext).state = I.STRING
 
 	default:
 		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
@@ -1280,7 +1739,7 @@ func (s *ValueContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *DBRustParser) Value() (localctx IValueContext) {
 	localctx = NewValueContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 12, DBRustParserRULE_value)
+	p.EnterRule(localctx, 16, DBRustParserRULE_value)
 
 	defer func() {
 		p.ExitRule()
@@ -1298,21 +1757,26 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 		}
 	}()
 
-	p.SetState(72)
+	p.SetState(104)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserNUMBER:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(60)
+			p.SetState(92)
 
 			var _m = p.Match(DBRustParserNUMBER)
 
 			localctx.(*ValueContext)._NUMBER = _m
 		}
-
-		localctx.(*ValueContext).state = I.Value{I.INTEGER, (func() string {
+		localctx.(*ValueContext).state = I.Value{(func() int {
+			if localctx.(*ValueContext).Get_NUMBER() == nil {
+				return 0
+			} else {
+				return localctx.(*ValueContext).Get_NUMBER().GetLine()
+			}
+		}()), localctx.(*ValueContext).Get_NUMBER().GetColumn(), I.INTEGER, (func() string {
 			if localctx.(*ValueContext).Get_NUMBER() == nil {
 				return ""
 			} else {
@@ -1323,14 +1787,19 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserFLOAT:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(62)
+			p.SetState(94)
 
 			var _m = p.Match(DBRustParserFLOAT)
 
 			localctx.(*ValueContext)._FLOAT = _m
 		}
-
-		localctx.(*ValueContext).state = I.Value{I.FLOAT, (func() string {
+		localctx.(*ValueContext).state = I.Value{(func() int {
+			if localctx.(*ValueContext).Get_FLOAT() == nil {
+				return 0
+			} else {
+				return localctx.(*ValueContext).Get_FLOAT().GetLine()
+			}
+		}()), localctx.(*ValueContext).Get_FLOAT().GetColumn(), I.FLOAT, (func() string {
 			if localctx.(*ValueContext).Get_FLOAT() == nil {
 				return ""
 			} else {
@@ -1341,14 +1810,19 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserSTRING:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(64)
+			p.SetState(96)
 
 			var _m = p.Match(DBRustParserSTRING)
 
 			localctx.(*ValueContext)._STRING = _m
 		}
-
-		localctx.(*ValueContext).state = I.Value{I.STRING, (func() string {
+		localctx.(*ValueContext).state = I.Value{(func() int {
+			if localctx.(*ValueContext).Get_STRING() == nil {
+				return 0
+			} else {
+				return localctx.(*ValueContext).Get_STRING().GetLine()
+			}
+		}()), localctx.(*ValueContext).Get_STRING().GetColumn(), I.STRING, (func() string {
 			if localctx.(*ValueContext).Get_STRING() == nil {
 				return ""
 			} else {
@@ -1365,14 +1839,19 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserCHAR:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(66)
+			p.SetState(98)
 
 			var _m = p.Match(DBRustParserCHAR)
 
 			localctx.(*ValueContext)._CHAR = _m
 		}
-
-		localctx.(*ValueContext).state = I.Value{I.CHAR, (func() string {
+		localctx.(*ValueContext).state = I.Value{(func() int {
+			if localctx.(*ValueContext).Get_CHAR() == nil {
+				return 0
+			} else {
+				return localctx.(*ValueContext).Get_CHAR().GetLine()
+			}
+		}()), localctx.(*ValueContext).Get_CHAR().GetColumn(), I.CHAR, (func() string {
 			if localctx.(*ValueContext).Get_CHAR() == nil {
 				return ""
 			} else {
@@ -1389,14 +1868,19 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserBFALSE:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(68)
+			p.SetState(100)
 
 			var _m = p.Match(DBRustParserBFALSE)
 
 			localctx.(*ValueContext)._BFALSE = _m
 		}
-
-		localctx.(*ValueContext).state = I.Value{I.BOOL, (func() string {
+		localctx.(*ValueContext).state = I.Value{(func() int {
+			if localctx.(*ValueContext).Get_BFALSE() == nil {
+				return 0
+			} else {
+				return localctx.(*ValueContext).Get_BFALSE().GetLine()
+			}
+		}()), localctx.(*ValueContext).Get_BFALSE().GetColumn(), I.BOOL, (func() string {
 			if localctx.(*ValueContext).Get_BFALSE() == nil {
 				return ""
 			} else {
@@ -1407,14 +1891,19 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserBTRUE:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(70)
+			p.SetState(102)
 
 			var _m = p.Match(DBRustParserBTRUE)
 
 			localctx.(*ValueContext)._BTRUE = _m
 		}
-
-		localctx.(*ValueContext).state = I.Value{I.BOOL, (func() string {
+		localctx.(*ValueContext).state = I.Value{(func() int {
+			if localctx.(*ValueContext).Get_BTRUE() == nil {
+				return 0
+			} else {
+				return localctx.(*ValueContext).Get_BTRUE().GetLine()
+			}
+		}()), localctx.(*ValueContext).Get_BTRUE().GetColumn(), I.BOOL, (func() string {
 			if localctx.(*ValueContext).Get_BTRUE() == nil {
 				return ""
 			} else {
@@ -1431,7 +1920,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 
 func (p *DBRustParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex int) bool {
 	switch ruleIndex {
-	case 4:
+	case 5:
 		var t *ExpressionContext = nil
 		if localctx != nil {
 			t = localctx.(*ExpressionContext)

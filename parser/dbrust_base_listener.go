@@ -39,6 +39,12 @@ func (s *BaseDBRustListener) EnterInstruction(ctx *InstructionContext) {}
 // ExitInstruction is called when production instruction is exited.
 func (s *BaseDBRustListener) ExitInstruction(ctx *InstructionContext) {}
 
+// EnterDeclaration is called when production declaration is entered.
+func (s *BaseDBRustListener) EnterDeclaration(ctx *DeclarationContext) {}
+
+// ExitDeclaration is called when production declaration is exited.
+func (s *BaseDBRustListener) ExitDeclaration(ctx *DeclarationContext) {}
+
 // EnterAssignment is called when production assignment is entered.
 func (s *BaseDBRustListener) EnterAssignment(ctx *AssignmentContext) {}
 
@@ -56,6 +62,12 @@ func (s *BaseDBRustListener) EnterExpOp(ctx *ExpOpContext) {}
 
 // ExitExpOp is called when production expOp is exited.
 func (s *BaseDBRustListener) ExitExpOp(ctx *ExpOpContext) {}
+
+// EnterValueType is called when production valueType is entered.
+func (s *BaseDBRustListener) EnterValueType(ctx *ValueTypeContext) {}
+
+// ExitValueType is called when production valueType is exited.
+func (s *BaseDBRustListener) ExitValueType(ctx *ValueTypeContext) {}
 
 // EnterValue is called when production value is entered.
 func (s *BaseDBRustListener) EnterValue(ctx *ValueContext) {}

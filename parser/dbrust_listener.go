@@ -17,6 +17,9 @@ type DBRustListener interface {
 	// EnterInstruction is called when entering the instruction production.
 	EnterInstruction(c *InstructionContext)
 
+	// EnterDeclaration is called when entering the declaration production.
+	EnterDeclaration(c *DeclarationContext)
+
 	// EnterAssignment is called when entering the assignment production.
 	EnterAssignment(c *AssignmentContext)
 
@@ -25,6 +28,9 @@ type DBRustListener interface {
 
 	// EnterExpOp is called when entering the expOp production.
 	EnterExpOp(c *ExpOpContext)
+
+	// EnterValueType is called when entering the valueType production.
+	EnterValueType(c *ValueTypeContext)
 
 	// EnterValue is called when entering the value production.
 	EnterValue(c *ValueContext)
@@ -38,6 +44,9 @@ type DBRustListener interface {
 	// ExitInstruction is called when exiting the instruction production.
 	ExitInstruction(c *InstructionContext)
 
+	// ExitDeclaration is called when exiting the declaration production.
+	ExitDeclaration(c *DeclarationContext)
+
 	// ExitAssignment is called when exiting the assignment production.
 	ExitAssignment(c *AssignmentContext)
 
@@ -46,6 +55,9 @@ type DBRustListener interface {
 
 	// ExitExpOp is called when exiting the expOp production.
 	ExitExpOp(c *ExpOpContext)
+
+	// ExitValueType is called when exiting the valueType production.
+	ExitValueType(c *ValueTypeContext)
 
 	// ExitValue is called when exiting the value production.
 	ExitValue(c *ValueContext)

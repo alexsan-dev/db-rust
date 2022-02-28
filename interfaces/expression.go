@@ -1,6 +1,7 @@
 package interfaces
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 )
@@ -13,104 +14,110 @@ type Expression struct {
 	Operation Operation
 }
 
-// *INSTRUCTION
-func (exp Expression) Execute() {}
-
-// *EXPRESSION
-func (exp Expression) getValue() Value {
+// *VALUE
+func (exp Expression) GetValue() Value {
 	// OBTENER VALORES
-	var sym Value
+	var sym Value = Value{0, 0, UNDEF, ""}
 
 	// VALOR UNICO
 	if exp.Value != nil {
 		sym = *exp.Value
 	} else {
 		// VALORES DE OPERADORES
-		var left, right = exp.Left.getValue(), exp.Right.getValue()
-		var lType, lVal = left.getType(), left.getValue()
-		var rType, rVal = right.getType(), right.getValue()
+		var left, right = exp.Left.GetValue(), exp.Right.GetValue()
+		var lType, lVal = left.GetType(), left.GetValue()
+		var rType, rVal = right.GetType(), right.GetValue()
 
 		// TABLA DE OPERACIONES
 		switch exp.Operation {
 		case MUL:
 			if lType == INTEGER {
 				if rType == INTEGER {
-					sym = Value{INTEGER, strconv.Itoa(lVal.(int) * rVal.(int))}
+					sym = Value{left.Line, left.Column, INTEGER, strconv.Itoa(lVal.(int) * rVal.(int))}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(float64(lVal.(int))*rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(float64(lVal.(int))*rVal.(float64), 'E', -1, 64)}
 				}
 			} else if lType == FLOAT {
 				if rType == INTEGER {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)*float64(rVal.(int)), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)*float64(rVal.(int)), 'E', -1, 64)}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)*rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)*rVal.(float64), 'E', -1, 64)}
 				}
 			}
 		case DIV:
 			if lType == INTEGER {
 				if rType == INTEGER {
-					sym = Value{INTEGER, strconv.Itoa(lVal.(int) / rVal.(int))}
+					sym = Value{left.Line, left.Column, INTEGER, strconv.Itoa(lVal.(int) / rVal.(int))}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(float64(lVal.(int))/rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(float64(lVal.(int))/rVal.(float64), 'E', -1, 64)}
 				}
 			} else if lType == FLOAT {
 				if rType == INTEGER {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)/float64(rVal.(int)), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)/float64(rVal.(int)), 'E', -1, 64)}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)/rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)/rVal.(float64), 'E', -1, 64)}
 				}
 			}
 		case MOD:
 			if lType == INTEGER {
 				if rType == INTEGER {
-					sym = Value{INTEGER, strconv.Itoa(lVal.(int) % rVal.(int))}
+					sym = Value{left.Line, left.Column, INTEGER, strconv.Itoa(lVal.(int) % rVal.(int))}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(math.Mod((math.Log10(float64(lVal.(int)))/math.Log10(rVal.(float64))), 1.0), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(math.Mod((math.Log10(float64(lVal.(int)))/math.Log10(rVal.(float64))), 1.0), 'E', -1, 64)}
 				}
 			} else if lType == FLOAT {
 				if rType == INTEGER {
-					sym = Value{FLOAT, strconv.FormatFloat(math.Mod(lVal.(float64), float64(rVal.(int))), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(math.Mod(lVal.(float64), float64(rVal.(int))), 'E', -1, 64)}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(math.Mod(lVal.(float64), rVal.(float64)), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(math.Mod(lVal.(float64), rVal.(float64)), 'E', -1, 64)}
 				}
 			}
 		case ADD:
 			if lType == INTEGER {
 				if rType == INTEGER {
-					sym = Value{INTEGER, strconv.Itoa(lVal.(int) + rVal.(int))}
+					sym = Value{left.Line, left.Column, INTEGER, strconv.Itoa(lVal.(int) + rVal.(int))}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(float64(lVal.(int))+rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(float64(lVal.(int))+rVal.(float64), 'E', -1, 64)}
 				}
 			} else if lType == FLOAT {
 				if rType == INTEGER {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)+float64(rVal.(int)), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)+float64(rVal.(int)), 'E', -1, 64)}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)+rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)+rVal.(float64), 'E', -1, 64)}
+				}
+			} else if lType == STR {
+				if rType == STR {
+					sym = Value{left.Line, left.Column, STR, lVal.(string) + rVal.(string)}
 				}
 			} else if lType == STRING {
-				if rType == STRING || rType == STRINGCLASS {
-					sym = Value{STRING, lVal.(string) + rVal.(string)}
-				}
-			} else if lType == STRINGCLASS {
-				if rType == STRING || rType == STRINGCLASS {
-					sym = Value{STRING, lVal.(string) + rVal.(string)}
+				if rType == STR || rType == STRING {
+					sym = Value{left.Line, left.Column, STR, lVal.(string) + rVal.(string)}
 				}
 			}
 		case SUB:
 			if lType == INTEGER {
 				if rType == INTEGER {
-					sym = Value{INTEGER, strconv.Itoa(lVal.(int) - rVal.(int))}
+					sym = Value{left.Line, left.Column, INTEGER, strconv.Itoa(lVal.(int) - rVal.(int))}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(float64(lVal.(int))-rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(float64(lVal.(int))-rVal.(float64), 'E', -1, 64)}
 				}
 			} else if lType == FLOAT {
 				if rType == INTEGER {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)-float64(rVal.(int)), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)-float64(rVal.(int)), 'E', -1, 64)}
 				} else if rType == FLOAT {
-					sym = Value{FLOAT, strconv.FormatFloat(lVal.(float64)-rVal.(float64), 'E', -1, 64)}
+					sym = Value{left.Line, left.Column, FLOAT, strconv.FormatFloat(lVal.(float64)-rVal.(float64), 'E', -1, 64)}
 				}
 			}
 		}
+	}
+
+	// ERROR DE UNDEFINED
+	if sym.Type == UNDEF {
+		var left, right = exp.Left.GetValue(), exp.Right.GetValue()
+		sym = Value{left.Line, 0, UNDEF, ""}
+		Errors = append(Errors, Error{
+			fmt.Sprintf("It was not possible to operate the type %s %s %s",
+				left.GetType(), exp.Operation.String(), right.GetType()), left.Line, left.Column})
 	}
 
 	// VALOR FINAL
