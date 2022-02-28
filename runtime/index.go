@@ -1,6 +1,7 @@
 package runtime
 
 import (
+	"fmt"
 	I "main/interfaces"
 	"main/parser"
 
@@ -31,6 +32,8 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 			s.(I.Declaration).Execute(globalScope)
 		case I.Assignment:
 			s.(I.Assignment).Execute(globalScope)
+		case I.PrintlnCall:
+			s.(I.PrintlnCall).Execute(globalScope)
 		}
 	}
 
@@ -44,6 +47,11 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 		d3.Printf("Line: %d, Column: %d", e.Line, e.Column)
 		df := C.New(C.FgWhite)
 		df.Println("")
+	}
+
+	// MOSTRAR LOGS
+	for _, log := range I.Logs {
+		fmt.Println(log)
 	}
 }
 

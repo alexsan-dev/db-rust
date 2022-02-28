@@ -31,7 +31,8 @@ instructions
 instruction
 	returns[I.IInstruction state]:
 	decltn = declaration SEMI { $state = $decltn.state }
-	| assign = assignment SEMI { $state = $assign.state };
+	| assign = assignment SEMI { $state = $assign.state }
+	| fn = functions SEMI { $state = $fn.state };
 
 // DECLARACIONES
 declaration
@@ -110,3 +111,16 @@ value
 		}
 	| BFALSE { $state = I.Value{ $BFALSE.line, $BFALSE.GetColumn(), I.BOOL, $BFALSE.text } }
 	| BTRUE { $state = I.Value{ $BTRUE.line, $BTRUE.GetColumn(), I.BOOL, $BTRUE.text } };
+
+// FUNCIONES
+functions
+	returns[I.IFunctionCall state]:
+	printlnCall { $state = $printlnCall.state };
+
+// PRINT
+printlnCall
+	returns[I.IFunctionCall state]:
+	PRINTLN OPENPAR expression CLOSEPAR {
+		expPoint := $expression.state
+		$state = I.PrintlnCall{ I.FunctionCall{ "PrintLn", []*I.Expression{&expPoint} } }
+	};

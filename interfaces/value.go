@@ -12,6 +12,7 @@ type Value struct {
 
 type IValue interface {
 	GetValue()
+	GetType() ValueType
 }
 
 // OBTENER VALOR DE SIMBOLO

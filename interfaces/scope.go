@@ -1,6 +1,6 @@
 package interfaces
 
-// ASIGNACION
+// ENTORNOS
 type Scope struct {
 	Previous  *Scope
 	Name      string

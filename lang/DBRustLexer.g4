@@ -2,6 +2,7 @@ lexer grammar DBRustLexer;
 
 // PALABRAS RESERVADAS
 LET: 'let';
+PRINTLN: 'println!';
 
 // TIPOS
 I64: 'i64';
@@ -21,6 +22,8 @@ BFALSE: 'false';
 BTRUE: 'true';
 
 // SIMBOLOS
+OPENPAR: '(';
+CLOSEPAR: ')';
 COLOM: ':';
 SEMI: ';';
 EQUALS: '=';

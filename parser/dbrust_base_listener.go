@@ -74,3 +74,15 @@ func (s *BaseDBRustListener) EnterValue(ctx *ValueContext) {}
 
 // ExitValue is called when production value is exited.
 func (s *BaseDBRustListener) ExitValue(ctx *ValueContext) {}
+
+// EnterFunctions is called when production functions is entered.
+func (s *BaseDBRustListener) EnterFunctions(ctx *FunctionsContext) {}
+
+// ExitFunctions is called when production functions is exited.
+func (s *BaseDBRustListener) ExitFunctions(ctx *FunctionsContext) {}
+
+// EnterPrintlnCall is called when production printlnCall is entered.
+func (s *BaseDBRustListener) EnterPrintlnCall(ctx *PrintlnCallContext) {}
+
+// ExitPrintlnCall is called when production printlnCall is exited.
+func (s *BaseDBRustListener) ExitPrintlnCall(ctx *PrintlnCallContext) {}
