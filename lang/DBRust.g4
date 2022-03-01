@@ -90,6 +90,18 @@ assignment
 		}
 	};
 
+// LISTA DE EXPRESIONES
+listValues
+	returns[*arrayList.List l]:
+	list = listValues COMMA expression { 
+		$list.l.Add($expression.state)
+		$l = $list.l
+  }
+	| expression { 
+		$l = arrayList.New()
+		$l.Add($expression.state)
+	};
+
 // EXPRESIONES
 expression
 	returns[I.Expression state]:
@@ -151,7 +163,6 @@ functions
 // PRINT
 printlnCall
 	returns[I.IFunctionCall state]:
-	PRINTLN OPENPAR expression CLOSEPAR {
-		expPoint := $expression.state
-		$state = I.PrintlnCall{ I.FunctionCall{ "PrintLn", []*I.Expression{&expPoint} } }
+	PRINTLN OPENPAR listValues CLOSEPAR {
+		$state = I.PrintlnCall{ I.FunctionCall{ "PrintLn", $listValues.l.ToArray() } }
 	};

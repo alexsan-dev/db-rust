@@ -1,2 +1,2 @@
-let mut id = 2.5 * 3;
-id = 3;
+let mut id:String = "hola";
+println!(3 * 2 - 2 / 2 + 1);

@@ -51,6 +51,12 @@ func (s *BaseDBRustListener) EnterAssignment(ctx *AssignmentContext) {}
 // ExitAssignment is called when production assignment is exited.
 func (s *BaseDBRustListener) ExitAssignment(ctx *AssignmentContext) {}
 
+// EnterListValues is called when production listValues is entered.
+func (s *BaseDBRustListener) EnterListValues(ctx *ListValuesContext) {}
+
+// ExitListValues is called when production listValues is exited.
+func (s *BaseDBRustListener) ExitListValues(ctx *ListValuesContext) {}
+
 // EnterExpression is called when production expression is entered.
 func (s *BaseDBRustListener) EnterExpression(ctx *ExpressionContext) {}
 

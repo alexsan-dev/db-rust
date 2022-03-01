@@ -3,7 +3,7 @@ package interfaces
 // LLAMADA A FUNCION BASE
 type FunctionCall struct {
 	Id          string
-	Expressions []*Expression
+	Expressions []interface{}
 }
 
 type IFunctionCall interface {

@@ -23,6 +23,9 @@ type DBRustListener interface {
 	// EnterAssignment is called when entering the assignment production.
 	EnterAssignment(c *AssignmentContext)
 
+	// EnterListValues is called when entering the listValues production.
+	EnterListValues(c *ListValuesContext)
+
 	// EnterExpression is called when entering the expression production.
 	EnterExpression(c *ExpressionContext)
 
@@ -55,6 +58,9 @@ type DBRustListener interface {
 
 	// ExitAssignment is called when exiting the assignment production.
 	ExitAssignment(c *AssignmentContext)
+
+	// ExitListValues is called when exiting the listValues production.
+	ExitListValues(c *ListValuesContext)
 
 	// ExitExpression is called when exiting the expression production.
 	ExitExpression(c *ExpressionContext)

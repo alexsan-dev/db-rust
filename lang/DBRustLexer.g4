@@ -27,6 +27,7 @@ OPENPAR: '(';
 CLOSEPAR: ')';
 COLOM: ':';
 SEMI: ';';
+COMMA: ',';
 EQUALS: '=';
 MUL: '*';
 DIV: '/';

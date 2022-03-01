@@ -1,5 +1,7 @@
 package interfaces
 
+import "fmt"
+
 // LLAMADA A FUNCION BASE
 type PrintlnCall struct {
 	FunctionCall
@@ -7,9 +9,14 @@ type PrintlnCall struct {
 
 // *VALUE -> EJECUTAR FUNCION
 func (fn PrintlnCall) Execute(scope Scope) {
+	// CREAR CADENA
+	var finalStr string
 	for _, exp := range fn.Expressions {
-		Logs = append(Logs, exp.GetValue().GetValue())
+		finalStr += fmt.Sprintf("%v", exp.(Expression).GetValue().GetValue()) + " "
 	}
+
+	// AGREGAR
+	Logs = append(Logs, finalStr)
 }
 
 // *VALUE -> OBTENER VALOR
