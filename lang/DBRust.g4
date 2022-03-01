@@ -46,13 +46,33 @@ declaration
 			Id: $ID.text, 
 			Expression: &expPoint,
 		}
-		}
+	}
 	| LET MUT ID COLOM valueType EQUALS expression {
 		expPoint := $expression.state
 		$state = I.Declaration{ 
 			Instruction: I.Instruction{"Declaration"},
 			Mut: true,
 			Type: $valueType.state,
+			Id: $ID.text, 
+			Expression: &expPoint,
+		}
+	}
+	| LET MUT ID EQUALS expression {
+		expPoint := $expression.state
+		$state = I.Declaration{ 
+			Instruction: I.Instruction{"Declaration"},
+			Mut: true,
+			Type: I.UNDEF,
+			Id: $ID.text, 
+			Expression: &expPoint,
+		}
+	}
+	| LET ID EQUALS expression {
+		expPoint := $expression.state
+		$state = I.Declaration{ 
+			Instruction: I.Instruction{"Declaration"},
+			Mut: true,
+			Type:  I.UNDEF,
 			Id: $ID.text, 
 			Expression: &expPoint,
 		}

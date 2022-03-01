@@ -19,62 +19,68 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 29, 137,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 29, 150,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 3, 2,
 	3, 2, 3, 2, 3, 3, 7, 3, 29, 10, 3, 12, 3, 14, 3, 32, 11, 3, 3, 3, 3, 3,
 	3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4,
 	5, 4, 48, 10, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5,
-	3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 67, 10, 5, 3, 6,
-	3, 6, 3, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7,
-	3, 7, 7, 7, 83, 10, 7, 12, 7, 14, 7, 86, 11, 7, 3, 8, 3, 8, 3, 8, 3, 8,
-	3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 98, 10, 8, 3, 9, 3, 9, 3, 9,
-	3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 5, 9, 112, 10, 9,
-	3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3,
-	10, 3, 10, 5, 10, 126, 10, 10, 3, 11, 3, 11, 3, 11, 3, 12, 3, 12, 3, 12,
-	3, 12, 3, 12, 3, 12, 3, 12, 2, 3, 12, 13, 2, 4, 6, 8, 10, 12, 14, 16, 18,
-	20, 22, 2, 2, 2, 144, 2, 24, 3, 2, 2, 2, 4, 30, 3, 2, 2, 2, 6, 47, 3, 2,
-	2, 2, 8, 66, 3, 2, 2, 2, 10, 68, 3, 2, 2, 2, 12, 73, 3, 2, 2, 2, 14, 97,
-	3, 2, 2, 2, 16, 111, 3, 2, 2, 2, 18, 125, 3, 2, 2, 2, 20, 127, 3, 2, 2,
-	2, 22, 130, 3, 2, 2, 2, 24, 25, 5, 4, 3, 2, 25, 26, 8, 2, 1, 2, 26, 3,
-	3, 2, 2, 2, 27, 29, 5, 6, 4, 2, 28, 27, 3, 2, 2, 2, 29, 32, 3, 2, 2, 2,
-	30, 28, 3, 2, 2, 2, 30, 31, 3, 2, 2, 2, 31, 33, 3, 2, 2, 2, 32, 30, 3,
-	2, 2, 2, 33, 34, 8, 3, 1, 2, 34, 5, 3, 2, 2, 2, 35, 36, 5, 8, 5, 2, 36,
-	37, 7, 22, 2, 2, 37, 38, 8, 4, 1, 2, 38, 48, 3, 2, 2, 2, 39, 40, 5, 10,
-	6, 2, 40, 41, 7, 22, 2, 2, 41, 42, 8, 4, 1, 2, 42, 48, 3, 2, 2, 2, 43,
-	44, 5, 20, 11, 2, 44, 45, 7, 22, 2, 2, 45, 46, 8, 4, 1, 2, 46, 48, 3, 2,
-	2, 2, 47, 35, 3, 2, 2, 2, 47, 39, 3, 2, 2, 2, 47, 43, 3, 2, 2, 2, 48, 7,
-	3, 2, 2, 2, 49, 50, 7, 3, 2, 2, 50, 51, 7, 16, 2, 2, 51, 52, 7, 21, 2,
-	2, 52, 53, 5, 16, 9, 2, 53, 54, 7, 23, 2, 2, 54, 55, 5, 12, 7, 2, 55, 56,
-	8, 5, 1, 2, 56, 67, 3, 2, 2, 2, 57, 58, 7, 3, 2, 2, 58, 59, 7, 4, 2, 2,
-	59, 60, 7, 16, 2, 2, 60, 61, 7, 21, 2, 2, 61, 62, 5, 16, 9, 2, 62, 63,
-	7, 23, 2, 2, 63, 64, 5, 12, 7, 2, 64, 65, 8, 5, 1, 2, 65, 67, 3, 2, 2,
-	2, 66, 49, 3, 2, 2, 2, 66, 57, 3, 2, 2, 2, 67, 9, 3, 2, 2, 2, 68, 69, 7,
-	16, 2, 2, 69, 70, 7, 23, 2, 2, 70, 71, 5, 12, 7, 2, 71, 72, 8, 6, 1, 2,
-	72, 11, 3, 2, 2, 2, 73, 74, 8, 7, 1, 2, 74, 75, 5, 18, 10, 2, 75, 76, 8,
-	7, 1, 2, 76, 84, 3, 2, 2, 2, 77, 78, 12, 4, 2, 2, 78, 79, 5, 14, 8, 2,
-	79, 80, 5, 12, 7, 5, 80, 81, 8, 7, 1, 2, 81, 83, 3, 2, 2, 2, 82, 77, 3,
-	2, 2, 2, 83, 86, 3, 2, 2, 2, 84, 82, 3, 2, 2, 2, 84, 85, 3, 2, 2, 2, 85,
-	13, 3, 2, 2, 2, 86, 84, 3, 2, 2, 2, 87, 88, 7, 24, 2, 2, 88, 98, 8, 8,
-	1, 2, 89, 90, 7, 25, 2, 2, 90, 98, 8, 8, 1, 2, 91, 92, 7, 26, 2, 2, 92,
-	98, 8, 8, 1, 2, 93, 94, 7, 27, 2, 2, 94, 98, 8, 8, 1, 2, 95, 96, 7, 28,
-	2, 2, 96, 98, 8, 8, 1, 2, 97, 87, 3, 2, 2, 2, 97, 89, 3, 2, 2, 2, 97, 91,
-	3, 2, 2, 2, 97, 93, 3, 2, 2, 2, 97, 95, 3, 2, 2, 2, 98, 15, 3, 2, 2, 2,
-	99, 100, 7, 6, 2, 2, 100, 112, 8, 9, 1, 2, 101, 102, 7, 7, 2, 2, 102, 112,
-	8, 9, 1, 2, 103, 104, 7, 8, 2, 2, 104, 112, 8, 9, 1, 2, 105, 106, 7, 9,
-	2, 2, 106, 112, 8, 9, 1, 2, 107, 108, 7, 10, 2, 2, 108, 112, 8, 9, 1, 2,
-	109, 110, 7, 11, 2, 2, 110, 112, 8, 9, 1, 2, 111, 99, 3, 2, 2, 2, 111,
-	101, 3, 2, 2, 2, 111, 103, 3, 2, 2, 2, 111, 105, 3, 2, 2, 2, 111, 107,
-	3, 2, 2, 2, 111, 109, 3, 2, 2, 2, 112, 17, 3, 2, 2, 2, 113, 114, 7, 12,
-	2, 2, 114, 126, 8, 10, 1, 2, 115, 116, 7, 13, 2, 2, 116, 126, 8, 10, 1,
-	2, 117, 118, 7, 14, 2, 2, 118, 126, 8, 10, 1, 2, 119, 120, 7, 15, 2, 2,
-	120, 126, 8, 10, 1, 2, 121, 122, 7, 17, 2, 2, 122, 126, 8, 10, 1, 2, 123,
-	124, 7, 18, 2, 2, 124, 126, 8, 10, 1, 2, 125, 113, 3, 2, 2, 2, 125, 115,
-	3, 2, 2, 2, 125, 117, 3, 2, 2, 2, 125, 119, 3, 2, 2, 2, 125, 121, 3, 2,
-	2, 2, 125, 123, 3, 2, 2, 2, 126, 19, 3, 2, 2, 2, 127, 128, 5, 22, 12, 2,
-	128, 129, 8, 11, 1, 2, 129, 21, 3, 2, 2, 2, 130, 131, 7, 5, 2, 2, 131,
-	132, 7, 19, 2, 2, 132, 133, 5, 12, 7, 2, 133, 134, 7, 20, 2, 2, 134, 135,
-	8, 12, 1, 2, 135, 23, 3, 2, 2, 2, 9, 30, 47, 66, 84, 97, 111, 125,
+	3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5,
+	3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 80, 10, 5,
+	3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7,
+	3, 7, 3, 7, 7, 7, 96, 10, 7, 12, 7, 14, 7, 99, 11, 7, 3, 8, 3, 8, 3, 8,
+	3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 111, 10, 8, 3, 9, 3, 9,
+	3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 5, 9, 125,
+	10, 9, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3,
+	10, 3, 10, 3, 10, 5, 10, 139, 10, 10, 3, 11, 3, 11, 3, 11, 3, 12, 3, 12,
+	3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 2, 3, 12, 13, 2, 4, 6, 8, 10, 12, 14,
+	16, 18, 20, 22, 2, 2, 2, 159, 2, 24, 3, 2, 2, 2, 4, 30, 3, 2, 2, 2, 6,
+	47, 3, 2, 2, 2, 8, 79, 3, 2, 2, 2, 10, 81, 3, 2, 2, 2, 12, 86, 3, 2, 2,
+	2, 14, 110, 3, 2, 2, 2, 16, 124, 3, 2, 2, 2, 18, 138, 3, 2, 2, 2, 20, 140,
+	3, 2, 2, 2, 22, 143, 3, 2, 2, 2, 24, 25, 5, 4, 3, 2, 25, 26, 8, 2, 1, 2,
+	26, 3, 3, 2, 2, 2, 27, 29, 5, 6, 4, 2, 28, 27, 3, 2, 2, 2, 29, 32, 3, 2,
+	2, 2, 30, 28, 3, 2, 2, 2, 30, 31, 3, 2, 2, 2, 31, 33, 3, 2, 2, 2, 32, 30,
+	3, 2, 2, 2, 33, 34, 8, 3, 1, 2, 34, 5, 3, 2, 2, 2, 35, 36, 5, 8, 5, 2,
+	36, 37, 7, 22, 2, 2, 37, 38, 8, 4, 1, 2, 38, 48, 3, 2, 2, 2, 39, 40, 5,
+	10, 6, 2, 40, 41, 7, 22, 2, 2, 41, 42, 8, 4, 1, 2, 42, 48, 3, 2, 2, 2,
+	43, 44, 5, 20, 11, 2, 44, 45, 7, 22, 2, 2, 45, 46, 8, 4, 1, 2, 46, 48,
+	3, 2, 2, 2, 47, 35, 3, 2, 2, 2, 47, 39, 3, 2, 2, 2, 47, 43, 3, 2, 2, 2,
+	48, 7, 3, 2, 2, 2, 49, 50, 7, 3, 2, 2, 50, 51, 7, 16, 2, 2, 51, 52, 7,
+	21, 2, 2, 52, 53, 5, 16, 9, 2, 53, 54, 7, 23, 2, 2, 54, 55, 5, 12, 7, 2,
+	55, 56, 8, 5, 1, 2, 56, 80, 3, 2, 2, 2, 57, 58, 7, 3, 2, 2, 58, 59, 7,
+	4, 2, 2, 59, 60, 7, 16, 2, 2, 60, 61, 7, 21, 2, 2, 61, 62, 5, 16, 9, 2,
+	62, 63, 7, 23, 2, 2, 63, 64, 5, 12, 7, 2, 64, 65, 8, 5, 1, 2, 65, 80, 3,
+	2, 2, 2, 66, 67, 7, 3, 2, 2, 67, 68, 7, 4, 2, 2, 68, 69, 7, 16, 2, 2, 69,
+	70, 7, 23, 2, 2, 70, 71, 5, 12, 7, 2, 71, 72, 8, 5, 1, 2, 72, 80, 3, 2,
+	2, 2, 73, 74, 7, 3, 2, 2, 74, 75, 7, 16, 2, 2, 75, 76, 7, 23, 2, 2, 76,
+	77, 5, 12, 7, 2, 77, 78, 8, 5, 1, 2, 78, 80, 3, 2, 2, 2, 79, 49, 3, 2,
+	2, 2, 79, 57, 3, 2, 2, 2, 79, 66, 3, 2, 2, 2, 79, 73, 3, 2, 2, 2, 80, 9,
+	3, 2, 2, 2, 81, 82, 7, 16, 2, 2, 82, 83, 7, 23, 2, 2, 83, 84, 5, 12, 7,
+	2, 84, 85, 8, 6, 1, 2, 85, 11, 3, 2, 2, 2, 86, 87, 8, 7, 1, 2, 87, 88,
+	5, 18, 10, 2, 88, 89, 8, 7, 1, 2, 89, 97, 3, 2, 2, 2, 90, 91, 12, 4, 2,
+	2, 91, 92, 5, 14, 8, 2, 92, 93, 5, 12, 7, 5, 93, 94, 8, 7, 1, 2, 94, 96,
+	3, 2, 2, 2, 95, 90, 3, 2, 2, 2, 96, 99, 3, 2, 2, 2, 97, 95, 3, 2, 2, 2,
+	97, 98, 3, 2, 2, 2, 98, 13, 3, 2, 2, 2, 99, 97, 3, 2, 2, 2, 100, 101, 7,
+	24, 2, 2, 101, 111, 8, 8, 1, 2, 102, 103, 7, 25, 2, 2, 103, 111, 8, 8,
+	1, 2, 104, 105, 7, 26, 2, 2, 105, 111, 8, 8, 1, 2, 106, 107, 7, 27, 2,
+	2, 107, 111, 8, 8, 1, 2, 108, 109, 7, 28, 2, 2, 109, 111, 8, 8, 1, 2, 110,
+	100, 3, 2, 2, 2, 110, 102, 3, 2, 2, 2, 110, 104, 3, 2, 2, 2, 110, 106,
+	3, 2, 2, 2, 110, 108, 3, 2, 2, 2, 111, 15, 3, 2, 2, 2, 112, 113, 7, 6,
+	2, 2, 113, 125, 8, 9, 1, 2, 114, 115, 7, 7, 2, 2, 115, 125, 8, 9, 1, 2,
+	116, 117, 7, 8, 2, 2, 117, 125, 8, 9, 1, 2, 118, 119, 7, 9, 2, 2, 119,
+	125, 8, 9, 1, 2, 120, 121, 7, 10, 2, 2, 121, 125, 8, 9, 1, 2, 122, 123,
+	7, 11, 2, 2, 123, 125, 8, 9, 1, 2, 124, 112, 3, 2, 2, 2, 124, 114, 3, 2,
+	2, 2, 124, 116, 3, 2, 2, 2, 124, 118, 3, 2, 2, 2, 124, 120, 3, 2, 2, 2,
+	124, 122, 3, 2, 2, 2, 125, 17, 3, 2, 2, 2, 126, 127, 7, 12, 2, 2, 127,
+	139, 8, 10, 1, 2, 128, 129, 7, 13, 2, 2, 129, 139, 8, 10, 1, 2, 130, 131,
+	7, 14, 2, 2, 131, 139, 8, 10, 1, 2, 132, 133, 7, 15, 2, 2, 133, 139, 8,
+	10, 1, 2, 134, 135, 7, 17, 2, 2, 135, 139, 8, 10, 1, 2, 136, 137, 7, 18,
+	2, 2, 137, 139, 8, 10, 1, 2, 138, 126, 3, 2, 2, 2, 138, 128, 3, 2, 2, 2,
+	138, 130, 3, 2, 2, 2, 138, 132, 3, 2, 2, 2, 138, 134, 3, 2, 2, 2, 138,
+	136, 3, 2, 2, 2, 139, 19, 3, 2, 2, 2, 140, 141, 5, 22, 12, 2, 141, 142,
+	8, 11, 1, 2, 142, 21, 3, 2, 2, 2, 143, 144, 7, 5, 2, 2, 144, 145, 7, 19,
+	2, 2, 145, 146, 5, 12, 7, 2, 146, 147, 7, 20, 2, 2, 147, 148, 8, 12, 1,
+	2, 148, 23, 3, 2, 2, 2, 9, 30, 47, 79, 97, 110, 124, 138,
 }
 var literalNames = []string{
 	"", "'let'", "'mut'", "'println!'", "'i64'", "'f64'", "'bool'", "'char'",
@@ -832,7 +838,7 @@ func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
 		}
 	}()
 
-	p.SetState(64)
+	p.SetState(77)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext()) {
 	case 1:
@@ -931,6 +937,90 @@ func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
 			Instruction: I.Instruction{"Declaration"},
 			Mut:         true,
 			Type:        localctx.(*DeclarationContext).Get_valueType().GetState(),
+			Id: (func() string {
+				if localctx.(*DeclarationContext).Get_ID() == nil {
+					return ""
+				} else {
+					return localctx.(*DeclarationContext).Get_ID().GetText()
+				}
+			}()),
+			Expression: &expPoint,
+		}
+
+	case 3:
+		p.EnterOuterAlt(localctx, 3)
+		{
+			p.SetState(64)
+			p.Match(DBRustParserLET)
+		}
+		{
+			p.SetState(65)
+			p.Match(DBRustParserMUT)
+		}
+		{
+			p.SetState(66)
+
+			var _m = p.Match(DBRustParserID)
+
+			localctx.(*DeclarationContext)._ID = _m
+		}
+		{
+			p.SetState(67)
+			p.Match(DBRustParserEQUALS)
+		}
+		{
+			p.SetState(68)
+
+			var _x = p.expression(0)
+
+			localctx.(*DeclarationContext)._expression = _x
+		}
+
+		expPoint := localctx.(*DeclarationContext).Get_expression().GetState()
+		localctx.(*DeclarationContext).state = I.Declaration{
+			Instruction: I.Instruction{"Declaration"},
+			Mut:         true,
+			Type:        I.UNDEF,
+			Id: (func() string {
+				if localctx.(*DeclarationContext).Get_ID() == nil {
+					return ""
+				} else {
+					return localctx.(*DeclarationContext).Get_ID().GetText()
+				}
+			}()),
+			Expression: &expPoint,
+		}
+
+	case 4:
+		p.EnterOuterAlt(localctx, 4)
+		{
+			p.SetState(71)
+			p.Match(DBRustParserLET)
+		}
+		{
+			p.SetState(72)
+
+			var _m = p.Match(DBRustParserID)
+
+			localctx.(*DeclarationContext)._ID = _m
+		}
+		{
+			p.SetState(73)
+			p.Match(DBRustParserEQUALS)
+		}
+		{
+			p.SetState(74)
+
+			var _x = p.expression(0)
+
+			localctx.(*DeclarationContext)._expression = _x
+		}
+
+		expPoint := localctx.(*DeclarationContext).Get_expression().GetState()
+		localctx.(*DeclarationContext).state = I.Declaration{
+			Instruction: I.Instruction{"Declaration"},
+			Mut:         true,
+			Type:        I.UNDEF,
 			Id: (func() string {
 				if localctx.(*DeclarationContext).Get_ID() == nil {
 					return ""
@@ -1077,18 +1167,18 @@ func (p *DBRustParser) Assignment() (localctx IAssignmentContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(66)
+		p.SetState(79)
 
 		var _m = p.Match(DBRustParserID)
 
 		localctx.(*AssignmentContext)._ID = _m
 	}
 	{
-		p.SetState(67)
+		p.SetState(80)
 		p.Match(DBRustParserEQUALS)
 	}
 	{
-		p.SetState(68)
+		p.SetState(81)
 
 		var _x = p.expression(0)
 
@@ -1300,7 +1390,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(72)
+		p.SetState(85)
 
 		var _x = p.Value()
 
@@ -1316,7 +1406,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 	}
 
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(82)
+	p.SetState(95)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext())
 
@@ -1329,20 +1419,20 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 			localctx = NewExpressionContext(p, _parentctx, _parentState)
 			localctx.(*ExpressionContext).leftExp = _prevctx
 			p.PushNewRecursionContext(localctx, _startState, DBRustParserRULE_expression)
-			p.SetState(75)
+			p.SetState(88)
 
 			if !(p.Precpred(p.GetParserRuleContext(), 2)) {
 				panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 2)", ""))
 			}
 			{
-				p.SetState(76)
+				p.SetState(89)
 
 				var _x = p.ExpOp()
 
 				localctx.(*ExpressionContext)._expOp = _x
 			}
 			{
-				p.SetState(77)
+				p.SetState(90)
 
 				var _x = p.expression(3)
 
@@ -1358,7 +1448,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 			}
 
 		}
-		p.SetState(84)
+		p.SetState(97)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext())
 	}
@@ -1475,14 +1565,14 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 		}
 	}()
 
-	p.SetState(95)
+	p.SetState(108)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserMUL:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(85)
+			p.SetState(98)
 			p.Match(DBRustParserMUL)
 		}
 		localctx.(*ExpOpContext).state = I.MUL
@@ -1490,7 +1580,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserDIV:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(87)
+			p.SetState(100)
 			p.Match(DBRustParserDIV)
 		}
 		localctx.(*ExpOpContext).state = I.DIV
@@ -1498,7 +1588,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserMOD:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(89)
+			p.SetState(102)
 			p.Match(DBRustParserMOD)
 		}
 		localctx.(*ExpOpContext).state = I.MOD
@@ -1506,7 +1596,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserADD:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(91)
+			p.SetState(104)
 			p.Match(DBRustParserADD)
 		}
 		localctx.(*ExpOpContext).state = I.ADD
@@ -1514,7 +1604,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserSUB:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(93)
+			p.SetState(106)
 			p.Match(DBRustParserSUB)
 		}
 		localctx.(*ExpOpContext).state = I.SUB
@@ -1639,14 +1729,14 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 		}
 	}()
 
-	p.SetState(109)
+	p.SetState(122)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserI64:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(97)
+			p.SetState(110)
 			p.Match(DBRustParserI64)
 		}
 		localctx.(*ValueTypeContext).state = I.INTEGER
@@ -1654,7 +1744,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserF64:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(99)
+			p.SetState(112)
 			p.Match(DBRustParserF64)
 		}
 		localctx.(*ValueTypeContext).state = I.FLOAT
@@ -1662,7 +1752,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserBOOL:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(101)
+			p.SetState(114)
 			p.Match(DBRustParserBOOL)
 		}
 		localctx.(*ValueTypeContext).state = I.BOOL
@@ -1670,7 +1760,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserCHARTYPE:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(103)
+			p.SetState(116)
 			p.Match(DBRustParserCHARTYPE)
 		}
 		localctx.(*ValueTypeContext).state = I.CHAR
@@ -1678,7 +1768,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserSTR:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(105)
+			p.SetState(118)
 			p.Match(DBRustParserSTR)
 		}
 		localctx.(*ValueTypeContext).state = I.STR
@@ -1686,7 +1776,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserSTRCLASS:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(107)
+			p.SetState(120)
 			p.Match(DBRustParserSTRCLASS)
 		}
 		localctx.(*ValueTypeContext).state = I.STRING
@@ -1877,14 +1967,14 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 		}
 	}()
 
-	p.SetState(123)
+	p.SetState(136)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserNUMBER:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(111)
+			p.SetState(124)
 
 			var _m = p.Match(DBRustParserNUMBER)
 
@@ -1907,7 +1997,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserFLOAT:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(113)
+			p.SetState(126)
 
 			var _m = p.Match(DBRustParserFLOAT)
 
@@ -1930,7 +2020,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserSTRING:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(115)
+			p.SetState(128)
 
 			var _m = p.Match(DBRustParserSTRING)
 
@@ -1959,7 +2049,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserCHAR:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(117)
+			p.SetState(130)
 
 			var _m = p.Match(DBRustParserCHAR)
 
@@ -1988,7 +2078,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserBFALSE:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(119)
+			p.SetState(132)
 
 			var _m = p.Match(DBRustParserBFALSE)
 
@@ -2011,7 +2101,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case DBRustParserBTRUE:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(121)
+			p.SetState(134)
 
 			var _m = p.Match(DBRustParserBTRUE)
 
@@ -2150,7 +2240,7 @@ func (p *DBRustParser) Functions() (localctx IFunctionsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(125)
+		p.SetState(138)
 
 		var _x = p.PrintlnCall()
 
@@ -2285,22 +2375,22 @@ func (p *DBRustParser) PrintlnCall() (localctx IPrintlnCallContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(128)
+		p.SetState(141)
 		p.Match(DBRustParserPRINTLN)
 	}
 	{
-		p.SetState(129)
+		p.SetState(142)
 		p.Match(DBRustParserOPENPAR)
 	}
 	{
-		p.SetState(130)
+		p.SetState(143)
 
 		var _x = p.expression(0)
 
 		localctx.(*PrintlnCallContext)._expression = _x
 	}
 	{
-		p.SetState(131)
+		p.SetState(144)
 		p.Match(DBRustParserCLOSEPAR)
 	}
 

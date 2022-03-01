@@ -1,2 +1,2 @@
-let mut id:f64 = 2.5 * 3;
-id = 3.2;
+let mut id = 2.5 * 3;
+id = 3;

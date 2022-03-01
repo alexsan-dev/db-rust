@@ -17,7 +17,7 @@ func (declaration Declaration) Execute(scope Scope) {
 	var value Value = declaration.Expression.GetValue()
 
 	if scope.GetVariable(declaration.Id).GetType() == UNDEF {
-		if declaration.Type == value.GetType() {
+		if declaration.Type == value.GetType() || declaration.Type == UNDEF {
 			scope.AddVariable(declaration.Id, value, declaration.Mut)
 		} else {
 			Errors = append(Errors, Error{
