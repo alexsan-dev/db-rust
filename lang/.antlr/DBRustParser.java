@@ -20,10 +20,10 @@ public class DBRustParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		LET=1, PRINTLN=2, I64=3, F64=4, BOOL=5, CHARTYPE=6, STR=7, STRCLASS=8, 
-		NUMBER=9, FLOAT=10, STRING=11, CHAR=12, ID=13, BFALSE=14, BTRUE=15, OPENPAR=16, 
-		CLOSEPAR=17, COLOM=18, SEMI=19, EQUALS=20, MUL=21, DIV=22, MOD=23, ADD=24, 
-		SUB=25, WHITESPACE=26;
+		LET=1, MUT=2, PRINTLN=3, I64=4, F64=5, BOOL=6, CHARTYPE=7, STR=8, STRCLASS=9, 
+		NUMBER=10, FLOAT=11, STRING=12, CHAR=13, ID=14, BFALSE=15, BTRUE=16, OPENPAR=17, 
+		CLOSEPAR=18, COLOM=19, SEMI=20, EQUALS=21, MUL=22, DIV=23, MOD=24, ADD=25, 
+		SUB=26, WHITESPACE=27;
 	public static final int
 		RULE_start = 0, RULE_instructions = 1, RULE_instruction = 2, RULE_declaration = 3, 
 		RULE_assignment = 4, RULE_expression = 5, RULE_expOp = 6, RULE_valueType = 7, 
@@ -38,18 +38,18 @@ public class DBRustParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'let'", "'println!'", "'i64'", "'f64'", "'bool'", "'char'", "'&str'", 
-			"'String'", null, null, null, null, null, "'false'", "'true'", "'('", 
-			"')'", "':'", "';'", "'='", "'*'", "'/'", "'%'", "'+'", "'-'"
+			null, "'let'", "'mut'", "'println!'", "'i64'", "'f64'", "'bool'", "'char'", 
+			"'&str'", "'String'", null, null, null, null, null, "'false'", "'true'", 
+			"'('", "')'", "':'", "';'", "'='", "'*'", "'/'", "'%'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "LET", "PRINTLN", "I64", "F64", "BOOL", "CHARTYPE", "STR", "STRCLASS", 
-			"NUMBER", "FLOAT", "STRING", "CHAR", "ID", "BFALSE", "BTRUE", "OPENPAR", 
-			"CLOSEPAR", "COLOM", "SEMI", "EQUALS", "MUL", "DIV", "MOD", "ADD", "SUB", 
-			"WHITESPACE"
+			null, "LET", "MUT", "PRINTLN", "I64", "F64", "BOOL", "CHARTYPE", "STR", 
+			"STRCLASS", "NUMBER", "FLOAT", "STRING", "CHAR", "ID", "BFALSE", "BTRUE", 
+			"OPENPAR", "CLOSEPAR", "COLOM", "SEMI", "EQUALS", "MUL", "DIV", "MOD", 
+			"ADD", "SUB", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -285,6 +285,7 @@ public class DBRustParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode MUT() { return getToken(DBRustParser.MUT, 0); }
 		public DeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -295,29 +296,65 @@ public class DBRustParser extends Parser {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_declaration);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(47);
-			match(LET);
-			setState(48);
-			((DeclarationContext)_localctx).ID = match(ID);
-			setState(49);
-			match(COLOM);
-			setState(50);
-			((DeclarationContext)_localctx).valueType = valueType();
-			setState(51);
-			match(EQUALS);
-			setState(52);
-			((DeclarationContext)_localctx).expression = expression(0);
+			setState(64);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(47);
+				match(LET);
+				setState(48);
+				((DeclarationContext)_localctx).ID = match(ID);
+				setState(49);
+				match(COLOM);
+				setState(50);
+				((DeclarationContext)_localctx).valueType = valueType();
+				setState(51);
+				match(EQUALS);
+				setState(52);
+				((DeclarationContext)_localctx).expression = expression(0);
 
-					expPoint := ((DeclarationContext)_localctx).expression.state
-					_localctx.state = I.Declaration{ 
-						Instruction: I.Instruction{"Declaration"},
-						Type: ((DeclarationContext)_localctx).valueType.state,
-						Id: (((DeclarationContext)_localctx).ID!=null?((DeclarationContext)_localctx).ID.getText():null), 
-						Expression: &expPoint,
-					}
-				
+						expPoint := ((DeclarationContext)_localctx).expression.state
+						_localctx.state = I.Declaration{ 
+							Instruction: I.Instruction{"Declaration"},
+							Mut: false,
+							Type: ((DeclarationContext)_localctx).valueType.state,
+							Id: (((DeclarationContext)_localctx).ID!=null?((DeclarationContext)_localctx).ID.getText():null), 
+							Expression: &expPoint,
+						}
+						
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(55);
+				match(LET);
+				setState(56);
+				match(MUT);
+				setState(57);
+				((DeclarationContext)_localctx).ID = match(ID);
+				setState(58);
+				match(COLOM);
+				setState(59);
+				((DeclarationContext)_localctx).valueType = valueType();
+				setState(60);
+				match(EQUALS);
+				setState(61);
+				((DeclarationContext)_localctx).expression = expression(0);
+
+						expPoint := ((DeclarationContext)_localctx).expression.state
+						_localctx.state = I.Declaration{ 
+							Instruction: I.Instruction{"Declaration"},
+							Mut: true,
+							Type: ((DeclarationContext)_localctx).valueType.state,
+							Id: (((DeclarationContext)_localctx).ID!=null?((DeclarationContext)_localctx).ID.getText():null), 
+							Expression: &expPoint,
+						}
+					
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -352,11 +389,11 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
+			setState(66);
 			((AssignmentContext)_localctx).ID = match(ID);
-			setState(56);
+			setState(67);
 			match(EQUALS);
-			setState(57);
+			setState(68);
 			((AssignmentContext)_localctx).expression = expression(0);
 
 					expPoint := ((AssignmentContext)_localctx).expression.state
@@ -419,7 +456,7 @@ public class DBRustParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(61);
+			setState(72);
 			((ExpressionContext)_localctx).value = value();
 			 
 					sym := ((ExpressionContext)_localctx).value.state
@@ -432,9 +469,9 @@ public class DBRustParser extends Parser {
 				
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(71);
+			setState(82);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -445,11 +482,11 @@ public class DBRustParser extends Parser {
 					_localctx.leftExp = _prevctx;
 					_localctx.leftExp = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_expression);
-					setState(64);
+					setState(75);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(65);
+					setState(76);
 					((ExpressionContext)_localctx).expOp = expOp();
-					setState(66);
+					setState(77);
 					((ExpressionContext)_localctx).rightExp = expression(3);
 
 					          		left, right := ((ExpressionContext)_localctx).leftExp.state, ((ExpressionContext)_localctx).rightExp.state;
@@ -463,9 +500,9 @@ public class DBRustParser extends Parser {
 					}
 					} 
 				}
-				setState(73);
+				setState(84);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
 			}
 		}
@@ -497,13 +534,13 @@ public class DBRustParser extends Parser {
 		ExpOpContext _localctx = new ExpOpContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_expOp);
 		try {
-			setState(84);
+			setState(95);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MUL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(85);
 				match(MUL);
 					_localctx.state = I.MUL 
 				}
@@ -511,7 +548,7 @@ public class DBRustParser extends Parser {
 			case DIV:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(76);
+				setState(87);
 				match(DIV);
 					_localctx.state = I.DIV 
 				}
@@ -519,7 +556,7 @@ public class DBRustParser extends Parser {
 			case MOD:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(78);
+				setState(89);
 				match(MOD);
 					_localctx.state = I.MOD 
 				}
@@ -527,7 +564,7 @@ public class DBRustParser extends Parser {
 			case ADD:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(80);
+				setState(91);
 				match(ADD);
 					_localctx.state = I.ADD 
 				}
@@ -535,7 +572,7 @@ public class DBRustParser extends Parser {
 			case SUB:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(82);
+				setState(93);
 				match(SUB);
 					_localctx.state = I.SUB 
 				}
@@ -573,13 +610,13 @@ public class DBRustParser extends Parser {
 		ValueTypeContext _localctx = new ValueTypeContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_valueType);
 		try {
-			setState(98);
+			setState(109);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case I64:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(86);
+				setState(97);
 				match(I64);
 				 _localctx.state = I.INTEGER 
 				}
@@ -587,7 +624,7 @@ public class DBRustParser extends Parser {
 			case F64:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(88);
+				setState(99);
 				match(F64);
 				 _localctx.state = I.FLOAT 
 				}
@@ -595,7 +632,7 @@ public class DBRustParser extends Parser {
 			case BOOL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(90);
+				setState(101);
 				match(BOOL);
 				 _localctx.state = I.BOOL 
 				}
@@ -603,7 +640,7 @@ public class DBRustParser extends Parser {
 			case CHARTYPE:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(92);
+				setState(103);
 				match(CHARTYPE);
 				 _localctx.state = I.CHAR 
 				}
@@ -611,7 +648,7 @@ public class DBRustParser extends Parser {
 			case STR:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(94);
+				setState(105);
 				match(STR);
 				 _localctx.state = I.STR 
 				}
@@ -619,7 +656,7 @@ public class DBRustParser extends Parser {
 			case STRCLASS:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(96);
+				setState(107);
 				match(STRCLASS);
 				 _localctx.state = I.STRING 
 				}
@@ -663,13 +700,13 @@ public class DBRustParser extends Parser {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_value);
 		try {
-			setState(112);
+			setState(123);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUMBER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(100);
+				setState(111);
 				((ValueContext)_localctx).NUMBER = match(NUMBER);
 				 _localctx.state = I.Value{ (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getLine():0), ((ValueContext)_localctx).NUMBER.GetColumn(), I.INTEGER, (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getText():null) } 
 				}
@@ -677,7 +714,7 @@ public class DBRustParser extends Parser {
 			case FLOAT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(102);
+				setState(113);
 				((ValueContext)_localctx).FLOAT = match(FLOAT);
 					_localctx.state = I.Value{ (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getLine():0), ((ValueContext)_localctx).FLOAT.GetColumn(), I.FLOAT, (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getText():null) } 
 				}
@@ -685,7 +722,7 @@ public class DBRustParser extends Parser {
 			case STRING:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(104);
+				setState(115);
 				((ValueContext)_localctx).STRING = match(STRING);
 				 _localctx.state = I.Value{ (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getLine():0), ((ValueContext)_localctx).STRING.GetColumn(), I.STRING, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1] } 
 						
@@ -694,7 +731,7 @@ public class DBRustParser extends Parser {
 			case CHAR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(106);
+				setState(117);
 				((ValueContext)_localctx).CHAR = match(CHAR);
 				 _localctx.state = I.Value{ (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getLine():0), ((ValueContext)_localctx).CHAR.GetColumn(), I.CHAR, (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null)[1:len((((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null))-1] } 
 						
@@ -703,7 +740,7 @@ public class DBRustParser extends Parser {
 			case BFALSE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(108);
+				setState(119);
 				((ValueContext)_localctx).BFALSE = match(BFALSE);
 				 _localctx.state = I.Value{ (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getLine():0), ((ValueContext)_localctx).BFALSE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getText():null) } 
 				}
@@ -711,7 +748,7 @@ public class DBRustParser extends Parser {
 			case BTRUE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(110);
+				setState(121);
 				((ValueContext)_localctx).BTRUE = match(BTRUE);
 				 _localctx.state = I.Value{ (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getLine():0), ((ValueContext)_localctx).BTRUE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getText():null) } 
 				}
@@ -749,7 +786,7 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(114);
+			setState(125);
 			((FunctionsContext)_localctx).printlnCall = printlnCall();
 			 _localctx.state = ((FunctionsContext)_localctx).printlnCall.state 
 			}
@@ -786,13 +823,13 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(117);
+			setState(128);
 			match(PRINTLN);
-			setState(118);
+			setState(129);
 			match(OPENPAR);
-			setState(119);
+			setState(130);
 			((PrintlnCallContext)_localctx).expression = expression(0);
-			setState(120);
+			setState(131);
 			match(CLOSEPAR);
 
 					expPoint := ((PrintlnCallContext)_localctx).expression.state
@@ -827,36 +864,40 @@ public class DBRustParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\34~\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\3\2\3\2\3\2\3\3\7\3\35\n\3\f\3\16\3 \13\3\3\3\3\3\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\60\n\4\3\5\3\5\3\5\3\5\3\5\3\5"+
-		"\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7H"+
-		"\n\7\f\7\16\7K\13\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bW\n\b\3"+
-		"\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\te\n\t\3\n\3\n\3\n\3"+
-		"\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\ns\n\n\3\13\3\13\3\13\3\f\3\f\3\f"+
-		"\3\f\3\f\3\f\3\f\2\3\f\r\2\4\6\b\n\f\16\20\22\24\26\2\2\2\u0084\2\30\3"+
-		"\2\2\2\4\36\3\2\2\2\6/\3\2\2\2\b\61\3\2\2\2\n9\3\2\2\2\f>\3\2\2\2\16V"+
-		"\3\2\2\2\20d\3\2\2\2\22r\3\2\2\2\24t\3\2\2\2\26w\3\2\2\2\30\31\5\4\3\2"+
-		"\31\32\b\2\1\2\32\3\3\2\2\2\33\35\5\6\4\2\34\33\3\2\2\2\35 \3\2\2\2\36"+
-		"\34\3\2\2\2\36\37\3\2\2\2\37!\3\2\2\2 \36\3\2\2\2!\"\b\3\1\2\"\5\3\2\2"+
-		"\2#$\5\b\5\2$%\7\25\2\2%&\b\4\1\2&\60\3\2\2\2\'(\5\n\6\2()\7\25\2\2)*"+
-		"\b\4\1\2*\60\3\2\2\2+,\5\24\13\2,-\7\25\2\2-.\b\4\1\2.\60\3\2\2\2/#\3"+
-		"\2\2\2/\'\3\2\2\2/+\3\2\2\2\60\7\3\2\2\2\61\62\7\3\2\2\62\63\7\17\2\2"+
-		"\63\64\7\24\2\2\64\65\5\20\t\2\65\66\7\26\2\2\66\67\5\f\7\2\678\b\5\1"+
-		"\28\t\3\2\2\29:\7\17\2\2:;\7\26\2\2;<\5\f\7\2<=\b\6\1\2=\13\3\2\2\2>?"+
-		"\b\7\1\2?@\5\22\n\2@A\b\7\1\2AI\3\2\2\2BC\f\4\2\2CD\5\16\b\2DE\5\f\7\5"+
-		"EF\b\7\1\2FH\3\2\2\2GB\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2J\r\3\2\2"+
-		"\2KI\3\2\2\2LM\7\27\2\2MW\b\b\1\2NO\7\30\2\2OW\b\b\1\2PQ\7\31\2\2QW\b"+
-		"\b\1\2RS\7\32\2\2SW\b\b\1\2TU\7\33\2\2UW\b\b\1\2VL\3\2\2\2VN\3\2\2\2V"+
-		"P\3\2\2\2VR\3\2\2\2VT\3\2\2\2W\17\3\2\2\2XY\7\5\2\2Ye\b\t\1\2Z[\7\6\2"+
-		"\2[e\b\t\1\2\\]\7\7\2\2]e\b\t\1\2^_\7\b\2\2_e\b\t\1\2`a\7\t\2\2ae\b\t"+
-		"\1\2bc\7\n\2\2ce\b\t\1\2dX\3\2\2\2dZ\3\2\2\2d\\\3\2\2\2d^\3\2\2\2d`\3"+
-		"\2\2\2db\3\2\2\2e\21\3\2\2\2fg\7\13\2\2gs\b\n\1\2hi\7\f\2\2is\b\n\1\2"+
-		"jk\7\r\2\2ks\b\n\1\2lm\7\16\2\2ms\b\n\1\2no\7\20\2\2os\b\n\1\2pq\7\21"+
-		"\2\2qs\b\n\1\2rf\3\2\2\2rh\3\2\2\2rj\3\2\2\2rl\3\2\2\2rn\3\2\2\2rp\3\2"+
-		"\2\2s\23\3\2\2\2tu\5\26\f\2uv\b\13\1\2v\25\3\2\2\2wx\7\4\2\2xy\7\22\2"+
-		"\2yz\5\f\7\2z{\7\23\2\2{|\b\f\1\2|\27\3\2\2\2\b\36/IVdr";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35\u0089\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
+		"\t\13\4\f\t\f\3\2\3\2\3\2\3\3\7\3\35\n\3\f\3\16\3 \13\3\3\3\3\3\3\4\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\60\n\4\3\5\3\5\3\5\3\5"+
+		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5C\n\5\3\6\3\6"+
+		"\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7S\n\7\f\7\16\7V\13"+
+		"\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bb\n\b\3\t\3\t\3\t\3\t\3"+
+		"\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tp\n\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3"+
+		"\n\3\n\3\n\3\n\3\n\5\n~\n\n\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f"+
+		"\2\3\f\r\2\4\6\b\n\f\16\20\22\24\26\2\2\2\u0090\2\30\3\2\2\2\4\36\3\2"+
+		"\2\2\6/\3\2\2\2\bB\3\2\2\2\nD\3\2\2\2\fI\3\2\2\2\16a\3\2\2\2\20o\3\2\2"+
+		"\2\22}\3\2\2\2\24\177\3\2\2\2\26\u0082\3\2\2\2\30\31\5\4\3\2\31\32\b\2"+
+		"\1\2\32\3\3\2\2\2\33\35\5\6\4\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2"+
+		"\2\36\37\3\2\2\2\37!\3\2\2\2 \36\3\2\2\2!\"\b\3\1\2\"\5\3\2\2\2#$\5\b"+
+		"\5\2$%\7\26\2\2%&\b\4\1\2&\60\3\2\2\2\'(\5\n\6\2()\7\26\2\2)*\b\4\1\2"+
+		"*\60\3\2\2\2+,\5\24\13\2,-\7\26\2\2-.\b\4\1\2.\60\3\2\2\2/#\3\2\2\2/\'"+
+		"\3\2\2\2/+\3\2\2\2\60\7\3\2\2\2\61\62\7\3\2\2\62\63\7\20\2\2\63\64\7\25"+
+		"\2\2\64\65\5\20\t\2\65\66\7\27\2\2\66\67\5\f\7\2\678\b\5\1\28C\3\2\2\2"+
+		"9:\7\3\2\2:;\7\4\2\2;<\7\20\2\2<=\7\25\2\2=>\5\20\t\2>?\7\27\2\2?@\5\f"+
+		"\7\2@A\b\5\1\2AC\3\2\2\2B\61\3\2\2\2B9\3\2\2\2C\t\3\2\2\2DE\7\20\2\2E"+
+		"F\7\27\2\2FG\5\f\7\2GH\b\6\1\2H\13\3\2\2\2IJ\b\7\1\2JK\5\22\n\2KL\b\7"+
+		"\1\2LT\3\2\2\2MN\f\4\2\2NO\5\16\b\2OP\5\f\7\5PQ\b\7\1\2QS\3\2\2\2RM\3"+
+		"\2\2\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2U\r\3\2\2\2VT\3\2\2\2WX\7\30\2\2X"+
+		"b\b\b\1\2YZ\7\31\2\2Zb\b\b\1\2[\\\7\32\2\2\\b\b\b\1\2]^\7\33\2\2^b\b\b"+
+		"\1\2_`\7\34\2\2`b\b\b\1\2aW\3\2\2\2aY\3\2\2\2a[\3\2\2\2a]\3\2\2\2a_\3"+
+		"\2\2\2b\17\3\2\2\2cd\7\6\2\2dp\b\t\1\2ef\7\7\2\2fp\b\t\1\2gh\7\b\2\2h"+
+		"p\b\t\1\2ij\7\t\2\2jp\b\t\1\2kl\7\n\2\2lp\b\t\1\2mn\7\13\2\2np\b\t\1\2"+
+		"oc\3\2\2\2oe\3\2\2\2og\3\2\2\2oi\3\2\2\2ok\3\2\2\2om\3\2\2\2p\21\3\2\2"+
+		"\2qr\7\f\2\2r~\b\n\1\2st\7\r\2\2t~\b\n\1\2uv\7\16\2\2v~\b\n\1\2wx\7\17"+
+		"\2\2x~\b\n\1\2yz\7\21\2\2z~\b\n\1\2{|\7\22\2\2|~\b\n\1\2}q\3\2\2\2}s\3"+
+		"\2\2\2}u\3\2\2\2}w\3\2\2\2}y\3\2\2\2}{\3\2\2\2~\23\3\2\2\2\177\u0080\5"+
+		"\26\f\2\u0080\u0081\b\13\1\2\u0081\25\3\2\2\2\u0082\u0083\7\5\2\2\u0083"+
+		"\u0084\7\23\2\2\u0084\u0085\5\f\7\2\u0085\u0086\7\24\2\2\u0086\u0087\b"+
+		"\f\1\2\u0087\27\3\2\2\2\t\36/BTao}";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

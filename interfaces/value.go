@@ -10,6 +10,11 @@ type Value struct {
 	Value  string
 }
 
+type ValueMut struct {
+	Value
+	Mut bool
+}
+
 type IValue interface {
 	GetValue()
 	GetType() ValueType

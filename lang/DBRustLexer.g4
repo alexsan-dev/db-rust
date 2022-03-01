@@ -2,6 +2,7 @@ lexer grammar DBRustLexer;
 
 // PALABRAS RESERVADAS
 LET: 'let';
+MUT: 'mut';
 PRINTLN: 'println!';
 
 // TIPOS

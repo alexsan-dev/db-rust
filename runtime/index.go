@@ -22,7 +22,7 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 	var globalScope I.Scope = I.Scope{
 		Previous:  nil,
 		Name:      "Global",
-		Variables: make(map[string]I.Value),
+		Variables: make(map[string]I.ValueMut),
 	}
 
 	// EJECUTAR INSTRUCCIONES

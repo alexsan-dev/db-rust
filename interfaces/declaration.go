@@ -5,6 +5,7 @@ import "fmt"
 // DECLARACION
 type Declaration struct {
 	Instruction
+	Mut        bool
 	Type       ValueType
 	Id         string
 	Expression *Expression
@@ -17,7 +18,7 @@ func (declaration Declaration) Execute(scope Scope) {
 
 	if scope.GetVariable(declaration.Id).GetType() == UNDEF {
 		if declaration.Type == value.GetType() {
-			scope.AddVariable(declaration.Id, value)
+			scope.AddVariable(declaration.Id, value, declaration.Mut)
 		} else {
 			Errors = append(Errors, Error{
 				fmt.Sprintf("Cannot assign type %s to %s", value.GetType().String(), declaration.Type.String()),

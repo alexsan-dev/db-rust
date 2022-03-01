@@ -41,6 +41,17 @@ declaration
 		expPoint := $expression.state
 		$state = I.Declaration{ 
 			Instruction: I.Instruction{"Declaration"},
+			Mut: false,
+			Type: $valueType.state,
+			Id: $ID.text, 
+			Expression: &expPoint,
+		}
+		}
+	| LET MUT ID COLOM valueType EQUALS expression {
+		expPoint := $expression.state
+		$state = I.Declaration{ 
+			Instruction: I.Instruction{"Declaration"},
+			Mut: true,
 			Type: $valueType.state,
 			Id: $ID.text, 
 			Expression: &expPoint,
