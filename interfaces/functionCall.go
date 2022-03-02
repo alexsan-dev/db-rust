@@ -5,6 +5,7 @@ type FunctionCall struct {
 	Instruction
 	Value
 	Params []interface{} // []Expression
+	Scope  *Scope
 }
 
 type IFunctionCall interface {
@@ -32,14 +33,32 @@ func (fn FunctionCall) GetColumn() int {
 }
 
 // *VALUE -> EJECUTAR FUNCION
-func (fn FunctionCall) Execute(scope Scope) {}
+func (fn FunctionCall) Execute(scope Scope) {
+	// OBTENER FUNCION
+	localFn := scope.GetFunction(fn.Value.Value.(string)).(Function)
+
+	if localFn.GetID() != "-NOFN" {
+		// CREAR SCOPE
+		fn.Scope = &Scope{&scope, "Function", make(map[string]IValue), make(map[string]IInstruction)}
+
+		// GUARDAR PARAMETROS
+		for index, param := range fn.Params {
+			fn.Scope.AddVariable(localFn.Params[index].(FunctionParam).Id, param.(Expression).GetValue(scope), false)
+		}
+
+		// EJECUTAR FUNCION
+		for _, ins := range localFn.Body {
+			ins.(IInstruction).Execute(*fn.Scope)
+		}
+	}
+}
 
 // *VALUE -> OBTENER VALOR
 func (fn FunctionCall) GetValue(scope Scope) interface{} {
-	return ""
+	return fn.Scope.GetVariable("return").GetValue(*fn.Scope)
 }
 
 // *VALUE -> OBTENER TIPO
 func (fn FunctionCall) GetType(scope Scope) ValueType {
-	return INTEGER
+	return fn.Scope.GetVariable("return").GetType(*fn.Scope)
 }

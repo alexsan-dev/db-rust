@@ -3008,7 +3008,7 @@ func (p *DBRustParser) FunctionCall() (localctx IFunctionCallContext) {
 			} else {
 				return localctx.(*FunctionCallContext).Get_ID().GetText()
 			}
-		}()), I.VOID}, localctx.(*FunctionCallContext).Get_expList().GetL().ToArray()}
+		}()), I.VOID}, localctx.(*FunctionCallContext).Get_expList().GetL().ToArray(), nil}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
@@ -3034,7 +3034,7 @@ func (p *DBRustParser) FunctionCall() (localctx IFunctionCallContext) {
 			} else {
 				return localctx.(*FunctionCallContext).Get_ID().GetText()
 			}
-		}()), I.VOID}, make([]interface{}, 0)}
+		}()), I.VOID}, make([]interface{}, 0), nil}
 
 	}
 
@@ -3321,7 +3321,7 @@ func (p *DBRustParser) PrintlnCall() (localctx IPrintlnCallContext) {
 		p.Match(DBRustParserCLOSEPAR)
 	}
 
-	localctx.(*PrintlnCallContext).state = I.PrintlnCall{I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{I.Token{"Println", localctx.(*PrintlnCallContext).Get_PRINTLN().GetLine(), localctx.(*PrintlnCallContext).Get_PRINTLN().GetColumn()}, "Println", I.VOID}, localctx.(*PrintlnCallContext).Get_expList().GetL().ToArray()}}
+	localctx.(*PrintlnCallContext).state = I.PrintlnCall{I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{I.Token{"Println", localctx.(*PrintlnCallContext).Get_PRINTLN().GetLine(), localctx.(*PrintlnCallContext).Get_PRINTLN().GetColumn()}, "Println", I.VOID}, localctx.(*PrintlnCallContext).Get_expList().GetL().ToArray(), nil}}
 
 	return localctx
 }

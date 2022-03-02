@@ -11,8 +11,7 @@ type Scope struct {
 // GUARDAR VARIABLE
 func (scope Scope) AddVariable(id string, value IValue, mut bool) {
 	if _, ok := scope.Variables[id]; !ok {
-		scope.Variables[id] = ValueMut{Value{
-			Token{value.GetTokenName(), value.GetLine(), value.GetColumn()}, value.GetValue(scope), value.GetType(scope)}, mut}
+		scope.Variables[id] = ValueMut{Value: value.(Value), Mut: mut}
 	}
 }
 
@@ -20,8 +19,7 @@ func (scope Scope) AddVariable(id string, value IValue, mut bool) {
 func (scope Scope) SetVariable(id string, value IValue) {
 	if _, ok := scope.Variables[id]; ok {
 		if scope.Variables[id].(ValueMut).Mut {
-			scope.Variables[id] = ValueMut{Value{
-				Token{value.GetTokenName(), value.GetLine(), value.GetColumn()}, value.GetValue(scope), value.GetType(scope)}, true}
+			scope.Variables[id] = ValueMut{Value: value.(Value), Mut: true}
 		}
 	}
 }
@@ -43,7 +41,7 @@ func (scope Scope) GetVariable(id string) IValue {
 		if variable, ok := tmpScope.Variables[id]; ok {
 			return variable
 		}
-		if scope.Previous == nil {
+		if tmpScope.Previous == nil {
 			break
 		} else {
 			tmpScope = *tmpScope.Previous
@@ -64,7 +62,7 @@ func (scope Scope) GetFunction(id string) IInstruction {
 		if fn, ok := tmpScope.Functions[id]; ok {
 			return fn
 		}
-		if scope.Previous == nil {
+		if tmpScope.Previous == nil {
 			break
 		} else {
 			tmpScope = *tmpScope.Previous

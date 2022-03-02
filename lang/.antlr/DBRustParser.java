@@ -1201,7 +1201,7 @@ public class DBRustParser extends Parser {
 				setState(210);
 				match(CLOSEPAR);
 
-						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn() }, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null), I.VOID }, ((FunctionCallContext)_localctx).expList.l.ToArray() }
+						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn() }, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null), I.VOID }, ((FunctionCallContext)_localctx).expList.l.ToArray(), nil }
 				  
 				}
 				break;
@@ -1215,7 +1215,7 @@ public class DBRustParser extends Parser {
 				setState(215);
 				match(CLOSEPAR);
 
-						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn() }, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null), I.VOID }, make([]interface{}, 0) }
+						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn() }, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null), I.VOID }, make([]interface{}, 0), nil }
 					
 				}
 				break;
@@ -1297,7 +1297,7 @@ public class DBRustParser extends Parser {
 			setState(225);
 			match(CLOSEPAR);
 
-					_localctx.state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "Println", ((PrintlnCallContext)_localctx).PRINTLN.GetLine(), ((PrintlnCallContext)_localctx).PRINTLN.GetColumn() }, "Println", I.VOID }, ((PrintlnCallContext)_localctx).expList.l.ToArray() } }
+					_localctx.state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "Println", ((PrintlnCallContext)_localctx).PRINTLN.GetLine(), ((PrintlnCallContext)_localctx).PRINTLN.GetColumn() }, "Println", I.VOID }, ((PrintlnCallContext)_localctx).expList.l.ToArray(), nil } }
 				
 			}
 		}

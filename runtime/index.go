@@ -26,30 +26,29 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 		Functions: make(map[string]I.IInstruction),
 	}
 
-	// EJECUTAR INSTRUCCIONES
+	// BUSCAR MAIN
+	mainName := "main"
 	for _, s := range ctx.GetList().ToArray() {
-		switch instruction := s.(type) {
-		// EJECUTAR DECLARACIONES
-		case I.Declaration:
-			instruction.Execute(globalScope)
-
-		// EJECUTAR ASIGNACIONES
-		case I.Assignment:
-			instruction.Execute(globalScope)
-
-		// CREAR FUNCIONES
+		switch ins := s.(type) {
 		case I.Function:
-			instruction.Execute(globalScope)
-
-		// EJECUTAR LLAMADAS A FUNCIONES
-		case I.FunctionCall:
-			instruction.Execute(globalScope)
-
-		// EJECUTAR FUNCIONES NATIVAS
-		case I.PrintlnCall:
-			instruction.Execute(globalScope)
+			ins.Execute(globalScope)
 		}
 	}
+
+	// EJECUTAR MAIN
+	mainCall := I.FunctionCall{
+		Instruction: I.Instruction{Name: "Function"},
+		Value: I.Value{
+			Token: I.Token{
+				Name:   mainName,
+				Line:   0,
+				Column: 0,
+			}, Value: mainName, Type: I.VOID},
+		Params: make([]interface{}, 0),
+		Scope:  nil,
+	}
+
+	mainCall.Execute(globalScope)
 
 	// MOSTRAR ERRORES
 	for _, e := range I.Errors {

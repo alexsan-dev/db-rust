@@ -244,10 +244,10 @@ value
 functionCall
 	returns[I.IFunctionCall state]:
 	ID OPENPAR expList CLOSEPAR {
-		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, $expList.l.ToArray() }
+		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, $expList.l.ToArray(), nil }
   }
 	| ID OPENPAR CLOSEPAR {
-		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, make([]interface{}, 0) }
+		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, make([]interface{}, 0), nil }
 	};
 
 // FUNCIONES NATIVAS
@@ -259,7 +259,7 @@ methods
 printlnCall
 	returns[I.PrintlnCall state]:
 	PRINTLN OPENPAR expList CLOSEPAR {
-		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "Println", $PRINTLN.GetLine(), $PRINTLN.GetColumn() }, "Println", I.VOID }, $expList.l.ToArray() } }
+		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "Println", $PRINTLN.GetLine(), $PRINTLN.GetColumn() }, "Println", I.VOID }, $expList.l.ToArray(), nil } }
 	};
 
 // LISTA DE PARAMETROS
