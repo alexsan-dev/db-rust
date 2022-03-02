@@ -4,6 +4,7 @@ lexer grammar DBRustLexer;
 LET: 'let';
 MUT: 'mut';
 PRINTLN: 'println!';
+FN: 'fn';
 
 // TIPOS
 I64: 'i64';
@@ -25,6 +26,10 @@ BTRUE: 'true';
 // SIMBOLOS
 OPENPAR: '(';
 CLOSEPAR: ')';
+OPENBRACKET: '{';
+CLOSEBRACKET: '}';
+ARROW: '->';
+DOT: '.';
 COLOM: ':';
 SEMI: ';';
 COMMA: ',';

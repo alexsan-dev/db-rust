@@ -27,6 +27,12 @@ func (s *BaseDBRustListener) EnterStart(ctx *StartContext) {}
 // ExitStart is called when production start is exited.
 func (s *BaseDBRustListener) ExitStart(ctx *StartContext) {}
 
+// EnterInstructionsBlock is called when production instructionsBlock is entered.
+func (s *BaseDBRustListener) EnterInstructionsBlock(ctx *InstructionsBlockContext) {}
+
+// ExitInstructionsBlock is called when production instructionsBlock is exited.
+func (s *BaseDBRustListener) ExitInstructionsBlock(ctx *InstructionsBlockContext) {}
+
 // EnterInstructions is called when production instructions is entered.
 func (s *BaseDBRustListener) EnterInstructions(ctx *InstructionsContext) {}
 
@@ -51,11 +57,11 @@ func (s *BaseDBRustListener) EnterAssignment(ctx *AssignmentContext) {}
 // ExitAssignment is called when production assignment is exited.
 func (s *BaseDBRustListener) ExitAssignment(ctx *AssignmentContext) {}
 
-// EnterListValues is called when production listValues is entered.
-func (s *BaseDBRustListener) EnterListValues(ctx *ListValuesContext) {}
+// EnterExpList is called when production expList is entered.
+func (s *BaseDBRustListener) EnterExpList(ctx *ExpListContext) {}
 
-// ExitListValues is called when production listValues is exited.
-func (s *BaseDBRustListener) ExitListValues(ctx *ListValuesContext) {}
+// ExitExpList is called when production expList is exited.
+func (s *BaseDBRustListener) ExitExpList(ctx *ExpListContext) {}
 
 // EnterExpression is called when production expression is entered.
 func (s *BaseDBRustListener) EnterExpression(ctx *ExpressionContext) {}
@@ -81,14 +87,26 @@ func (s *BaseDBRustListener) EnterValue(ctx *ValueContext) {}
 // ExitValue is called when production value is exited.
 func (s *BaseDBRustListener) ExitValue(ctx *ValueContext) {}
 
-// EnterFunctions is called when production functions is entered.
-func (s *BaseDBRustListener) EnterFunctions(ctx *FunctionsContext) {}
+// EnterFunctionCall is called when production functionCall is entered.
+func (s *BaseDBRustListener) EnterFunctionCall(ctx *FunctionCallContext) {}
 
-// ExitFunctions is called when production functions is exited.
-func (s *BaseDBRustListener) ExitFunctions(ctx *FunctionsContext) {}
+// ExitFunctionCall is called when production functionCall is exited.
+func (s *BaseDBRustListener) ExitFunctionCall(ctx *FunctionCallContext) {}
+
+// EnterMethods is called when production methods is entered.
+func (s *BaseDBRustListener) EnterMethods(ctx *MethodsContext) {}
+
+// ExitMethods is called when production methods is exited.
+func (s *BaseDBRustListener) ExitMethods(ctx *MethodsContext) {}
 
 // EnterPrintlnCall is called when production printlnCall is entered.
 func (s *BaseDBRustListener) EnterPrintlnCall(ctx *PrintlnCallContext) {}
 
 // ExitPrintlnCall is called when production printlnCall is exited.
 func (s *BaseDBRustListener) ExitPrintlnCall(ctx *PrintlnCallContext) {}
+
+// EnterFunction is called when production function is entered.
+func (s *BaseDBRustListener) EnterFunction(ctx *FunctionContext) {}
+
+// ExitFunction is called when production function is exited.
+func (s *BaseDBRustListener) ExitFunction(ctx *FunctionContext) {}

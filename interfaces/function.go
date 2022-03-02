@@ -1,13 +1,13 @@
 package interfaces
 
 // LLAMADA A FUNCION BASE
-type FunctionCall struct {
-	Id          string
-	Expressions []interface{}
+type Function struct {
+	Instruction
+	Id     string
+	Params []interface{}
+	Body   []interface{}
+	Return ValueType
 }
 
-type IFunctionCall interface {
-	Execute(scope Scope)
-	GetValue() interface{}
-	GetType() ValueType
-}
+// *INSTRUCTION
+func (fn Function) Execute(scope Scope) {}

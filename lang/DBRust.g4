@@ -14,6 +14,13 @@ start
 	returns[*arrayList.List list]:
 	instructions { $list = $instructions.l };
 
+// BLOQUE DE INSTRUCCIONES
+instructionsBlock
+	returns[*arrayList.List l]:
+	OPENBRACKET instructions CLOSEBRACKET {
+				$l = $instructions.l
+		};
+
 // LISTA DE INSTRUCCIONES
 instructions
 	returns[*arrayList.List l]
@@ -32,7 +39,9 @@ instruction
 	returns[I.IInstruction state]:
 	decltn = declaration SEMI { $state = $decltn.state }
 	| assign = assignment SEMI { $state = $assign.state }
-	| fn = functions SEMI { $state = $fn.state };
+	| mth = methods SEMI { $state = $mth.state }
+	| calls = functionCall SEMI { $state = $calls.state }
+	| fn = function { $state = $fn.state };
 
 // DECLARACIONES
 declaration
@@ -91,9 +100,9 @@ assignment
 	};
 
 // LISTA DE EXPRESIONES
-listValues
+expList
 	returns[*arrayList.List l]:
-	list = listValues COMMA expression { 
+	list = expList COMMA expression { 
 		$list.l.Add($expression.state)
 		$l = $list.l
   }
@@ -127,42 +136,100 @@ expression
 // OPERADORES
 expOp
 	returns[I.Operation state]:
-	MUL {	$state = I.MUL }
-	| DIV {	$state = I.DIV }
-	| MOD {	$state = I.MOD }
-	| ADD {	$state = I.ADD }
-	| SUB {	$state = I.SUB };
+	MUL {	
+		$state = I.MUL 
+	}
+	| DIV {	
+		$state = I.DIV 
+	}
+	| MOD {	
+		$state = I.MOD 
+	}
+	| ADD {	
+		$state = I.ADD 
+	}
+	| SUB {	
+		$state = I.SUB 
+	};
 
 // TIPOS DE DATOS
 valueType
 	returns[I.ValueType state]:
-	I64 { $state = I.INTEGER }
-	| F64 { $state = I.FLOAT }
-	| BOOL { $state = I.BOOL }
-	| CHARTYPE { $state = I.CHAR }
-	| STR { $state = I.STR }
-	| STRCLASS { $state = I.STRING };
+	I64 { 
+		$state = I.INTEGER 
+	}
+	| F64 { 
+		$state = I.FLOAT 
+	}
+	| BOOL { 
+		$state = I.BOOL 
+	}
+	| CHARTYPE { 
+		$state = I.CHAR 
+	}
+	| STR { 
+		$state = I.STR 
+	}
+	| STRCLASS { 
+		$state = I.STRING 
+	};
 
 // VALORES PRIMITIVOS
 value
-	returns[I.Value state]:
-	NUMBER { $state = I.Value{ $NUMBER.line, $NUMBER.GetColumn(), I.INTEGER, $NUMBER.text } }
-	| FLOAT {	$state = I.Value{ $FLOAT.line, $FLOAT.GetColumn(), I.FLOAT, $FLOAT.text } }
-	| STRING { $state = I.Value{ $STRING.line, $STRING.GetColumn(), I.STRING, $STRING.text[1:len($STRING.text)-1] } 
-		}
-	| CHAR { $state = I.Value{ $CHAR.line, $CHAR.GetColumn(), I.CHAR, $CHAR.text[1:len($CHAR.text)-1] } 
-		}
-	| BFALSE { $state = I.Value{ $BFALSE.line, $BFALSE.GetColumn(), I.BOOL, $BFALSE.text } }
-	| BTRUE { $state = I.Value{ $BTRUE.line, $BTRUE.GetColumn(), I.BOOL, $BTRUE.text } };
+	returns[I.IValue state]:
+	NUMBER { 
+		$state = I.Value{ $NUMBER.line, $NUMBER.GetColumn(), I.INTEGER, $NUMBER.text } 
+	}
+	| FLOAT {	
+		$state = I.Value{ $FLOAT.line, $FLOAT.GetColumn(), I.FLOAT, $FLOAT.text } 
+	}
+	| STRING { 
+		$state = I.Value{ $STRING.line, $STRING.GetColumn(), I.STRING, $STRING.text[1:len($STRING.text)-1] } 
+	}
+	| CHAR { 
+		$state = I.Value{ $CHAR.line, $CHAR.GetColumn(), I.CHAR, $CHAR.text[1:len($CHAR.text)-1] } 
+	}
+	| BFALSE { 
+		$state = I.Value{ $BFALSE.line, $BFALSE.GetColumn(), I.BOOL, $BFALSE.text } 
+	}
+	| BTRUE { 
+		$state = I.Value{ $BTRUE.line, $BTRUE.GetColumn(), I.BOOL, $BTRUE.text } 
+	}
+	| methods {
+		$state = $methods.state;
+	}
+	| functionCall {
+		$state = $functionCall.state;
+	};
 
-// FUNCIONES
-functions
+// LLAMADAS A FUNCIONES
+functionCall
+	returns[I.IFunctionCall state]:
+	ID OPENPAR expList CLOSEPAR {
+		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ $ID.GetLine(), $ID.GetColumn(), I.VOID, $ID.text }, $expList.l.ToArray() }
+  }
+	| ID OPENPAR CLOSEPAR {
+		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ $ID.GetLine(), $ID.GetColumn(), I.VOID, $ID.text }, make([]interface{}, 0) }
+	};
+
+// FUNCIONES NATIVAS
+methods
 	returns[I.IFunctionCall state]:
 	printlnCall { $state = $printlnCall.state };
 
 // PRINT
 printlnCall
-	returns[I.IFunctionCall state]:
-	PRINTLN OPENPAR listValues CLOSEPAR {
-		$state = I.PrintlnCall{ I.FunctionCall{ "PrintLn", $listValues.l.ToArray() } }
+	returns[I.PrintlnCall state]:
+	PRINTLN OPENPAR expList CLOSEPAR {
+		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ $PRINTLN.GetLine(), $PRINTLN.GetColumn(), I.VOID, "Println" }, $expList.l.ToArray() } }
+	};
+
+// FUNCIONES
+function
+	returns[I.Function state]:
+	FN ID OPENPAR expList CLOSEPAR instructionsBlock {
+		$state = I.Function{ I.Instruction{"Function"}, $ID.text, $expList.l.ToArray(), $instructionsBlock.l.ToArray(), I.VOID };
+	}
+	| FN ID OPENPAR expList CLOSEPAR instructionsBlock ARROW valueType {
+		$state = I.Function{ I.Instruction{"Function"}, $ID.text, $expList.l.ToArray(), $instructionsBlock.l.ToArray(), $valueType.state };
 	};

@@ -20,38 +20,41 @@ public class DBRustParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		LET=1, MUT=2, PRINTLN=3, I64=4, F64=5, BOOL=6, CHARTYPE=7, STR=8, STRCLASS=9, 
-		NUMBER=10, FLOAT=11, STRING=12, CHAR=13, ID=14, BFALSE=15, BTRUE=16, OPENPAR=17, 
-		CLOSEPAR=18, COLOM=19, SEMI=20, COMMA=21, EQUALS=22, MUL=23, DIV=24, MOD=25, 
-		ADD=26, SUB=27, WHITESPACE=28;
+		LET=1, MUT=2, PRINTLN=3, FN=4, I64=5, F64=6, BOOL=7, CHARTYPE=8, STR=9, 
+		STRCLASS=10, NUMBER=11, FLOAT=12, STRING=13, CHAR=14, ID=15, BFALSE=16, 
+		BTRUE=17, OPENPAR=18, CLOSEPAR=19, OPENBRACKET=20, CLOSEBRACKET=21, ARROW=22, 
+		DOT=23, COLOM=24, SEMI=25, COMMA=26, EQUALS=27, MUL=28, DIV=29, MOD=30, 
+		ADD=31, SUB=32, WHITESPACE=33;
 	public static final int
-		RULE_start = 0, RULE_instructions = 1, RULE_instruction = 2, RULE_declaration = 3, 
-		RULE_assignment = 4, RULE_listValues = 5, RULE_expression = 6, RULE_expOp = 7, 
-		RULE_valueType = 8, RULE_value = 9, RULE_functions = 10, RULE_printlnCall = 11;
+		RULE_start = 0, RULE_instructionsBlock = 1, RULE_instructions = 2, RULE_instruction = 3, 
+		RULE_declaration = 4, RULE_assignment = 5, RULE_expList = 6, RULE_expression = 7, 
+		RULE_expOp = 8, RULE_valueType = 9, RULE_value = 10, RULE_functionCall = 11, 
+		RULE_methods = 12, RULE_printlnCall = 13, RULE_function = 14;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"start", "instructions", "instruction", "declaration", "assignment", 
-			"listValues", "expression", "expOp", "valueType", "value", "functions", 
-			"printlnCall"
+			"start", "instructionsBlock", "instructions", "instruction", "declaration", 
+			"assignment", "expList", "expression", "expOp", "valueType", "value", 
+			"functionCall", "methods", "printlnCall", "function"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'let'", "'mut'", "'println!'", "'i64'", "'f64'", "'bool'", "'char'", 
-			"'&str'", "'String'", null, null, null, null, null, "'false'", "'true'", 
-			"'('", "')'", "':'", "';'", "','", "'='", "'*'", "'/'", "'%'", "'+'", 
-			"'-'"
+			null, "'let'", "'mut'", "'println!'", "'fn'", "'i64'", "'f64'", "'bool'", 
+			"'char'", "'&str'", "'String'", null, null, null, null, null, "'false'", 
+			"'true'", "'('", "')'", "'{'", "'}'", "'->'", "'.'", "':'", "';'", "','", 
+			"'='", "'*'", "'/'", "'%'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "LET", "MUT", "PRINTLN", "I64", "F64", "BOOL", "CHARTYPE", "STR", 
-			"STRCLASS", "NUMBER", "FLOAT", "STRING", "CHAR", "ID", "BFALSE", "BTRUE", 
-			"OPENPAR", "CLOSEPAR", "COLOM", "SEMI", "COMMA", "EQUALS", "MUL", "DIV", 
-			"MOD", "ADD", "SUB", "WHITESPACE"
+			null, "LET", "MUT", "PRINTLN", "FN", "I64", "F64", "BOOL", "CHARTYPE", 
+			"STR", "STRCLASS", "NUMBER", "FLOAT", "STRING", "CHAR", "ID", "BFALSE", 
+			"BTRUE", "OPENPAR", "CLOSEPAR", "OPENBRACKET", "CLOSEBRACKET", "ARROW", 
+			"DOT", "COLOM", "SEMI", "COMMA", "EQUALS", "MUL", "DIV", "MOD", "ADD", 
+			"SUB", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -123,9 +126,51 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(30);
 			((StartContext)_localctx).instructions = instructions();
 			 _localctx.list = ((StartContext)_localctx).instructions.l 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class InstructionsBlockContext extends ParserRuleContext {
+		public *arrayList.List l;
+		public InstructionsContext instructions;
+		public TerminalNode OPENBRACKET() { return getToken(DBRustParser.OPENBRACKET, 0); }
+		public InstructionsContext instructions() {
+			return getRuleContext(InstructionsContext.class,0);
+		}
+		public TerminalNode CLOSEBRACKET() { return getToken(DBRustParser.CLOSEBRACKET, 0); }
+		public InstructionsBlockContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_instructionsBlock; }
+	}
+
+	public final InstructionsBlockContext instructionsBlock() throws RecognitionException {
+		InstructionsBlockContext _localctx = new InstructionsBlockContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_instructionsBlock);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(33);
+			match(OPENBRACKET);
+			setState(34);
+			((InstructionsBlockContext)_localctx).instructions = instructions();
+			setState(35);
+			match(CLOSEBRACKET);
+
+							_localctx.l = ((InstructionsBlockContext)_localctx).instructions.l
+					
 			}
 		}
 		catch (RecognitionException re) {
@@ -157,7 +202,7 @@ public class DBRustParser extends Parser {
 
 	public final InstructionsContext instructions() throws RecognitionException {
 		InstructionsContext _localctx = new InstructionsContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_instructions);
+		enterRule(_localctx, 4, RULE_instructions);
 
 		    _localctx.l =  arrayList.New()
 		  
@@ -165,18 +210,18 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(30);
+			setState(41);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LET) | (1L << PRINTLN) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LET) | (1L << PRINTLN) | (1L << FN) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(27);
+				setState(38);
 				((InstructionsContext)_localctx).instruction = instruction();
 				((InstructionsContext)_localctx).e.add(((InstructionsContext)_localctx).instruction);
 				}
 				}
-				setState(32);
+				setState(43);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -203,7 +248,9 @@ public class DBRustParser extends Parser {
 		public I.IInstruction state;
 		public DeclarationContext decltn;
 		public AssignmentContext assign;
-		public FunctionsContext fn;
+		public MethodsContext mth;
+		public FunctionCallContext calls;
+		public FunctionContext fn;
 		public TerminalNode SEMI() { return getToken(DBRustParser.SEMI, 0); }
 		public DeclarationContext declaration() {
 			return getRuleContext(DeclarationContext.class,0);
@@ -211,8 +258,14 @@ public class DBRustParser extends Parser {
 		public AssignmentContext assignment() {
 			return getRuleContext(AssignmentContext.class,0);
 		}
-		public FunctionsContext functions() {
-			return getRuleContext(FunctionsContext.class,0);
+		public MethodsContext methods() {
+			return getRuleContext(MethodsContext.class,0);
+		}
+		public FunctionCallContext functionCall() {
+			return getRuleContext(FunctionCallContext.class,0);
+		}
+		public FunctionContext function() {
+			return getRuleContext(FunctionContext.class,0);
 		}
 		public InstructionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -222,43 +275,59 @@ public class DBRustParser extends Parser {
 
 	public final InstructionContext instruction() throws RecognitionException {
 		InstructionContext _localctx = new InstructionContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_instruction);
+		enterRule(_localctx, 6, RULE_instruction);
 		try {
-			setState(47);
+			setState(65);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case LET:
+			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(35);
+				setState(46);
 				((InstructionContext)_localctx).decltn = declaration();
-				setState(36);
+				setState(47);
 				match(SEMI);
 				 _localctx.state = ((InstructionContext)_localctx).decltn.state 
 				}
 				break;
-			case ID:
+			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(39);
+				setState(50);
 				((InstructionContext)_localctx).assign = assignment();
-				setState(40);
+				setState(51);
 				match(SEMI);
 				 _localctx.state = ((InstructionContext)_localctx).assign.state 
 				}
 				break;
-			case PRINTLN:
+			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(43);
-				((InstructionContext)_localctx).fn = functions();
-				setState(44);
+				setState(54);
+				((InstructionContext)_localctx).mth = methods();
+				setState(55);
 				match(SEMI);
+				 _localctx.state = ((InstructionContext)_localctx).mth.state 
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(58);
+				((InstructionContext)_localctx).calls = functionCall();
+				setState(59);
+				match(SEMI);
+				 _localctx.state = ((InstructionContext)_localctx).calls.state 
+				}
+				break;
+			case 5:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(62);
+				((InstructionContext)_localctx).fn = function();
 				 _localctx.state = ((InstructionContext)_localctx).fn.state 
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -296,25 +365,25 @@ public class DBRustParser extends Parser {
 
 	public final DeclarationContext declaration() throws RecognitionException {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_declaration);
+		enterRule(_localctx, 8, RULE_declaration);
 		try {
-			setState(79);
+			setState(97);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(49);
+				setState(67);
 				match(LET);
-				setState(50);
+				setState(68);
 				((DeclarationContext)_localctx).ID = match(ID);
-				setState(51);
+				setState(69);
 				match(COLOM);
-				setState(52);
+				setState(70);
 				((DeclarationContext)_localctx).valueType = valueType();
-				setState(53);
+				setState(71);
 				match(EQUALS);
-				setState(54);
+				setState(72);
 				((DeclarationContext)_localctx).expression = expression(0);
 
 						expPoint := ((DeclarationContext)_localctx).expression.state
@@ -331,19 +400,19 @@ public class DBRustParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(57);
+				setState(75);
 				match(LET);
-				setState(58);
+				setState(76);
 				match(MUT);
-				setState(59);
+				setState(77);
 				((DeclarationContext)_localctx).ID = match(ID);
-				setState(60);
+				setState(78);
 				match(COLOM);
-				setState(61);
+				setState(79);
 				((DeclarationContext)_localctx).valueType = valueType();
-				setState(62);
+				setState(80);
 				match(EQUALS);
-				setState(63);
+				setState(81);
 				((DeclarationContext)_localctx).expression = expression(0);
 
 						expPoint := ((DeclarationContext)_localctx).expression.state
@@ -360,15 +429,15 @@ public class DBRustParser extends Parser {
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(66);
+				setState(84);
 				match(LET);
-				setState(67);
+				setState(85);
 				match(MUT);
-				setState(68);
+				setState(86);
 				((DeclarationContext)_localctx).ID = match(ID);
-				setState(69);
+				setState(87);
 				match(EQUALS);
-				setState(70);
+				setState(88);
 				((DeclarationContext)_localctx).expression = expression(0);
 
 						expPoint := ((DeclarationContext)_localctx).expression.state
@@ -385,13 +454,13 @@ public class DBRustParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(73);
+				setState(91);
 				match(LET);
-				setState(74);
+				setState(92);
 				((DeclarationContext)_localctx).ID = match(ID);
-				setState(75);
+				setState(93);
 				match(EQUALS);
-				setState(76);
+				setState(94);
 				((DeclarationContext)_localctx).expression = expression(0);
 
 						expPoint := ((DeclarationContext)_localctx).expression.state
@@ -435,15 +504,15 @@ public class DBRustParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_assignment);
+		enterRule(_localctx, 10, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(81);
+			setState(99);
 			((AssignmentContext)_localctx).ID = match(ID);
-			setState(82);
+			setState(100);
 			match(EQUALS);
-			setState(83);
+			setState(101);
 			((AssignmentContext)_localctx).expression = expression(0);
 
 					expPoint := ((AssignmentContext)_localctx).expression.state
@@ -466,48 +535,48 @@ public class DBRustParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ListValuesContext extends ParserRuleContext {
+	public static class ExpListContext extends ParserRuleContext {
 		public *arrayList.List l;
-		public ListValuesContext list;
+		public ExpListContext list;
 		public ExpressionContext expression;
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode COMMA() { return getToken(DBRustParser.COMMA, 0); }
-		public ListValuesContext listValues() {
-			return getRuleContext(ListValuesContext.class,0);
+		public ExpListContext expList() {
+			return getRuleContext(ExpListContext.class,0);
 		}
-		public ListValuesContext(ParserRuleContext parent, int invokingState) {
+		public ExpListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_listValues; }
+		@Override public int getRuleIndex() { return RULE_expList; }
 	}
 
-	public final ListValuesContext listValues() throws RecognitionException {
-		return listValues(0);
+	public final ExpListContext expList() throws RecognitionException {
+		return expList(0);
 	}
 
-	private ListValuesContext listValues(int _p) throws RecognitionException {
+	private ExpListContext expList(int _p) throws RecognitionException {
 		ParserRuleContext _parentctx = _ctx;
 		int _parentState = getState();
-		ListValuesContext _localctx = new ListValuesContext(_ctx, _parentState);
-		ListValuesContext _prevctx = _localctx;
-		int _startState = 10;
-		enterRecursionRule(_localctx, 10, RULE_listValues, _p);
+		ExpListContext _localctx = new ExpListContext(_ctx, _parentState);
+		ExpListContext _prevctx = _localctx;
+		int _startState = 12;
+		enterRecursionRule(_localctx, 12, RULE_expList, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(87);
-			((ListValuesContext)_localctx).expression = expression(0);
+			setState(105);
+			((ExpListContext)_localctx).expression = expression(0);
 			 
 					_localctx.l = arrayList.New()
-					_localctx.l.Add(((ListValuesContext)_localctx).expression.state)
+					_localctx.l.Add(((ExpListContext)_localctx).expression.state)
 				
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(97);
+			setState(115);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -516,24 +585,24 @@ public class DBRustParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ListValuesContext(_parentctx, _parentState);
+					_localctx = new ExpListContext(_parentctx, _parentState);
 					_localctx.list = _prevctx;
 					_localctx.list = _prevctx;
-					pushNewRecursionContext(_localctx, _startState, RULE_listValues);
-					setState(90);
+					pushNewRecursionContext(_localctx, _startState, RULE_expList);
+					setState(108);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(91);
+					setState(109);
 					match(COMMA);
-					setState(92);
-					((ListValuesContext)_localctx).expression = expression(0);
+					setState(110);
+					((ExpListContext)_localctx).expression = expression(0);
 					 
-					          		((ListValuesContext)_localctx).list.l.Add(((ListValuesContext)_localctx).expression.state)
-					          		_localctx.l = ((ListValuesContext)_localctx).list.l
+					          		((ExpListContext)_localctx).list.l.Add(((ExpListContext)_localctx).expression.state)
+					          		_localctx.l = ((ExpListContext)_localctx).list.l
 					            
 					}
 					} 
 				}
-				setState(99);
+				setState(117);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -583,14 +652,14 @@ public class DBRustParser extends Parser {
 		int _parentState = getState();
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 12;
-		enterRecursionRule(_localctx, 12, RULE_expression, _p);
+		int _startState = 14;
+		enterRecursionRule(_localctx, 14, RULE_expression, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(101);
+			setState(119);
 			((ExpressionContext)_localctx).value = value();
 			 
 					sym := ((ExpressionContext)_localctx).value.state
@@ -603,7 +672,7 @@ public class DBRustParser extends Parser {
 				
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(111);
+			setState(129);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -616,11 +685,11 @@ public class DBRustParser extends Parser {
 					_localctx.leftExp = _prevctx;
 					_localctx.leftExp = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_expression);
-					setState(104);
+					setState(122);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(105);
+					setState(123);
 					((ExpressionContext)_localctx).expOp = expOp();
-					setState(106);
+					setState(124);
 					((ExpressionContext)_localctx).rightExp = expression(3);
 
 					          		left, right := ((ExpressionContext)_localctx).leftExp.state, ((ExpressionContext)_localctx).rightExp.state;
@@ -634,7 +703,7 @@ public class DBRustParser extends Parser {
 					}
 					} 
 				}
-				setState(113);
+				setState(131);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			}
@@ -666,49 +735,59 @@ public class DBRustParser extends Parser {
 
 	public final ExpOpContext expOp() throws RecognitionException {
 		ExpOpContext _localctx = new ExpOpContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_expOp);
+		enterRule(_localctx, 16, RULE_expOp);
 		try {
-			setState(124);
+			setState(142);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MUL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(114);
+				setState(132);
 				match(MUL);
-					_localctx.state = I.MUL 
+					
+						_localctx.state = I.MUL 
+					
 				}
 				break;
 			case DIV:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(116);
+				setState(134);
 				match(DIV);
-					_localctx.state = I.DIV 
+					
+						_localctx.state = I.DIV 
+					
 				}
 				break;
 			case MOD:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(118);
+				setState(136);
 				match(MOD);
-					_localctx.state = I.MOD 
+					
+						_localctx.state = I.MOD 
+					
 				}
 				break;
 			case ADD:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(120);
+				setState(138);
 				match(ADD);
-					_localctx.state = I.ADD 
+					
+						_localctx.state = I.ADD 
+					
 				}
 				break;
 			case SUB:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(122);
+				setState(140);
 				match(SUB);
-					_localctx.state = I.SUB 
+					
+						_localctx.state = I.SUB 
+					
 				}
 				break;
 			default:
@@ -742,57 +821,69 @@ public class DBRustParser extends Parser {
 
 	public final ValueTypeContext valueType() throws RecognitionException {
 		ValueTypeContext _localctx = new ValueTypeContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_valueType);
+		enterRule(_localctx, 18, RULE_valueType);
 		try {
-			setState(138);
+			setState(156);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case I64:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(126);
+				setState(144);
 				match(I64);
-				 _localctx.state = I.INTEGER 
+				 
+						_localctx.state = I.INTEGER 
+					
 				}
 				break;
 			case F64:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(128);
+				setState(146);
 				match(F64);
-				 _localctx.state = I.FLOAT 
+				 
+						_localctx.state = I.FLOAT 
+					
 				}
 				break;
 			case BOOL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(130);
+				setState(148);
 				match(BOOL);
-				 _localctx.state = I.BOOL 
+				 
+						_localctx.state = I.BOOL 
+					
 				}
 				break;
 			case CHARTYPE:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(132);
+				setState(150);
 				match(CHARTYPE);
-				 _localctx.state = I.CHAR 
+				 
+						_localctx.state = I.CHAR 
+					
 				}
 				break;
 			case STR:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(134);
+				setState(152);
 				match(STR);
-				 _localctx.state = I.STR 
+				 
+						_localctx.state = I.STR 
+					
 				}
 				break;
 			case STRCLASS:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(136);
+				setState(154);
 				match(STRCLASS);
-				 _localctx.state = I.STRING 
+				 
+						_localctx.state = I.STRING 
+					
 				}
 				break;
 			default:
@@ -811,19 +902,27 @@ public class DBRustParser extends Parser {
 	}
 
 	public static class ValueContext extends ParserRuleContext {
-		public I.Value state;
+		public I.IValue state;
 		public Token NUMBER;
 		public Token FLOAT;
 		public Token STRING;
 		public Token CHAR;
 		public Token BFALSE;
 		public Token BTRUE;
+		public MethodsContext methods;
+		public FunctionCallContext functionCall;
 		public TerminalNode NUMBER() { return getToken(DBRustParser.NUMBER, 0); }
 		public TerminalNode FLOAT() { return getToken(DBRustParser.FLOAT, 0); }
 		public TerminalNode STRING() { return getToken(DBRustParser.STRING, 0); }
 		public TerminalNode CHAR() { return getToken(DBRustParser.CHAR, 0); }
 		public TerminalNode BFALSE() { return getToken(DBRustParser.BFALSE, 0); }
 		public TerminalNode BTRUE() { return getToken(DBRustParser.BTRUE, 0); }
+		public MethodsContext methods() {
+			return getRuleContext(MethodsContext.class,0);
+		}
+		public FunctionCallContext functionCall() {
+			return getRuleContext(FunctionCallContext.class,0);
+		}
 		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -832,59 +931,89 @@ public class DBRustParser extends Parser {
 
 	public final ValueContext value() throws RecognitionException {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_value);
+		enterRule(_localctx, 20, RULE_value);
 		try {
-			setState(152);
+			setState(176);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUMBER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(140);
+				setState(158);
 				((ValueContext)_localctx).NUMBER = match(NUMBER);
-				 _localctx.state = I.Value{ (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getLine():0), ((ValueContext)_localctx).NUMBER.GetColumn(), I.INTEGER, (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getText():null) } 
+				 
+						_localctx.state = I.Value{ (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getLine():0), ((ValueContext)_localctx).NUMBER.GetColumn(), I.INTEGER, (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getText():null) } 
+					
 				}
 				break;
 			case FLOAT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(142);
+				setState(160);
 				((ValueContext)_localctx).FLOAT = match(FLOAT);
-					_localctx.state = I.Value{ (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getLine():0), ((ValueContext)_localctx).FLOAT.GetColumn(), I.FLOAT, (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getText():null) } 
+					
+						_localctx.state = I.Value{ (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getLine():0), ((ValueContext)_localctx).FLOAT.GetColumn(), I.FLOAT, (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getText():null) } 
+					
 				}
 				break;
 			case STRING:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(144);
+				setState(162);
 				((ValueContext)_localctx).STRING = match(STRING);
-				 _localctx.state = I.Value{ (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getLine():0), ((ValueContext)_localctx).STRING.GetColumn(), I.STRING, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1] } 
-						
+				 
+						_localctx.state = I.Value{ (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getLine():0), ((ValueContext)_localctx).STRING.GetColumn(), I.STRING, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1] } 
+					
 				}
 				break;
 			case CHAR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(146);
+				setState(164);
 				((ValueContext)_localctx).CHAR = match(CHAR);
-				 _localctx.state = I.Value{ (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getLine():0), ((ValueContext)_localctx).CHAR.GetColumn(), I.CHAR, (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null)[1:len((((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null))-1] } 
-						
+				 
+						_localctx.state = I.Value{ (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getLine():0), ((ValueContext)_localctx).CHAR.GetColumn(), I.CHAR, (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null)[1:len((((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null))-1] } 
+					
 				}
 				break;
 			case BFALSE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(148);
+				setState(166);
 				((ValueContext)_localctx).BFALSE = match(BFALSE);
-				 _localctx.state = I.Value{ (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getLine():0), ((ValueContext)_localctx).BFALSE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getText():null) } 
+				 
+						_localctx.state = I.Value{ (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getLine():0), ((ValueContext)_localctx).BFALSE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getText():null) } 
+					
 				}
 				break;
 			case BTRUE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(150);
+				setState(168);
 				((ValueContext)_localctx).BTRUE = match(BTRUE);
-				 _localctx.state = I.Value{ (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getLine():0), ((ValueContext)_localctx).BTRUE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getText():null) } 
+				 
+						_localctx.state = I.Value{ (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getLine():0), ((ValueContext)_localctx).BTRUE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getText():null) } 
+					
+				}
+				break;
+			case PRINTLN:
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(170);
+				((ValueContext)_localctx).methods = methods();
+
+						((ValueContext)_localctx).state =  ((ValueContext)_localctx).methods.state;
+					
+				}
+				break;
+			case ID:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(173);
+				((ValueContext)_localctx).functionCall = functionCall();
+
+						((ValueContext)_localctx).state =  ((ValueContext)_localctx).functionCall.state;
+					
 				}
 				break;
 			default:
@@ -902,27 +1031,93 @@ public class DBRustParser extends Parser {
 		return _localctx;
 	}
 
-	public static class FunctionsContext extends ParserRuleContext {
+	public static class FunctionCallContext extends ParserRuleContext {
+		public I.IFunctionCall state;
+		public Token ID;
+		public ExpListContext expList;
+		public TerminalNode ID() { return getToken(DBRustParser.ID, 0); }
+		public TerminalNode OPENPAR() { return getToken(DBRustParser.OPENPAR, 0); }
+		public ExpListContext expList() {
+			return getRuleContext(ExpListContext.class,0);
+		}
+		public TerminalNode CLOSEPAR() { return getToken(DBRustParser.CLOSEPAR, 0); }
+		public FunctionCallContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_functionCall; }
+	}
+
+	public final FunctionCallContext functionCall() throws RecognitionException {
+		FunctionCallContext _localctx = new FunctionCallContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_functionCall);
+		try {
+			setState(188);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(178);
+				((FunctionCallContext)_localctx).ID = match(ID);
+				setState(179);
+				match(OPENPAR);
+				setState(180);
+				((FunctionCallContext)_localctx).expList = expList(0);
+				setState(181);
+				match(CLOSEPAR);
+
+						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn(), I.VOID, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null) }, ((FunctionCallContext)_localctx).expList.l.ToArray() }
+				  
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(184);
+				((FunctionCallContext)_localctx).ID = match(ID);
+				setState(185);
+				match(OPENPAR);
+				setState(186);
+				match(CLOSEPAR);
+
+						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn(), I.VOID, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null) }, make([]interface{}, 0) }
+					
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class MethodsContext extends ParserRuleContext {
 		public I.IFunctionCall state;
 		public PrintlnCallContext printlnCall;
 		public PrintlnCallContext printlnCall() {
 			return getRuleContext(PrintlnCallContext.class,0);
 		}
-		public FunctionsContext(ParserRuleContext parent, int invokingState) {
+		public MethodsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_functions; }
+		@Override public int getRuleIndex() { return RULE_methods; }
 	}
 
-	public final FunctionsContext functions() throws RecognitionException {
-		FunctionsContext _localctx = new FunctionsContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_functions);
+	public final MethodsContext methods() throws RecognitionException {
+		MethodsContext _localctx = new MethodsContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_methods);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(154);
-			((FunctionsContext)_localctx).printlnCall = printlnCall();
-			 _localctx.state = ((FunctionsContext)_localctx).printlnCall.state 
+			setState(190);
+			((MethodsContext)_localctx).printlnCall = printlnCall();
+			 _localctx.state = ((MethodsContext)_localctx).printlnCall.state 
 			}
 		}
 		catch (RecognitionException re) {
@@ -937,12 +1132,13 @@ public class DBRustParser extends Parser {
 	}
 
 	public static class PrintlnCallContext extends ParserRuleContext {
-		public I.IFunctionCall state;
-		public ListValuesContext listValues;
+		public I.PrintlnCall state;
+		public Token PRINTLN;
+		public ExpListContext expList;
 		public TerminalNode PRINTLN() { return getToken(DBRustParser.PRINTLN, 0); }
 		public TerminalNode OPENPAR() { return getToken(DBRustParser.OPENPAR, 0); }
-		public ListValuesContext listValues() {
-			return getRuleContext(ListValuesContext.class,0);
+		public ExpListContext expList() {
+			return getRuleContext(ExpListContext.class,0);
 		}
 		public TerminalNode CLOSEPAR() { return getToken(DBRustParser.CLOSEPAR, 0); }
 		public PrintlnCallContext(ParserRuleContext parent, int invokingState) {
@@ -953,21 +1149,111 @@ public class DBRustParser extends Parser {
 
 	public final PrintlnCallContext printlnCall() throws RecognitionException {
 		PrintlnCallContext _localctx = new PrintlnCallContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_printlnCall);
+		enterRule(_localctx, 26, RULE_printlnCall);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(157);
-			match(PRINTLN);
-			setState(158);
+			setState(193);
+			((PrintlnCallContext)_localctx).PRINTLN = match(PRINTLN);
+			setState(194);
 			match(OPENPAR);
-			setState(159);
-			((PrintlnCallContext)_localctx).listValues = listValues(0);
-			setState(160);
+			setState(195);
+			((PrintlnCallContext)_localctx).expList = expList(0);
+			setState(196);
 			match(CLOSEPAR);
 
-					_localctx.state = I.PrintlnCall{ I.FunctionCall{ "PrintLn", ((PrintlnCallContext)_localctx).listValues.l.ToArray() } }
+					_localctx.state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ ((PrintlnCallContext)_localctx).PRINTLN.GetLine(), ((PrintlnCallContext)_localctx).PRINTLN.GetColumn(), I.VOID, "Println" }, ((PrintlnCallContext)_localctx).expList.l.ToArray() } }
 				
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class FunctionContext extends ParserRuleContext {
+		public I.Function state;
+		public Token ID;
+		public ExpListContext expList;
+		public InstructionsBlockContext instructionsBlock;
+		public ValueTypeContext valueType;
+		public TerminalNode FN() { return getToken(DBRustParser.FN, 0); }
+		public TerminalNode ID() { return getToken(DBRustParser.ID, 0); }
+		public TerminalNode OPENPAR() { return getToken(DBRustParser.OPENPAR, 0); }
+		public ExpListContext expList() {
+			return getRuleContext(ExpListContext.class,0);
+		}
+		public TerminalNode CLOSEPAR() { return getToken(DBRustParser.CLOSEPAR, 0); }
+		public InstructionsBlockContext instructionsBlock() {
+			return getRuleContext(InstructionsBlockContext.class,0);
+		}
+		public TerminalNode ARROW() { return getToken(DBRustParser.ARROW, 0); }
+		public ValueTypeContext valueType() {
+			return getRuleContext(ValueTypeContext.class,0);
+		}
+		public FunctionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_function; }
+	}
+
+	public final FunctionContext function() throws RecognitionException {
+		FunctionContext _localctx = new FunctionContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_function);
+		try {
+			setState(217);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(199);
+				match(FN);
+				setState(200);
+				((FunctionContext)_localctx).ID = match(ID);
+				setState(201);
+				match(OPENPAR);
+				setState(202);
+				((FunctionContext)_localctx).expList = expList(0);
+				setState(203);
+				match(CLOSEPAR);
+				setState(204);
+				((FunctionContext)_localctx).instructionsBlock = instructionsBlock();
+
+						((FunctionContext)_localctx).state =  I.Function{ I.Instruction{"Function"}, (((FunctionContext)_localctx).ID!=null?((FunctionContext)_localctx).ID.getText():null), ((FunctionContext)_localctx).expList.l.ToArray(), ((FunctionContext)_localctx).instructionsBlock.l.ToArray(), I.VOID };
+					
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(207);
+				match(FN);
+				setState(208);
+				((FunctionContext)_localctx).ID = match(ID);
+				setState(209);
+				match(OPENPAR);
+				setState(210);
+				((FunctionContext)_localctx).expList = expList(0);
+				setState(211);
+				match(CLOSEPAR);
+				setState(212);
+				((FunctionContext)_localctx).instructionsBlock = instructionsBlock();
+				setState(213);
+				match(ARROW);
+				setState(214);
+				((FunctionContext)_localctx).valueType = valueType();
+
+						((FunctionContext)_localctx).state =  I.Function{ I.Instruction{"Function"}, (((FunctionContext)_localctx).ID!=null?((FunctionContext)_localctx).ID.getText():null), ((FunctionContext)_localctx).expList.l.ToArray(), ((FunctionContext)_localctx).instructionsBlock.l.ToArray(), ((FunctionContext)_localctx).valueType.state };
+					
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -983,14 +1269,14 @@ public class DBRustParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 5:
-			return listValues_sempred((ListValuesContext)_localctx, predIndex);
 		case 6:
+			return expList_sempred((ExpListContext)_localctx, predIndex);
+		case 7:
 			return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
 	}
-	private boolean listValues_sempred(ListValuesContext _localctx, int predIndex) {
+	private boolean expList_sempred(ExpListContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
 			return precpred(_ctx, 2);
@@ -1006,53 +1292,75 @@ public class DBRustParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36\u00a6\4\2\t\2"+
-		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\3\2\3\2\3\2\3\3\7\3\37\n\3\f\3\16\3\"\13\3\3\3\3"+
-		"\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\62\n\4\3\5\3\5"+
-		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5R\n\5\3\6\3\6\3\6\3\6\3"+
-		"\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7b\n\7\f\7\16\7e\13\7\3\b\3\b"+
-		"\3\b\3\b\3\b\3\b\3\b\3\b\3\b\7\bp\n\b\f\b\16\bs\13\b\3\t\3\t\3\t\3\t\3"+
-		"\t\3\t\3\t\3\t\3\t\3\t\5\t\177\n\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n"+
-		"\3\n\3\n\3\n\5\n\u008d\n\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
-		"\3\13\3\13\3\13\5\13\u009b\n\13\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3"+
-		"\r\2\4\f\16\16\2\4\6\b\n\f\16\20\22\24\26\30\2\2\2\u00af\2\32\3\2\2\2"+
-		"\4 \3\2\2\2\6\61\3\2\2\2\bQ\3\2\2\2\nS\3\2\2\2\fX\3\2\2\2\16f\3\2\2\2"+
-		"\20~\3\2\2\2\22\u008c\3\2\2\2\24\u009a\3\2\2\2\26\u009c\3\2\2\2\30\u009f"+
-		"\3\2\2\2\32\33\5\4\3\2\33\34\b\2\1\2\34\3\3\2\2\2\35\37\5\6\4\2\36\35"+
-		"\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!#\3\2\2\2\" \3\2\2\2#$\b\3"+
-		"\1\2$\5\3\2\2\2%&\5\b\5\2&\'\7\26\2\2\'(\b\4\1\2(\62\3\2\2\2)*\5\n\6\2"+
-		"*+\7\26\2\2+,\b\4\1\2,\62\3\2\2\2-.\5\26\f\2./\7\26\2\2/\60\b\4\1\2\60"+
-		"\62\3\2\2\2\61%\3\2\2\2\61)\3\2\2\2\61-\3\2\2\2\62\7\3\2\2\2\63\64\7\3"+
-		"\2\2\64\65\7\20\2\2\65\66\7\25\2\2\66\67\5\22\n\2\678\7\30\2\289\5\16"+
-		"\b\29:\b\5\1\2:R\3\2\2\2;<\7\3\2\2<=\7\4\2\2=>\7\20\2\2>?\7\25\2\2?@\5"+
-		"\22\n\2@A\7\30\2\2AB\5\16\b\2BC\b\5\1\2CR\3\2\2\2DE\7\3\2\2EF\7\4\2\2"+
-		"FG\7\20\2\2GH\7\30\2\2HI\5\16\b\2IJ\b\5\1\2JR\3\2\2\2KL\7\3\2\2LM\7\20"+
-		"\2\2MN\7\30\2\2NO\5\16\b\2OP\b\5\1\2PR\3\2\2\2Q\63\3\2\2\2Q;\3\2\2\2Q"+
-		"D\3\2\2\2QK\3\2\2\2R\t\3\2\2\2ST\7\20\2\2TU\7\30\2\2UV\5\16\b\2VW\b\6"+
-		"\1\2W\13\3\2\2\2XY\b\7\1\2YZ\5\16\b\2Z[\b\7\1\2[c\3\2\2\2\\]\f\4\2\2]"+
-		"^\7\27\2\2^_\5\16\b\2_`\b\7\1\2`b\3\2\2\2a\\\3\2\2\2be\3\2\2\2ca\3\2\2"+
-		"\2cd\3\2\2\2d\r\3\2\2\2ec\3\2\2\2fg\b\b\1\2gh\5\24\13\2hi\b\b\1\2iq\3"+
-		"\2\2\2jk\f\4\2\2kl\5\20\t\2lm\5\16\b\5mn\b\b\1\2np\3\2\2\2oj\3\2\2\2p"+
-		"s\3\2\2\2qo\3\2\2\2qr\3\2\2\2r\17\3\2\2\2sq\3\2\2\2tu\7\31\2\2u\177\b"+
-		"\t\1\2vw\7\32\2\2w\177\b\t\1\2xy\7\33\2\2y\177\b\t\1\2z{\7\34\2\2{\177"+
-		"\b\t\1\2|}\7\35\2\2}\177\b\t\1\2~t\3\2\2\2~v\3\2\2\2~x\3\2\2\2~z\3\2\2"+
-		"\2~|\3\2\2\2\177\21\3\2\2\2\u0080\u0081\7\6\2\2\u0081\u008d\b\n\1\2\u0082"+
-		"\u0083\7\7\2\2\u0083\u008d\b\n\1\2\u0084\u0085\7\b\2\2\u0085\u008d\b\n"+
-		"\1\2\u0086\u0087\7\t\2\2\u0087\u008d\b\n\1\2\u0088\u0089\7\n\2\2\u0089"+
-		"\u008d\b\n\1\2\u008a\u008b\7\13\2\2\u008b\u008d\b\n\1\2\u008c\u0080\3"+
-		"\2\2\2\u008c\u0082\3\2\2\2\u008c\u0084\3\2\2\2\u008c\u0086\3\2\2\2\u008c"+
-		"\u0088\3\2\2\2\u008c\u008a\3\2\2\2\u008d\23\3\2\2\2\u008e\u008f\7\f\2"+
-		"\2\u008f\u009b\b\13\1\2\u0090\u0091\7\r\2\2\u0091\u009b\b\13\1\2\u0092"+
-		"\u0093\7\16\2\2\u0093\u009b\b\13\1\2\u0094\u0095\7\17\2\2\u0095\u009b"+
-		"\b\13\1\2\u0096\u0097\7\21\2\2\u0097\u009b\b\13\1\2\u0098\u0099\7\22\2"+
-		"\2\u0099\u009b\b\13\1\2\u009a\u008e\3\2\2\2\u009a\u0090\3\2\2\2\u009a"+
-		"\u0092\3\2\2\2\u009a\u0094\3\2\2\2\u009a\u0096\3\2\2\2\u009a\u0098\3\2"+
-		"\2\2\u009b\25\3\2\2\2\u009c\u009d\5\30\r\2\u009d\u009e\b\f\1\2\u009e\27"+
-		"\3\2\2\2\u009f\u00a0\7\5\2\2\u00a0\u00a1\7\23\2\2\u00a1\u00a2\5\f\7\2"+
-		"\u00a2\u00a3\7\24\2\2\u00a3\u00a4\b\r\1\2\u00a4\31\3\2\2\2\n \61Qcq~\u008c"+
-		"\u009a";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00de\4\2\t\2\4"+
+		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
+		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\3\2\3\2\3\2\3\3\3\3"+
+		"\3\3\3\3\3\3\3\4\7\4*\n\4\f\4\16\4-\13\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3"+
+		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5D\n\5\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6"+
+		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6d\n\6\3\7\3\7\3\7\3\7"+
+		"\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\7\bt\n\b\f\b\16\bw\13\b\3\t\3"+
+		"\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\7\t\u0082\n\t\f\t\16\t\u0085\13\t\3\n\3"+
+		"\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u0091\n\n\3\13\3\13\3\13\3\13\3"+
+		"\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u009f\n\13\3\f\3\f\3\f\3\f"+
+		"\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00b3\n\f"+
+		"\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00bf\n\r\3\16\3\16\3\16"+
+		"\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20"+
+		"\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\5\20\u00dc\n\20\3\20"+
+		"\2\4\16\20\21\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36\2\2\2\u00ea\2 \3"+
+		"\2\2\2\4#\3\2\2\2\6+\3\2\2\2\bC\3\2\2\2\nc\3\2\2\2\fe\3\2\2\2\16j\3\2"+
+		"\2\2\20x\3\2\2\2\22\u0090\3\2\2\2\24\u009e\3\2\2\2\26\u00b2\3\2\2\2\30"+
+		"\u00be\3\2\2\2\32\u00c0\3\2\2\2\34\u00c3\3\2\2\2\36\u00db\3\2\2\2 !\5"+
+		"\6\4\2!\"\b\2\1\2\"\3\3\2\2\2#$\7\26\2\2$%\5\6\4\2%&\7\27\2\2&\'\b\3\1"+
+		"\2\'\5\3\2\2\2(*\5\b\5\2)(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,.\3\2"+
+		"\2\2-+\3\2\2\2./\b\4\1\2/\7\3\2\2\2\60\61\5\n\6\2\61\62\7\33\2\2\62\63"+
+		"\b\5\1\2\63D\3\2\2\2\64\65\5\f\7\2\65\66\7\33\2\2\66\67\b\5\1\2\67D\3"+
+		"\2\2\289\5\32\16\29:\7\33\2\2:;\b\5\1\2;D\3\2\2\2<=\5\30\r\2=>\7\33\2"+
+		"\2>?\b\5\1\2?D\3\2\2\2@A\5\36\20\2AB\b\5\1\2BD\3\2\2\2C\60\3\2\2\2C\64"+
+		"\3\2\2\2C8\3\2\2\2C<\3\2\2\2C@\3\2\2\2D\t\3\2\2\2EF\7\3\2\2FG\7\21\2\2"+
+		"GH\7\32\2\2HI\5\24\13\2IJ\7\35\2\2JK\5\20\t\2KL\b\6\1\2Ld\3\2\2\2MN\7"+
+		"\3\2\2NO\7\4\2\2OP\7\21\2\2PQ\7\32\2\2QR\5\24\13\2RS\7\35\2\2ST\5\20\t"+
+		"\2TU\b\6\1\2Ud\3\2\2\2VW\7\3\2\2WX\7\4\2\2XY\7\21\2\2YZ\7\35\2\2Z[\5\20"+
+		"\t\2[\\\b\6\1\2\\d\3\2\2\2]^\7\3\2\2^_\7\21\2\2_`\7\35\2\2`a\5\20\t\2"+
+		"ab\b\6\1\2bd\3\2\2\2cE\3\2\2\2cM\3\2\2\2cV\3\2\2\2c]\3\2\2\2d\13\3\2\2"+
+		"\2ef\7\21\2\2fg\7\35\2\2gh\5\20\t\2hi\b\7\1\2i\r\3\2\2\2jk\b\b\1\2kl\5"+
+		"\20\t\2lm\b\b\1\2mu\3\2\2\2no\f\4\2\2op\7\34\2\2pq\5\20\t\2qr\b\b\1\2"+
+		"rt\3\2\2\2sn\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2v\17\3\2\2\2wu\3\2\2"+
+		"\2xy\b\t\1\2yz\5\26\f\2z{\b\t\1\2{\u0083\3\2\2\2|}\f\4\2\2}~\5\22\n\2"+
+		"~\177\5\20\t\5\177\u0080\b\t\1\2\u0080\u0082\3\2\2\2\u0081|\3\2\2\2\u0082"+
+		"\u0085\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\21\3\2\2"+
+		"\2\u0085\u0083\3\2\2\2\u0086\u0087\7\36\2\2\u0087\u0091\b\n\1\2\u0088"+
+		"\u0089\7\37\2\2\u0089\u0091\b\n\1\2\u008a\u008b\7 \2\2\u008b\u0091\b\n"+
+		"\1\2\u008c\u008d\7!\2\2\u008d\u0091\b\n\1\2\u008e\u008f\7\"\2\2\u008f"+
+		"\u0091\b\n\1\2\u0090\u0086\3\2\2\2\u0090\u0088\3\2\2\2\u0090\u008a\3\2"+
+		"\2\2\u0090\u008c\3\2\2\2\u0090\u008e\3\2\2\2\u0091\23\3\2\2\2\u0092\u0093"+
+		"\7\7\2\2\u0093\u009f\b\13\1\2\u0094\u0095\7\b\2\2\u0095\u009f\b\13\1\2"+
+		"\u0096\u0097\7\t\2\2\u0097\u009f\b\13\1\2\u0098\u0099\7\n\2\2\u0099\u009f"+
+		"\b\13\1\2\u009a\u009b\7\13\2\2\u009b\u009f\b\13\1\2\u009c\u009d\7\f\2"+
+		"\2\u009d\u009f\b\13\1\2\u009e\u0092\3\2\2\2\u009e\u0094\3\2\2\2\u009e"+
+		"\u0096\3\2\2\2\u009e\u0098\3\2\2\2\u009e\u009a\3\2\2\2\u009e\u009c\3\2"+
+		"\2\2\u009f\25\3\2\2\2\u00a0\u00a1\7\r\2\2\u00a1\u00b3\b\f\1\2\u00a2\u00a3"+
+		"\7\16\2\2\u00a3\u00b3\b\f\1\2\u00a4\u00a5\7\17\2\2\u00a5\u00b3\b\f\1\2"+
+		"\u00a6\u00a7\7\20\2\2\u00a7\u00b3\b\f\1\2\u00a8\u00a9\7\22\2\2\u00a9\u00b3"+
+		"\b\f\1\2\u00aa\u00ab\7\23\2\2\u00ab\u00b3\b\f\1\2\u00ac\u00ad\5\32\16"+
+		"\2\u00ad\u00ae\b\f\1\2\u00ae\u00b3\3\2\2\2\u00af\u00b0\5\30\r\2\u00b0"+
+		"\u00b1\b\f\1\2\u00b1\u00b3\3\2\2\2\u00b2\u00a0\3\2\2\2\u00b2\u00a2\3\2"+
+		"\2\2\u00b2\u00a4\3\2\2\2\u00b2\u00a6\3\2\2\2\u00b2\u00a8\3\2\2\2\u00b2"+
+		"\u00aa\3\2\2\2\u00b2\u00ac\3\2\2\2\u00b2\u00af\3\2\2\2\u00b3\27\3\2\2"+
+		"\2\u00b4\u00b5\7\21\2\2\u00b5\u00b6\7\24\2\2\u00b6\u00b7\5\16\b\2\u00b7"+
+		"\u00b8\7\25\2\2\u00b8\u00b9\b\r\1\2\u00b9\u00bf\3\2\2\2\u00ba\u00bb\7"+
+		"\21\2\2\u00bb\u00bc\7\24\2\2\u00bc\u00bd\7\25\2\2\u00bd\u00bf\b\r\1\2"+
+		"\u00be\u00b4\3\2\2\2\u00be\u00ba\3\2\2\2\u00bf\31\3\2\2\2\u00c0\u00c1"+
+		"\5\34\17\2\u00c1\u00c2\b\16\1\2\u00c2\33\3\2\2\2\u00c3\u00c4\7\5\2\2\u00c4"+
+		"\u00c5\7\24\2\2\u00c5\u00c6\5\16\b\2\u00c6\u00c7\7\25\2\2\u00c7\u00c8"+
+		"\b\17\1\2\u00c8\35\3\2\2\2\u00c9\u00ca\7\6\2\2\u00ca\u00cb\7\21\2\2\u00cb"+
+		"\u00cc\7\24\2\2\u00cc\u00cd\5\16\b\2\u00cd\u00ce\7\25\2\2\u00ce\u00cf"+
+		"\5\4\3\2\u00cf\u00d0\b\20\1\2\u00d0\u00dc\3\2\2\2\u00d1\u00d2\7\6\2\2"+
+		"\u00d2\u00d3\7\21\2\2\u00d3\u00d4\7\24\2\2\u00d4\u00d5\5\16\b\2\u00d5"+
+		"\u00d6\7\25\2\2\u00d6\u00d7\5\4\3\2\u00d7\u00d8\7\30\2\2\u00d8\u00d9\5"+
+		"\24\13\2\u00d9\u00da\b\20\1\2\u00da\u00dc\3\2\2\2\u00db\u00c9\3\2\2\2"+
+		"\u00db\u00d1\3\2\2\2\u00dc\37\3\2\2\2\f+Ccu\u0083\u0090\u009e\u00b2\u00be"+
+		"\u00db";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

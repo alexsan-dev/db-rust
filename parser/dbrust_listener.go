@@ -11,6 +11,9 @@ type DBRustListener interface {
 	// EnterStart is called when entering the start production.
 	EnterStart(c *StartContext)
 
+	// EnterInstructionsBlock is called when entering the instructionsBlock production.
+	EnterInstructionsBlock(c *InstructionsBlockContext)
+
 	// EnterInstructions is called when entering the instructions production.
 	EnterInstructions(c *InstructionsContext)
 
@@ -23,8 +26,8 @@ type DBRustListener interface {
 	// EnterAssignment is called when entering the assignment production.
 	EnterAssignment(c *AssignmentContext)
 
-	// EnterListValues is called when entering the listValues production.
-	EnterListValues(c *ListValuesContext)
+	// EnterExpList is called when entering the expList production.
+	EnterExpList(c *ExpListContext)
 
 	// EnterExpression is called when entering the expression production.
 	EnterExpression(c *ExpressionContext)
@@ -38,14 +41,23 @@ type DBRustListener interface {
 	// EnterValue is called when entering the value production.
 	EnterValue(c *ValueContext)
 
-	// EnterFunctions is called when entering the functions production.
-	EnterFunctions(c *FunctionsContext)
+	// EnterFunctionCall is called when entering the functionCall production.
+	EnterFunctionCall(c *FunctionCallContext)
+
+	// EnterMethods is called when entering the methods production.
+	EnterMethods(c *MethodsContext)
 
 	// EnterPrintlnCall is called when entering the printlnCall production.
 	EnterPrintlnCall(c *PrintlnCallContext)
 
+	// EnterFunction is called when entering the function production.
+	EnterFunction(c *FunctionContext)
+
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
+
+	// ExitInstructionsBlock is called when exiting the instructionsBlock production.
+	ExitInstructionsBlock(c *InstructionsBlockContext)
 
 	// ExitInstructions is called when exiting the instructions production.
 	ExitInstructions(c *InstructionsContext)
@@ -59,8 +71,8 @@ type DBRustListener interface {
 	// ExitAssignment is called when exiting the assignment production.
 	ExitAssignment(c *AssignmentContext)
 
-	// ExitListValues is called when exiting the listValues production.
-	ExitListValues(c *ListValuesContext)
+	// ExitExpList is called when exiting the expList production.
+	ExitExpList(c *ExpListContext)
 
 	// ExitExpression is called when exiting the expression production.
 	ExitExpression(c *ExpressionContext)
@@ -74,9 +86,15 @@ type DBRustListener interface {
 	// ExitValue is called when exiting the value production.
 	ExitValue(c *ValueContext)
 
-	// ExitFunctions is called when exiting the functions production.
-	ExitFunctions(c *FunctionsContext)
+	// ExitFunctionCall is called when exiting the functionCall production.
+	ExitFunctionCall(c *FunctionCallContext)
+
+	// ExitMethods is called when exiting the methods production.
+	ExitMethods(c *MethodsContext)
 
 	// ExitPrintlnCall is called when exiting the printlnCall production.
 	ExitPrintlnCall(c *PrintlnCallContext)
+
+	// ExitFunction is called when exiting the function production.
+	ExitFunction(c *FunctionContext)
 }

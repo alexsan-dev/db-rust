@@ -11,7 +11,7 @@ type PrintlnCall struct {
 func (fn PrintlnCall) Execute(scope Scope) {
 	// CREAR CADENA
 	var finalStr string
-	for _, exp := range fn.Expressions {
+	for _, exp := range fn.Params {
 		finalStr += fmt.Sprintf("%v", exp.(Expression).GetValue().GetValue()) + " "
 	}
 
@@ -21,10 +21,10 @@ func (fn PrintlnCall) Execute(scope Scope) {
 
 // *VALUE -> OBTENER VALOR
 func (fn PrintlnCall) GetValue() interface{} {
-	return Value{0, 0, UNDEF, ""}
+	return Value{0, 0, VOID, ""}
 }
 
 // *VALUE -> OBTENER TIPO
 func (fn PrintlnCall) GetType() ValueType {
-	return UNDEF
+	return VOID
 }

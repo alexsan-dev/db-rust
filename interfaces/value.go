@@ -16,8 +16,20 @@ type ValueMut struct {
 }
 
 type IValue interface {
-	GetValue()
+	GetLine() int
+	GetColumn() int
+	GetValue() interface{}
 	GetType() ValueType
+}
+
+// OBTENER LINEA
+func (sym Value) GetLine() int {
+	return sym.Line
+}
+
+// OBTENER COLUMNA
+func (sym Value) GetColumn() int {
+	return sym.Column
 }
 
 // OBTENER VALOR DE SIMBOLO
@@ -53,6 +65,7 @@ const (
 	BOOL
 	STRING
 	UNDEF
+	VOID
 )
 
 func (vType ValueType) String() string {
@@ -71,6 +84,8 @@ func (vType ValueType) String() string {
 		return "STRING"
 	case UNDEF:
 		return "UNDEFINED"
+	case VOID:
+		return "VOID"
 	default:
 		return "UNDEFINED"
 	}
