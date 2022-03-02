@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "anltr",
+      "type": "shell",
+      "command": "/Users/alex/Desktop/FIUSAC/Compi2/db-rust/build.sh"
+    }
+  ]
+}
