@@ -12,7 +12,7 @@ func (fn PrintlnCall) Execute(scope Scope) {
 	// CREAR CADENA
 	var finalStr string
 	for _, exp := range fn.Params {
-		finalStr += fmt.Sprintf("%v", exp.(Expression).GetValue().GetValue()) + " "
+		finalStr += fmt.Sprintf("%v", exp.(Expression).GetValue(scope).GetValue(scope)) + " "
 	}
 
 	// AGREGAR
@@ -20,11 +20,11 @@ func (fn PrintlnCall) Execute(scope Scope) {
 }
 
 // *VALUE -> OBTENER VALOR
-func (fn PrintlnCall) GetValue() interface{} {
+func (fn PrintlnCall) GetValue(scope Scope) interface{} {
 	return Value{0, 0, VOID, ""}
 }
 
 // *VALUE -> OBTENER TIPO
-func (fn PrintlnCall) GetType() ValueType {
+func (fn PrintlnCall) GetType(scope Scope) ValueType {
 	return VOID
 }

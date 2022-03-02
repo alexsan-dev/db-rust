@@ -909,6 +909,7 @@ public class DBRustParser extends Parser {
 		public Token CHAR;
 		public Token BFALSE;
 		public Token BTRUE;
+		public Token ID;
 		public MethodsContext methods;
 		public FunctionCallContext functionCall;
 		public TerminalNode NUMBER() { return getToken(DBRustParser.NUMBER, 0); }
@@ -917,6 +918,7 @@ public class DBRustParser extends Parser {
 		public TerminalNode CHAR() { return getToken(DBRustParser.CHAR, 0); }
 		public TerminalNode BFALSE() { return getToken(DBRustParser.BFALSE, 0); }
 		public TerminalNode BTRUE() { return getToken(DBRustParser.BTRUE, 0); }
+		public TerminalNode ID() { return getToken(DBRustParser.ID, 0); }
 		public MethodsContext methods() {
 			return getRuleContext(MethodsContext.class,0);
 		}
@@ -933,91 +935,99 @@ public class DBRustParser extends Parser {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_value);
 		try {
-			setState(176);
+			setState(178);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case NUMBER:
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(158);
 				((ValueContext)_localctx).NUMBER = match(NUMBER);
 				 
-						_localctx.state = I.Value{ (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getLine():0), ((ValueContext)_localctx).NUMBER.GetColumn(), I.INTEGER, (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getText():null) } 
+						_localctx.state = I.Value{ ((ValueContext)_localctx).NUMBER.GetLine(), ((ValueContext)_localctx).NUMBER.GetColumn(), I.INTEGER, (((ValueContext)_localctx).NUMBER!=null?((ValueContext)_localctx).NUMBER.getText():null) } 
 					
 				}
 				break;
-			case FLOAT:
+			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(160);
 				((ValueContext)_localctx).FLOAT = match(FLOAT);
 					
-						_localctx.state = I.Value{ (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getLine():0), ((ValueContext)_localctx).FLOAT.GetColumn(), I.FLOAT, (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getText():null) } 
+						_localctx.state = I.Value{ ((ValueContext)_localctx).FLOAT.GetLine(), ((ValueContext)_localctx).FLOAT.GetColumn(), I.FLOAT, (((ValueContext)_localctx).FLOAT!=null?((ValueContext)_localctx).FLOAT.getText():null) } 
 					
 				}
 				break;
-			case STRING:
+			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(162);
 				((ValueContext)_localctx).STRING = match(STRING);
 				 
-						_localctx.state = I.Value{ (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getLine():0), ((ValueContext)_localctx).STRING.GetColumn(), I.STRING, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1] } 
+						_localctx.state = I.Value{ ((ValueContext)_localctx).STRING.GetLine(), ((ValueContext)_localctx).STRING.GetColumn(), I.STR, (((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null)[1:len((((ValueContext)_localctx).STRING!=null?((ValueContext)_localctx).STRING.getText():null))-1] } 
 					
 				}
 				break;
-			case CHAR:
+			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(164);
 				((ValueContext)_localctx).CHAR = match(CHAR);
 				 
-						_localctx.state = I.Value{ (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getLine():0), ((ValueContext)_localctx).CHAR.GetColumn(), I.CHAR, (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null)[1:len((((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null))-1] } 
+						_localctx.state = I.Value{ ((ValueContext)_localctx).CHAR.GetLine(), ((ValueContext)_localctx).CHAR.GetColumn(), I.CHAR, (((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null)[1:len((((ValueContext)_localctx).CHAR!=null?((ValueContext)_localctx).CHAR.getText():null))-1] } 
 					
 				}
 				break;
-			case BFALSE:
+			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(166);
 				((ValueContext)_localctx).BFALSE = match(BFALSE);
 				 
-						_localctx.state = I.Value{ (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getLine():0), ((ValueContext)_localctx).BFALSE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BFALSE!=null?((ValueContext)_localctx).BFALSE.getText():null) } 
+						_localctx.state = I.Value{ ((ValueContext)_localctx).BFALSE.GetLine(), ((ValueContext)_localctx).BFALSE.GetColumn(), I.BOOL, false } 
 					
 				}
 				break;
-			case BTRUE:
+			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(168);
 				((ValueContext)_localctx).BTRUE = match(BTRUE);
 				 
-						_localctx.state = I.Value{ (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getLine():0), ((ValueContext)_localctx).BTRUE.GetColumn(), I.BOOL, (((ValueContext)_localctx).BTRUE!=null?((ValueContext)_localctx).BTRUE.getText():null) } 
-					
+						_localctx.state = I.Value{ ((ValueContext)_localctx).BTRUE.GetLine(), ((ValueContext)_localctx).BTRUE.GetColumn(), I.BOOL, true } 
+						
 				}
 				break;
-			case PRINTLN:
+			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(170);
+				((ValueContext)_localctx).ID = match(ID);
+				 
+						_localctx.state = I.Value{ ((ValueContext)_localctx).ID.GetLine(), ((ValueContext)_localctx).ID.GetColumn(), I.ID, (((ValueContext)_localctx).ID!=null?((ValueContext)_localctx).ID.getText():null) } 
+					
+				}
+				break;
+			case 8:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(172);
 				((ValueContext)_localctx).methods = methods();
 
 						((ValueContext)_localctx).state =  ((ValueContext)_localctx).methods.state;
 					
 				}
 				break;
-			case ID:
-				enterOuterAlt(_localctx, 8);
+			case 9:
+				enterOuterAlt(_localctx, 9);
 				{
-				setState(173);
+				setState(175);
 				((ValueContext)_localctx).functionCall = functionCall();
 
 						((ValueContext)_localctx).state =  ((ValueContext)_localctx).functionCall.state;
 					
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1051,19 +1061,19 @@ public class DBRustParser extends Parser {
 		FunctionCallContext _localctx = new FunctionCallContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_functionCall);
 		try {
-			setState(188);
+			setState(190);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(178);
-				((FunctionCallContext)_localctx).ID = match(ID);
-				setState(179);
-				match(OPENPAR);
 				setState(180);
-				((FunctionCallContext)_localctx).expList = expList(0);
+				((FunctionCallContext)_localctx).ID = match(ID);
 				setState(181);
+				match(OPENPAR);
+				setState(182);
+				((FunctionCallContext)_localctx).expList = expList(0);
+				setState(183);
 				match(CLOSEPAR);
 
 						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn(), I.VOID, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null) }, ((FunctionCallContext)_localctx).expList.l.ToArray() }
@@ -1073,11 +1083,11 @@ public class DBRustParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(184);
-				((FunctionCallContext)_localctx).ID = match(ID);
-				setState(185);
-				match(OPENPAR);
 				setState(186);
+				((FunctionCallContext)_localctx).ID = match(ID);
+				setState(187);
+				match(OPENPAR);
+				setState(188);
 				match(CLOSEPAR);
 
 						_localctx.state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ ((FunctionCallContext)_localctx).ID.GetLine(), ((FunctionCallContext)_localctx).ID.GetColumn(), I.VOID, (((FunctionCallContext)_localctx).ID!=null?((FunctionCallContext)_localctx).ID.getText():null) }, make([]interface{}, 0) }
@@ -1115,7 +1125,7 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(190);
+			setState(192);
 			((MethodsContext)_localctx).printlnCall = printlnCall();
 			 _localctx.state = ((MethodsContext)_localctx).printlnCall.state 
 			}
@@ -1153,13 +1163,13 @@ public class DBRustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(193);
-			((PrintlnCallContext)_localctx).PRINTLN = match(PRINTLN);
-			setState(194);
-			match(OPENPAR);
 			setState(195);
-			((PrintlnCallContext)_localctx).expList = expList(0);
+			((PrintlnCallContext)_localctx).PRINTLN = match(PRINTLN);
 			setState(196);
+			match(OPENPAR);
+			setState(197);
+			((PrintlnCallContext)_localctx).expList = expList(0);
+			setState(198);
 			match(CLOSEPAR);
 
 					_localctx.state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ ((PrintlnCallContext)_localctx).PRINTLN.GetLine(), ((PrintlnCallContext)_localctx).PRINTLN.GetColumn(), I.VOID, "Println" }, ((PrintlnCallContext)_localctx).expList.l.ToArray() } }
@@ -1207,23 +1217,23 @@ public class DBRustParser extends Parser {
 		FunctionContext _localctx = new FunctionContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_function);
 		try {
-			setState(217);
+			setState(219);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(199);
-				match(FN);
-				setState(200);
-				((FunctionContext)_localctx).ID = match(ID);
 				setState(201);
-				match(OPENPAR);
+				match(FN);
 				setState(202);
-				((FunctionContext)_localctx).expList = expList(0);
+				((FunctionContext)_localctx).ID = match(ID);
 				setState(203);
-				match(CLOSEPAR);
+				match(OPENPAR);
 				setState(204);
+				((FunctionContext)_localctx).expList = expList(0);
+				setState(205);
+				match(CLOSEPAR);
+				setState(206);
 				((FunctionContext)_localctx).instructionsBlock = instructionsBlock();
 
 						((FunctionContext)_localctx).state =  I.Function{ I.Instruction{"Function"}, (((FunctionContext)_localctx).ID!=null?((FunctionContext)_localctx).ID.getText():null), ((FunctionContext)_localctx).expList.l.ToArray(), ((FunctionContext)_localctx).instructionsBlock.l.ToArray(), I.VOID };
@@ -1233,21 +1243,21 @@ public class DBRustParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(207);
-				match(FN);
-				setState(208);
-				((FunctionContext)_localctx).ID = match(ID);
 				setState(209);
-				match(OPENPAR);
+				match(FN);
 				setState(210);
-				((FunctionContext)_localctx).expList = expList(0);
+				((FunctionContext)_localctx).ID = match(ID);
 				setState(211);
-				match(CLOSEPAR);
+				match(OPENPAR);
 				setState(212);
-				((FunctionContext)_localctx).instructionsBlock = instructionsBlock();
+				((FunctionContext)_localctx).expList = expList(0);
 				setState(213);
-				match(ARROW);
+				match(CLOSEPAR);
 				setState(214);
+				((FunctionContext)_localctx).instructionsBlock = instructionsBlock();
+				setState(215);
+				match(ARROW);
+				setState(216);
 				((FunctionContext)_localctx).valueType = valueType();
 
 						((FunctionContext)_localctx).state =  I.Function{ I.Instruction{"Function"}, (((FunctionContext)_localctx).ID!=null?((FunctionContext)_localctx).ID.getText():null), ((FunctionContext)_localctx).expList.l.ToArray(), ((FunctionContext)_localctx).instructionsBlock.l.ToArray(), ((FunctionContext)_localctx).valueType.state };
@@ -1292,7 +1302,7 @@ public class DBRustParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00de\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00e0\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\3\2\3\2\3\2\3\3\3\3"+
 		"\3\3\3\3\3\3\3\4\7\4*\n\4\f\4\16\4-\13\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3"+
@@ -1303,35 +1313,35 @@ public class DBRustParser extends Parser {
 		"\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\7\t\u0082\n\t\f\t\16\t\u0085\13\t\3\n\3"+
 		"\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u0091\n\n\3\13\3\13\3\13\3\13\3"+
 		"\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u009f\n\13\3\f\3\f\3\f\3\f"+
-		"\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00b3\n\f"+
-		"\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00bf\n\r\3\16\3\16\3\16"+
-		"\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20"+
-		"\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\5\20\u00dc\n\20\3\20"+
-		"\2\4\16\20\21\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36\2\2\2\u00ea\2 \3"+
-		"\2\2\2\4#\3\2\2\2\6+\3\2\2\2\bC\3\2\2\2\nc\3\2\2\2\fe\3\2\2\2\16j\3\2"+
-		"\2\2\20x\3\2\2\2\22\u0090\3\2\2\2\24\u009e\3\2\2\2\26\u00b2\3\2\2\2\30"+
-		"\u00be\3\2\2\2\32\u00c0\3\2\2\2\34\u00c3\3\2\2\2\36\u00db\3\2\2\2 !\5"+
-		"\6\4\2!\"\b\2\1\2\"\3\3\2\2\2#$\7\26\2\2$%\5\6\4\2%&\7\27\2\2&\'\b\3\1"+
-		"\2\'\5\3\2\2\2(*\5\b\5\2)(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,.\3\2"+
-		"\2\2-+\3\2\2\2./\b\4\1\2/\7\3\2\2\2\60\61\5\n\6\2\61\62\7\33\2\2\62\63"+
-		"\b\5\1\2\63D\3\2\2\2\64\65\5\f\7\2\65\66\7\33\2\2\66\67\b\5\1\2\67D\3"+
-		"\2\2\289\5\32\16\29:\7\33\2\2:;\b\5\1\2;D\3\2\2\2<=\5\30\r\2=>\7\33\2"+
-		"\2>?\b\5\1\2?D\3\2\2\2@A\5\36\20\2AB\b\5\1\2BD\3\2\2\2C\60\3\2\2\2C\64"+
-		"\3\2\2\2C8\3\2\2\2C<\3\2\2\2C@\3\2\2\2D\t\3\2\2\2EF\7\3\2\2FG\7\21\2\2"+
-		"GH\7\32\2\2HI\5\24\13\2IJ\7\35\2\2JK\5\20\t\2KL\b\6\1\2Ld\3\2\2\2MN\7"+
-		"\3\2\2NO\7\4\2\2OP\7\21\2\2PQ\7\32\2\2QR\5\24\13\2RS\7\35\2\2ST\5\20\t"+
-		"\2TU\b\6\1\2Ud\3\2\2\2VW\7\3\2\2WX\7\4\2\2XY\7\21\2\2YZ\7\35\2\2Z[\5\20"+
-		"\t\2[\\\b\6\1\2\\d\3\2\2\2]^\7\3\2\2^_\7\21\2\2_`\7\35\2\2`a\5\20\t\2"+
-		"ab\b\6\1\2bd\3\2\2\2cE\3\2\2\2cM\3\2\2\2cV\3\2\2\2c]\3\2\2\2d\13\3\2\2"+
-		"\2ef\7\21\2\2fg\7\35\2\2gh\5\20\t\2hi\b\7\1\2i\r\3\2\2\2jk\b\b\1\2kl\5"+
-		"\20\t\2lm\b\b\1\2mu\3\2\2\2no\f\4\2\2op\7\34\2\2pq\5\20\t\2qr\b\b\1\2"+
-		"rt\3\2\2\2sn\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2v\17\3\2\2\2wu\3\2\2"+
-		"\2xy\b\t\1\2yz\5\26\f\2z{\b\t\1\2{\u0083\3\2\2\2|}\f\4\2\2}~\5\22\n\2"+
-		"~\177\5\20\t\5\177\u0080\b\t\1\2\u0080\u0082\3\2\2\2\u0081|\3\2\2\2\u0082"+
-		"\u0085\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\21\3\2\2"+
-		"\2\u0085\u0083\3\2\2\2\u0086\u0087\7\36\2\2\u0087\u0091\b\n\1\2\u0088"+
-		"\u0089\7\37\2\2\u0089\u0091\b\n\1\2\u008a\u008b\7 \2\2\u008b\u0091\b\n"+
-		"\1\2\u008c\u008d\7!\2\2\u008d\u0091\b\n\1\2\u008e\u008f\7\"\2\2\u008f"+
+		"\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00b5"+
+		"\n\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00c1\n\r\3\16\3\16\3"+
+		"\16\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3"+
+		"\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\5\20\u00de\n\20"+
+		"\3\20\2\4\16\20\21\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36\2\2\2\u00ed"+
+		"\2 \3\2\2\2\4#\3\2\2\2\6+\3\2\2\2\bC\3\2\2\2\nc\3\2\2\2\fe\3\2\2\2\16"+
+		"j\3\2\2\2\20x\3\2\2\2\22\u0090\3\2\2\2\24\u009e\3\2\2\2\26\u00b4\3\2\2"+
+		"\2\30\u00c0\3\2\2\2\32\u00c2\3\2\2\2\34\u00c5\3\2\2\2\36\u00dd\3\2\2\2"+
+		" !\5\6\4\2!\"\b\2\1\2\"\3\3\2\2\2#$\7\26\2\2$%\5\6\4\2%&\7\27\2\2&\'\b"+
+		"\3\1\2\'\5\3\2\2\2(*\5\b\5\2)(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,"+
+		".\3\2\2\2-+\3\2\2\2./\b\4\1\2/\7\3\2\2\2\60\61\5\n\6\2\61\62\7\33\2\2"+
+		"\62\63\b\5\1\2\63D\3\2\2\2\64\65\5\f\7\2\65\66\7\33\2\2\66\67\b\5\1\2"+
+		"\67D\3\2\2\289\5\32\16\29:\7\33\2\2:;\b\5\1\2;D\3\2\2\2<=\5\30\r\2=>\7"+
+		"\33\2\2>?\b\5\1\2?D\3\2\2\2@A\5\36\20\2AB\b\5\1\2BD\3\2\2\2C\60\3\2\2"+
+		"\2C\64\3\2\2\2C8\3\2\2\2C<\3\2\2\2C@\3\2\2\2D\t\3\2\2\2EF\7\3\2\2FG\7"+
+		"\21\2\2GH\7\32\2\2HI\5\24\13\2IJ\7\35\2\2JK\5\20\t\2KL\b\6\1\2Ld\3\2\2"+
+		"\2MN\7\3\2\2NO\7\4\2\2OP\7\21\2\2PQ\7\32\2\2QR\5\24\13\2RS\7\35\2\2ST"+
+		"\5\20\t\2TU\b\6\1\2Ud\3\2\2\2VW\7\3\2\2WX\7\4\2\2XY\7\21\2\2YZ\7\35\2"+
+		"\2Z[\5\20\t\2[\\\b\6\1\2\\d\3\2\2\2]^\7\3\2\2^_\7\21\2\2_`\7\35\2\2`a"+
+		"\5\20\t\2ab\b\6\1\2bd\3\2\2\2cE\3\2\2\2cM\3\2\2\2cV\3\2\2\2c]\3\2\2\2"+
+		"d\13\3\2\2\2ef\7\21\2\2fg\7\35\2\2gh\5\20\t\2hi\b\7\1\2i\r\3\2\2\2jk\b"+
+		"\b\1\2kl\5\20\t\2lm\b\b\1\2mu\3\2\2\2no\f\4\2\2op\7\34\2\2pq\5\20\t\2"+
+		"qr\b\b\1\2rt\3\2\2\2sn\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2v\17\3\2\2"+
+		"\2wu\3\2\2\2xy\b\t\1\2yz\5\26\f\2z{\b\t\1\2{\u0083\3\2\2\2|}\f\4\2\2}"+
+		"~\5\22\n\2~\177\5\20\t\5\177\u0080\b\t\1\2\u0080\u0082\3\2\2\2\u0081|"+
+		"\3\2\2\2\u0082\u0085\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084"+
+		"\21\3\2\2\2\u0085\u0083\3\2\2\2\u0086\u0087\7\36\2\2\u0087\u0091\b\n\1"+
+		"\2\u0088\u0089\7\37\2\2\u0089\u0091\b\n\1\2\u008a\u008b\7 \2\2\u008b\u0091"+
+		"\b\n\1\2\u008c\u008d\7!\2\2\u008d\u0091\b\n\1\2\u008e\u008f\7\"\2\2\u008f"+
 		"\u0091\b\n\1\2\u0090\u0086\3\2\2\2\u0090\u0088\3\2\2\2\u0090\u008a\3\2"+
 		"\2\2\u0090\u008c\3\2\2\2\u0090\u008e\3\2\2\2\u0091\23\3\2\2\2\u0092\u0093"+
 		"\7\7\2\2\u0093\u009f\b\13\1\2\u0094\u0095\7\b\2\2\u0095\u009f\b\13\1\2"+
@@ -1339,28 +1349,28 @@ public class DBRustParser extends Parser {
 		"\b\13\1\2\u009a\u009b\7\13\2\2\u009b\u009f\b\13\1\2\u009c\u009d\7\f\2"+
 		"\2\u009d\u009f\b\13\1\2\u009e\u0092\3\2\2\2\u009e\u0094\3\2\2\2\u009e"+
 		"\u0096\3\2\2\2\u009e\u0098\3\2\2\2\u009e\u009a\3\2\2\2\u009e\u009c\3\2"+
-		"\2\2\u009f\25\3\2\2\2\u00a0\u00a1\7\r\2\2\u00a1\u00b3\b\f\1\2\u00a2\u00a3"+
-		"\7\16\2\2\u00a3\u00b3\b\f\1\2\u00a4\u00a5\7\17\2\2\u00a5\u00b3\b\f\1\2"+
-		"\u00a6\u00a7\7\20\2\2\u00a7\u00b3\b\f\1\2\u00a8\u00a9\7\22\2\2\u00a9\u00b3"+
-		"\b\f\1\2\u00aa\u00ab\7\23\2\2\u00ab\u00b3\b\f\1\2\u00ac\u00ad\5\32\16"+
-		"\2\u00ad\u00ae\b\f\1\2\u00ae\u00b3\3\2\2\2\u00af\u00b0\5\30\r\2\u00b0"+
-		"\u00b1\b\f\1\2\u00b1\u00b3\3\2\2\2\u00b2\u00a0\3\2\2\2\u00b2\u00a2\3\2"+
-		"\2\2\u00b2\u00a4\3\2\2\2\u00b2\u00a6\3\2\2\2\u00b2\u00a8\3\2\2\2\u00b2"+
-		"\u00aa\3\2\2\2\u00b2\u00ac\3\2\2\2\u00b2\u00af\3\2\2\2\u00b3\27\3\2\2"+
-		"\2\u00b4\u00b5\7\21\2\2\u00b5\u00b6\7\24\2\2\u00b6\u00b7\5\16\b\2\u00b7"+
-		"\u00b8\7\25\2\2\u00b8\u00b9\b\r\1\2\u00b9\u00bf\3\2\2\2\u00ba\u00bb\7"+
-		"\21\2\2\u00bb\u00bc\7\24\2\2\u00bc\u00bd\7\25\2\2\u00bd\u00bf\b\r\1\2"+
-		"\u00be\u00b4\3\2\2\2\u00be\u00ba\3\2\2\2\u00bf\31\3\2\2\2\u00c0\u00c1"+
-		"\5\34\17\2\u00c1\u00c2\b\16\1\2\u00c2\33\3\2\2\2\u00c3\u00c4\7\5\2\2\u00c4"+
-		"\u00c5\7\24\2\2\u00c5\u00c6\5\16\b\2\u00c6\u00c7\7\25\2\2\u00c7\u00c8"+
-		"\b\17\1\2\u00c8\35\3\2\2\2\u00c9\u00ca\7\6\2\2\u00ca\u00cb\7\21\2\2\u00cb"+
-		"\u00cc\7\24\2\2\u00cc\u00cd\5\16\b\2\u00cd\u00ce\7\25\2\2\u00ce\u00cf"+
-		"\5\4\3\2\u00cf\u00d0\b\20\1\2\u00d0\u00dc\3\2\2\2\u00d1\u00d2\7\6\2\2"+
-		"\u00d2\u00d3\7\21\2\2\u00d3\u00d4\7\24\2\2\u00d4\u00d5\5\16\b\2\u00d5"+
-		"\u00d6\7\25\2\2\u00d6\u00d7\5\4\3\2\u00d7\u00d8\7\30\2\2\u00d8\u00d9\5"+
-		"\24\13\2\u00d9\u00da\b\20\1\2\u00da\u00dc\3\2\2\2\u00db\u00c9\3\2\2\2"+
-		"\u00db\u00d1\3\2\2\2\u00dc\37\3\2\2\2\f+Ccu\u0083\u0090\u009e\u00b2\u00be"+
-		"\u00db";
+		"\2\2\u009f\25\3\2\2\2\u00a0\u00a1\7\r\2\2\u00a1\u00b5\b\f\1\2\u00a2\u00a3"+
+		"\7\16\2\2\u00a3\u00b5\b\f\1\2\u00a4\u00a5\7\17\2\2\u00a5\u00b5\b\f\1\2"+
+		"\u00a6\u00a7\7\20\2\2\u00a7\u00b5\b\f\1\2\u00a8\u00a9\7\22\2\2\u00a9\u00b5"+
+		"\b\f\1\2\u00aa\u00ab\7\23\2\2\u00ab\u00b5\b\f\1\2\u00ac\u00ad\7\21\2\2"+
+		"\u00ad\u00b5\b\f\1\2\u00ae\u00af\5\32\16\2\u00af\u00b0\b\f\1\2\u00b0\u00b5"+
+		"\3\2\2\2\u00b1\u00b2\5\30\r\2\u00b2\u00b3\b\f\1\2\u00b3\u00b5\3\2\2\2"+
+		"\u00b4\u00a0\3\2\2\2\u00b4\u00a2\3\2\2\2\u00b4\u00a4\3\2\2\2\u00b4\u00a6"+
+		"\3\2\2\2\u00b4\u00a8\3\2\2\2\u00b4\u00aa\3\2\2\2\u00b4\u00ac\3\2\2\2\u00b4"+
+		"\u00ae\3\2\2\2\u00b4\u00b1\3\2\2\2\u00b5\27\3\2\2\2\u00b6\u00b7\7\21\2"+
+		"\2\u00b7\u00b8\7\24\2\2\u00b8\u00b9\5\16\b\2\u00b9\u00ba\7\25\2\2\u00ba"+
+		"\u00bb\b\r\1\2\u00bb\u00c1\3\2\2\2\u00bc\u00bd\7\21\2\2\u00bd\u00be\7"+
+		"\24\2\2\u00be\u00bf\7\25\2\2\u00bf\u00c1\b\r\1\2\u00c0\u00b6\3\2\2\2\u00c0"+
+		"\u00bc\3\2\2\2\u00c1\31\3\2\2\2\u00c2\u00c3\5\34\17\2\u00c3\u00c4\b\16"+
+		"\1\2\u00c4\33\3\2\2\2\u00c5\u00c6\7\5\2\2\u00c6\u00c7\7\24\2\2\u00c7\u00c8"+
+		"\5\16\b\2\u00c8\u00c9\7\25\2\2\u00c9\u00ca\b\17\1\2\u00ca\35\3\2\2\2\u00cb"+
+		"\u00cc\7\6\2\2\u00cc\u00cd\7\21\2\2\u00cd\u00ce\7\24\2\2\u00ce\u00cf\5"+
+		"\16\b\2\u00cf\u00d0\7\25\2\2\u00d0\u00d1\5\4\3\2\u00d1\u00d2\b\20\1\2"+
+		"\u00d2\u00de\3\2\2\2\u00d3\u00d4\7\6\2\2\u00d4\u00d5\7\21\2\2\u00d5\u00d6"+
+		"\7\24\2\2\u00d6\u00d7\5\16\b\2\u00d7\u00d8\7\25\2\2\u00d8\u00d9\5\4\3"+
+		"\2\u00d9\u00da\7\30\2\2\u00da\u00db\5\24\13\2\u00db\u00dc\b\20\1\2\u00dc"+
+		"\u00de\3\2\2\2\u00dd\u00cb\3\2\2\2\u00dd\u00d3\3\2\2\2\u00de\37\3\2\2"+
+		"\2\f+Ccu\u0083\u0090\u009e\u00b4\u00c0\u00dd";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

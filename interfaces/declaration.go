@@ -14,14 +14,14 @@ type Declaration struct {
 // *INSTRUCTION
 func (declaration Declaration) Execute(scope Scope) {
 	// VERIFICAR TIPOS
-	var value IValue = declaration.Expression.GetValue()
+	var value IValue = declaration.Expression.GetValue(scope)
 
-	if scope.GetVariable(declaration.Id).GetType() == UNDEF {
-		if declaration.Type == value.GetType() || declaration.Type == UNDEF {
+	if scope.GetVariable(declaration.Id).GetType(scope) == UNDEF {
+		if declaration.Type == value.GetType(scope) || declaration.Type == UNDEF {
 			scope.AddVariable(declaration.Id, value, declaration.Mut)
 		} else {
 			Errors = append(Errors, Error{
-				fmt.Sprintf("Cannot assign type %s to %s", value.GetType().String(), declaration.Type.String()),
+				fmt.Sprintf("Cannot assign type %s to %s", value.GetType(scope).String(), declaration.Type.String()),
 				value.GetLine(),
 				value.GetColumn(),
 			})

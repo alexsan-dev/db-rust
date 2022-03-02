@@ -1,13 +1,16 @@
 package interfaces
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 // VALOR BASE
 type Value struct {
 	Line   int
 	Column int
 	Type   ValueType
-	Value  string
+	Value  interface{}
 }
 
 type ValueMut struct {
@@ -18,8 +21,8 @@ type ValueMut struct {
 type IValue interface {
 	GetLine() int
 	GetColumn() int
-	GetValue() interface{}
-	GetType() ValueType
+	GetValue(scope Scope) interface{}
+	GetType(Scope Scope) ValueType
 }
 
 // OBTENER LINEA
@@ -29,29 +32,58 @@ func (sym Value) GetLine() int {
 
 // OBTENER COLUMNA
 func (sym Value) GetColumn() int {
-	return sym.Column
+	return sym.Column + 1
 }
 
 // OBTENER VALOR DE SIMBOLO
-func (sym Value) GetValue() interface{} {
+func (sym Value) GetValue(scope Scope) interface{} {
 	if sym.Type == INTEGER {
-		intVar, _ := strconv.Atoi(sym.Value)
-		return intVar
+		switch value := sym.Value.(type) {
+		case string:
+			floatVar, _ := strconv.Atoi(value)
+			return floatVar
+		case float64:
+			return value
+		default:
+			intVar, _ := strconv.Atoi(fmt.Sprintf("%v", value))
+			return intVar
+		}
 	} else if sym.Type == FLOAT {
-		floatVar, _ := strconv.ParseFloat(sym.Value, 64)
-		return floatVar
+		switch value := sym.Value.(type) {
+		case string:
+			floatVar, _ := strconv.ParseFloat(value, 64)
+			return floatVar
+		case float64:
+			return value
+		default:
+			floatVar, _ := strconv.ParseFloat(fmt.Sprintf("%v", value), 64)
+			return floatVar
+		}
 	} else if sym.Type == CHAR {
-		return sym.Value[0]
+		switch value := sym.Value.(type) {
+		case string:
+			return value[0]
+		case byte:
+			return value
+		default:
+			return fmt.Sprintf("%v", sym.Value)[0]
+		}
 	} else if sym.Type == BOOL {
-		return sym.Value == "true"
+		return sym.Value == "true" || sym.Value == true
+	} else if sym.Type == ID {
+		return scope.GetVariable(fmt.Sprintf("%v", sym.Value)).GetValue(scope)
 	} else {
 		return sym.Value
 	}
 }
 
 // OBTENER EL TIPO DE LA VARIABLE
-func (sym Value) GetType() ValueType {
-	return sym.Type
+func (sym Value) GetType(scope Scope) ValueType {
+	if sym.Type != ID {
+		return sym.Type
+	} else {
+		return scope.GetVariable(fmt.Sprintf("%v", sym.Value)).GetType(scope)
+	}
 }
 
 // ENUMS DE TIPO
@@ -66,6 +98,7 @@ const (
 	STRING
 	UNDEF
 	VOID
+	ID
 )
 
 func (vType ValueType) String() string {
@@ -86,6 +119,8 @@ func (vType ValueType) String() string {
 		return "UNDEFINED"
 	case VOID:
 		return "VOID"
+	case ID:
+		return "ID"
 	default:
 		return "UNDEFINED"
 	}

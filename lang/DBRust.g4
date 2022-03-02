@@ -178,22 +178,25 @@ valueType
 value
 	returns[I.IValue state]:
 	NUMBER { 
-		$state = I.Value{ $NUMBER.line, $NUMBER.GetColumn(), I.INTEGER, $NUMBER.text } 
+		$state = I.Value{ $NUMBER.GetLine(), $NUMBER.GetColumn(), I.INTEGER, $NUMBER.text } 
 	}
 	| FLOAT {	
-		$state = I.Value{ $FLOAT.line, $FLOAT.GetColumn(), I.FLOAT, $FLOAT.text } 
+		$state = I.Value{ $FLOAT.GetLine(), $FLOAT.GetColumn(), I.FLOAT, $FLOAT.text } 
 	}
 	| STRING { 
-		$state = I.Value{ $STRING.line, $STRING.GetColumn(), I.STRING, $STRING.text[1:len($STRING.text)-1] } 
+		$state = I.Value{ $STRING.GetLine(), $STRING.GetColumn(), I.STR, $STRING.text[1:len($STRING.text)-1] } 
 	}
 	| CHAR { 
-		$state = I.Value{ $CHAR.line, $CHAR.GetColumn(), I.CHAR, $CHAR.text[1:len($CHAR.text)-1] } 
+		$state = I.Value{ $CHAR.GetLine(), $CHAR.GetColumn(), I.CHAR, $CHAR.text[1:len($CHAR.text)-1] } 
 	}
 	| BFALSE { 
-		$state = I.Value{ $BFALSE.line, $BFALSE.GetColumn(), I.BOOL, $BFALSE.text } 
+		$state = I.Value{ $BFALSE.GetLine(), $BFALSE.GetColumn(), I.BOOL, false } 
 	}
 	| BTRUE { 
-		$state = I.Value{ $BTRUE.line, $BTRUE.GetColumn(), I.BOOL, $BTRUE.text } 
+		$state = I.Value{ $BTRUE.GetLine(), $BTRUE.GetColumn(), I.BOOL, true } 
+		}
+	| ID { 
+		$state = I.Value{ $ID.GetLine(), $ID.GetColumn(), I.ID, $ID.text } 
 	}
 	| methods {
 		$state = $methods.state;

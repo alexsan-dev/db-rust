@@ -13,11 +13,11 @@ type Assignment struct {
 func (assign Assignment) Execute(scope Scope) {
 	// OBTENER VARIABLES
 	var scopeVar IValue = scope.GetVariable(assign.Id)
-	var expValue IValue = assign.Expression.GetValue()
+	var expValue IValue = assign.Expression.GetValue(scope)
 
 	// VERIFICAR TIPOS
-	if scopeVar.GetType() != UNDEF {
-		if scopeVar.GetType() == expValue.GetType() {
+	if scopeVar.GetType(scope) != UNDEF {
+		if scopeVar.GetType(scope) == expValue.GetType(scope) {
 			if scopeVar.(ValueMut).Mut {
 				scope.SetVariable(assign.Id, expValue)
 			} else {
@@ -29,7 +29,7 @@ func (assign Assignment) Execute(scope Scope) {
 			}
 		} else {
 			Errors = append(Errors, Error{
-				fmt.Sprintf("Cannot assign type %s to %s", expValue.GetType().String(), scopeVar.GetType().String()),
+				fmt.Sprintf("Cannot assign type %s to %s", expValue.GetType(scope).String(), scopeVar.GetType(scope).String()),
 				expValue.GetLine(),
 				expValue.GetColumn(),
 			})

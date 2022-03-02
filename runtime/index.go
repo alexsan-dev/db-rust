@@ -27,13 +27,22 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 
 	// EJECUTAR INSTRUCCIONES
 	for _, s := range ctx.GetList().ToArray() {
-		switch s.(type) {
+		switch instruction := s.(type) {
+		// EJECUTAR DECLARACIONES
 		case I.Declaration:
-			s.(I.Declaration).Execute(globalScope)
+			instruction.Execute(globalScope)
+
+		// EJECUTAR ASIGNACIONES
 		case I.Assignment:
-			s.(I.Assignment).Execute(globalScope)
+			instruction.Execute(globalScope)
+
+		// EJECUTAR LLAMADAS A FUNCIONES
+		case I.FunctionCall:
+			instruction.Execute(globalScope)
+
+		// EJECUTAR FUNCIONES NATIVAS
 		case I.PrintlnCall:
-			s.(I.PrintlnCall).Execute(globalScope)
+			instruction.Execute(globalScope)
 		}
 	}
 

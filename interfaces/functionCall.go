@@ -11,8 +11,8 @@ type IFunctionCall interface {
 	Execute(scope Scope)
 	GetLine() int
 	GetColumn() int
-	GetValue() interface{}
-	GetType() ValueType
+	GetValue(scope Scope) interface{}
+	GetType(scope Scope) ValueType
 }
 
 // *VALUE OBTENER LINEA
@@ -29,11 +29,11 @@ func (fn FunctionCall) GetColumn() int {
 func (fn FunctionCall) Execute(scope Scope) {}
 
 // *VALUE -> OBTENER VALOR
-func (fn FunctionCall) GetValue() interface{} {
+func (fn FunctionCall) GetValue(scope Scope) interface{} {
 	return ""
 }
 
 // *VALUE -> OBTENER TIPO
-func (fn FunctionCall) GetType() ValueType {
+func (fn FunctionCall) GetType(scope Scope) ValueType {
 	return INTEGER
 }
