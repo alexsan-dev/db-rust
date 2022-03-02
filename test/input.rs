@@ -1,2 +1,2 @@
-let b1:bool = "hola" == "hola";
+let b1:bool = 2.1 > 2;
 println!(b1);
