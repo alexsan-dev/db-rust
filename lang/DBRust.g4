@@ -123,6 +123,24 @@ expression
 			Operation: $expOp.state,
 		} 
 	}
+	| NOT exp = expression {
+		exp := $exp.state
+		$state = I.Expression{ 
+			Value: nil, 
+			Left: &exp,
+			Right: nil, 
+			Operation: I.UNOT,
+		} 
+	}
+	| OPENPAR exp = expression CLOSEPAR {
+		exp := $exp.state
+		$state = I.Expression{ 
+			Value: nil, 
+			Left: &exp,
+			Right: nil, 
+			Operation: I.NOOP,
+		} 
+	}
 	| value { 
 		sym := $value.state
 		$state = I.Expression{
@@ -150,10 +168,27 @@ expOp
 	}
 	| SUB {	
 		$state = I.SUB 
+	}
+	| NOTEQUALS {	
+			$state = I.NOTEQUALS 
+	}
+	| MOREOREQUALS {	
+			$state = I.MOREOREQUALS 
+	}
+	| LESSOREQUALS {	
+			$state = I.LESSOREQUALS 
+	}
+	| EQUALSEQUALS {	
+			$state = I.EQUALSEQUALS 
+	}
+	| MAJOR {	
+			$state = I.MAJOR 
+	}
+	| MINOR {	
+				$state = I.MINOR 
 	};
 
-// TIPOS DE DATOS
-valueType
+valueType // TIPOS DE DATOS
 	returns[I.ValueType state]:
 	I64 { 
 		$state = I.INTEGER 

@@ -40,9 +40,11 @@ func (sym Value) GetValue(scope Scope) interface{} {
 	if sym.Type == INTEGER {
 		switch value := sym.Value.(type) {
 		case string:
-			floatVar, _ := strconv.Atoi(value)
-			return floatVar
+			intVar, _ := strconv.Atoi(value)
+			return int64(intVar)
 		case float64:
+			return int64(value)
+		case int64:
 			return value
 		default:
 			intVar, _ := strconv.Atoi(fmt.Sprintf("%v", value))
@@ -55,6 +57,8 @@ func (sym Value) GetValue(scope Scope) interface{} {
 			return floatVar
 		case float64:
 			return value
+		case int64:
+			return float64(value)
 		default:
 			floatVar, _ := strconv.ParseFloat(fmt.Sprintf("%v", value), 64)
 			return floatVar
@@ -136,6 +140,15 @@ const (
 	MOD
 	ADD
 	SUB
+	UNOT
+	NOTEQUALS
+	EQUALSEQUALS
+	MOREOREQUALS
+	LESSOREQUALS
+	MAJOR
+	MINOR
+	AND
+	OR
 )
 
 func (oper Operation) String() string {
@@ -152,6 +165,24 @@ func (oper Operation) String() string {
 		return "+"
 	case SUB:
 		return "-"
+	case UNOT:
+		return "!"
+	case NOTEQUALS:
+		return "!="
+	case EQUALSEQUALS:
+		return "=="
+	case MOREOREQUALS:
+		return ">="
+	case LESSOREQUALS:
+		return "<="
+	case MAJOR:
+		return ">"
+	case MINOR:
+		return "<"
+	case AND:
+		return "&&"
+	case OR:
+		return "||"
 	default:
 		return " "
 	}

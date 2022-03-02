@@ -15,115 +15,263 @@ type Expression struct {
 
 // *VALUE
 func (exp Expression) GetValue(scope Scope) IValue {
-	// OBTENER VALORES
-	var sym IValue = Value{0, 0, UNDEF, ""}
+	// VALORES DE SALIDA
+	var valueType ValueType = UNDEF
+	var finalValue interface{}
 
 	// VALOR UNICO
 	if exp.Value != nil {
-		sym = *exp.Value
+		return *exp.Value
 	} else {
-		// VALORES DE OPERADORES
-		var left, right = exp.Left.GetValue(scope), exp.Right.GetValue(scope)
-		var rType, rVal = right.GetType(scope), right.GetValue(scope)
+		// VARIABLES DE ENTRADA
+		var left = exp.Left.GetValue(scope)
 		var lType, lVal = left.GetType(scope), left.GetValue(scope)
 		var lLine, lCol = left.GetLine(), left.GetColumn()
 
-		// TABLA DE OPERACIONES
-		switch exp.Operation {
-		case MUL:
-			if lType == INTEGER {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, INTEGER, (lVal.(int) * rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, float64(lVal.(int)) * rVal.(float64)}
-				}
-			} else if lType == FLOAT {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, FLOAT, lVal.(float64) * float64(rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, lVal.(float64) * rVal.(float64)}
-				}
+		// OPERACIONES UNARIAS
+		if exp.Operation == UNOT {
+			if lType == BOOL {
+				valueType, finalValue = BOOL, !lVal.(bool)
 			}
-		case DIV:
-			if lType == INTEGER {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, INTEGER, (lVal.(int) / rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, float64(lVal.(int)) / rVal.(float64)}
+		} else {
+			// VALORES DE OPERADORES
+			var right = exp.Right.GetValue(scope)
+			var rType, rVal = right.GetType(scope), right.GetValue(scope)
+
+			// TABLA DE OPERACIONES
+			switch exp.Operation {
+			// SOLO REASIGNAR EXPRESION
+			case NOOP:
+				valueType, finalValue = lType, lVal
+
+			// ALGEBRAICOS
+			case MUL:
+				if lType == INTEGER {
+					if rType == INTEGER {
+						valueType, finalValue = INTEGER, (lVal.(int64) * rVal.(int64))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, float64(lVal.(int64))*rVal.(float64)
+					}
+				} else if lType == FLOAT {
+					if rType == INTEGER {
+						valueType, finalValue = FLOAT, lVal.(float64)*float64(rVal.(int64))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, lVal.(float64)*rVal.(float64)
+					}
 				}
-			} else if lType == FLOAT {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, FLOAT, lVal.(float64) / float64(rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, lVal.(float64) / rVal.(float64)}
+			case DIV:
+				if lType == INTEGER {
+					if rType == INTEGER {
+						valueType, finalValue = INTEGER, (lVal.(int64) / rVal.(int64))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, float64(lVal.(int64))/rVal.(float64)
+					}
+				} else if lType == FLOAT {
+					if rType == INTEGER {
+						valueType, finalValue = FLOAT, lVal.(float64)/float64(rVal.(int64))
+
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, lVal.(float64)/rVal.(float64)
+					}
 				}
-			}
-		case MOD:
-			if lType == INTEGER {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, INTEGER, (lVal.(int) % rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, (math.Mod((math.Log10(float64(lVal.(int))) / math.Log10(rVal.(float64))), 1.0))}
+			case MOD:
+				if lType == INTEGER {
+					if rType == INTEGER {
+						valueType, finalValue = INTEGER, (lVal.(int64) % rVal.(int64))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, (math.Mod((math.Log10(float64(lVal.(int64))) / math.Log10(rVal.(float64))), 1.0))
+					}
+				} else if lType == FLOAT {
+					if rType == INTEGER {
+						valueType, finalValue = FLOAT, (math.Mod(lVal.(float64), float64(rVal.(int64))))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, (math.Mod(lVal.(float64), rVal.(float64)))
+					}
 				}
-			} else if lType == FLOAT {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, FLOAT, (math.Mod(lVal.(float64), float64(rVal.(int))))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, (math.Mod(lVal.(float64), rVal.(float64)))}
+			case ADD:
+				if lType == INTEGER {
+					if rType == INTEGER {
+						valueType, finalValue = INTEGER, (lVal.(int64) + rVal.(int64))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, (float64(lVal.(int64)) + rVal.(float64))
+					}
+				} else if lType == FLOAT {
+					if rType == INTEGER {
+						valueType, finalValue = FLOAT, (lVal.(float64) + float64(rVal.(int64)))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, (lVal.(float64) + rVal.(float64))
+					}
+				} else if lType == STR {
+					if rType == STR {
+						valueType, finalValue = STR, lVal.(string)+rVal.(string)
+					}
+				} else if lType == STRING {
+					if rType == STR || rType == STRING {
+						valueType, finalValue = STR, lVal.(string)+rVal.(string)
+					}
 				}
-			}
-		case ADD:
-			if lType == INTEGER {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, INTEGER, (lVal.(int) + rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, (float64(lVal.(int)) + rVal.(float64))}
+			case SUB:
+				if lType == INTEGER {
+					if rType == INTEGER {
+						valueType, finalValue = INTEGER, (lVal.(int64) - rVal.(int64))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, (float64(lVal.(int64)) - rVal.(float64))
+					}
+				} else if lType == FLOAT {
+					if rType == INTEGER {
+						valueType, finalValue = FLOAT, (lVal.(float64) - float64(rVal.(int64)))
+					} else if rType == FLOAT {
+						valueType, finalValue = FLOAT, (lVal.(float64) - rVal.(float64))
+					}
 				}
-			} else if lType == FLOAT {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, FLOAT, (lVal.(float64) + float64(rVal.(int)))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, (lVal.(float64) + rVal.(float64))}
+
+			// RELACIONALES
+			case NOTEQUALS:
+				valueType, finalValue = BOOL, lVal != rVal
+
+			case EQUALSEQUALS:
+				valueType, finalValue = BOOL, lVal == rVal
+
+			case AND:
+				if lType == BOOL && rType == BOOL {
+					valueType, finalValue = BOOL, lVal.(bool) && rVal.(bool)
 				}
-			} else if lType == STR {
-				if rType == STR {
-					sym = Value{lLine, lCol, STR, lVal.(string) + rVal.(string)}
+
+			case OR:
+				if lType == BOOL && rType == BOOL {
+					valueType, finalValue = BOOL, lVal.(bool) || rVal.(bool)
 				}
-			} else if lType == STRING {
-				if rType == STR || rType == STRING {
-					sym = Value{lLine, lCol, STR, lVal.(string) + rVal.(string)}
+
+			case MOREOREQUALS:
+				if (lType == FLOAT || lType == INTEGER) && (rType == FLOAT || rType == INTEGER) || (lType == STRING && rType == STRING) {
+					valueType = BOOL
+					switch lv := lVal.(type) {
+					case float64:
+						switch rv := rVal.(type) {
+						case float64:
+							finalValue = lv >= rv
+
+						case int64:
+							finalValue = lv >= float64(rv)
+						}
+
+					case int64:
+						switch rv := rVal.(type) {
+						case float64:
+							finalValue = float64(lv) >= rv
+
+						case int64:
+							finalValue = lv >= int64(rv)
+						}
+
+					case string:
+						if rType == STR {
+							finalValue = lv >= rVal.(string)
+						}
+					}
 				}
-			}
-		case SUB:
-			if lType == INTEGER {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, INTEGER, (lVal.(int) - rVal.(int))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, (float64(lVal.(int)) - rVal.(float64))}
+
+			case LESSOREQUALS:
+				if (lType == FLOAT || lType == INTEGER) && (rType == FLOAT || rType == INTEGER) || (lType == STRING && rType == STRING) {
+					valueType = BOOL
+					switch lv := lVal.(type) {
+					case float64:
+						switch rv := rVal.(type) {
+						case float64:
+							finalValue = lv <= rv
+
+						case int64:
+							finalValue = lv <= float64(rv)
+						}
+
+					case int64:
+						switch rv := rVal.(type) {
+						case float64:
+							finalValue = float64(lv) <= rv
+
+						case int64:
+							finalValue = lv <= rv
+						}
+
+					case string:
+						if rType == STR {
+							finalValue = lv <= rVal.(string)
+						}
+					}
 				}
-			} else if lType == FLOAT {
-				if rType == INTEGER {
-					sym = Value{lLine, lCol, FLOAT, (lVal.(float64) - float64(rVal.(int)))}
-				} else if rType == FLOAT {
-					sym = Value{lLine, lCol, FLOAT, (lVal.(float64) - rVal.(float64))}
+
+			case MAJOR:
+				if (lType == FLOAT || lType == INTEGER) && (rType == FLOAT || rType == INTEGER) || (lType == STRING && rType == STRING) {
+					valueType = BOOL
+					switch lv := lVal.(type) {
+					case float64:
+						switch rv := rVal.(type) {
+						case float64:
+
+							finalValue = lv > rv
+						case int64:
+							finalValue = lv > float64(rv)
+						}
+
+					case int64:
+						switch rv := rVal.(type) {
+						case float64:
+
+							finalValue = float64(lv) > rv
+						case int64:
+							finalValue = lv > rv
+						}
+
+					case string:
+						if rType == STR {
+							finalValue = lv > rVal.(string)
+						}
+					}
+				}
+
+			case MINOR:
+				if (lType == FLOAT || lType == INTEGER) && (rType == FLOAT || rType == INTEGER) || (lType == STRING && rType == STRING) {
+					valueType = BOOL
+					switch lv := lVal.(type) {
+					case float64:
+						switch rv := rVal.(type) {
+						case float64:
+							finalValue = lv < rv
+
+						case int64:
+							finalValue = lv < float64(rv)
+						}
+
+					case int64:
+						switch rv := rVal.(type) {
+						case float64:
+							finalValue = float64(lv) < rv
+
+						case int64:
+							finalValue = lv < rv
+						}
+
+					case string:
+						if rType == STR {
+							finalValue = lv < rVal.(string)
+						}
+					}
 				}
 			}
 		}
-	}
 
-	// ERROR DE UNDEFINED
-	if sym.GetType(scope) == UNDEF {
+		// ERROR DE UNDEFINED
 		if exp.Left != nil && exp.Right != nil {
 			var left, right = exp.Left.GetValue(scope), exp.Right.GetValue(scope)
-			var lLine, lCol = left.GetLine(), left.GetColumn()
-
-			sym = Value{lLine, 0, UNDEF, ""}
-			Errors = append(Errors, Error{
-				fmt.Sprintf("It was not possible to operate the type %s %s %s",
-					left.GetType(scope), exp.Operation.String(), right.GetType(scope)), lLine, lCol})
+			if valueType == UNDEF {
+				Errors = append(Errors, Error{
+					fmt.Sprintf("It was not possible to operate the type %s %s %s",
+						left.GetType(scope), exp.Operation.String(), right.GetType(scope)), lLine, lCol})
+				return Value{lLine, 0, UNDEF, ""}
+			}
 		}
-	}
 
-	// VALOR FINAL
-	return sym
+		// VALOR FINAL
+		return Value{lLine, lCol, valueType, finalValue}
+	}
 }

@@ -27,13 +27,21 @@ func (scope Scope) SetVariable(id string, value IValue) {
 
 // OBTENER VARIABLE
 func (scope Scope) GetVariable(id string) IValue {
-	if _, ok := scope.Variables[id]; ok {
-		return scope.Variables[id]
-	} else {
-		if scope.Previous != nil {
-			return scope.Previous.GetVariable(id)
+	// ENTORNO ACTUAL
+	var tmpScope Scope = scope
+
+	// BUSCAR EN PADRES
+	for {
+		if variable, ok := tmpScope.Variables[id]; ok {
+			return variable
+		}
+		if scope.Previous == nil {
+			break
 		} else {
-			return ValueMut{Value{0, 0, UNDEF, ""}, false}
+			tmpScope = *tmpScope.Previous
 		}
 	}
+
+	// VALOR POR DEFECTO
+	return ValueMut{Value{0, 0, UNDEF, ""}, false}
 }
