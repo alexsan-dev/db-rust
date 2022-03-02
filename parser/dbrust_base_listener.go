@@ -105,6 +105,18 @@ func (s *BaseDBRustListener) EnterPrintlnCall(ctx *PrintlnCallContext) {}
 // ExitPrintlnCall is called when production printlnCall is exited.
 func (s *BaseDBRustListener) ExitPrintlnCall(ctx *PrintlnCallContext) {}
 
+// EnterParamList is called when production paramList is entered.
+func (s *BaseDBRustListener) EnterParamList(ctx *ParamListContext) {}
+
+// ExitParamList is called when production paramList is exited.
+func (s *BaseDBRustListener) ExitParamList(ctx *ParamListContext) {}
+
+// EnterParam is called when production param is entered.
+func (s *BaseDBRustListener) EnterParam(ctx *ParamContext) {}
+
+// ExitParam is called when production param is exited.
+func (s *BaseDBRustListener) ExitParam(ctx *ParamContext) {}
+
 // EnterFunction is called when production function is entered.
 func (s *BaseDBRustListener) EnterFunction(ctx *FunctionContext) {}
 

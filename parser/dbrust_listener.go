@@ -50,6 +50,12 @@ type DBRustListener interface {
 	// EnterPrintlnCall is called when entering the printlnCall production.
 	EnterPrintlnCall(c *PrintlnCallContext)
 
+	// EnterParamList is called when entering the paramList production.
+	EnterParamList(c *ParamListContext)
+
+	// EnterParam is called when entering the param production.
+	EnterParam(c *ParamContext)
+
 	// EnterFunction is called when entering the function production.
 	EnterFunction(c *FunctionContext)
 
@@ -94,6 +100,12 @@ type DBRustListener interface {
 
 	// ExitPrintlnCall is called when exiting the printlnCall production.
 	ExitPrintlnCall(c *PrintlnCallContext)
+
+	// ExitParamList is called when exiting the paramList production.
+	ExitParamList(c *ParamListContext)
+
+	// ExitParam is called when exiting the param production.
+	ExitParam(c *ParamContext)
 
 	// ExitFunction is called when exiting the function production.
 	ExitFunction(c *FunctionContext)

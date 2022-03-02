@@ -19,112 +19,129 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 44, 247,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 44, 286,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
-	9, 13, 4, 14, 9, 14, 4, 15, 9, 15, 4, 16, 9, 16, 3, 2, 3, 2, 3, 2, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 7, 4, 42, 10, 4, 12, 4, 14, 4, 45, 11, 4,
-	3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5,
-	3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 68, 10, 5,
-	3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6,
-	3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6,
-	3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 100, 10, 6, 3, 7, 3, 7, 3, 7,
-	3, 7, 3, 7, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 7, 8,
-	116, 10, 8, 12, 8, 14, 8, 119, 11, 8, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3,
-	9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 5, 9, 134, 10, 9, 3, 9, 3,
-	9, 3, 9, 3, 9, 3, 9, 7, 9, 141, 10, 9, 12, 9, 14, 9, 144, 11, 9, 3, 10,
+	9, 13, 4, 14, 9, 14, 4, 15, 9, 15, 4, 16, 9, 16, 4, 17, 9, 17, 4, 18, 9,
+	18, 3, 2, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 7, 4, 46, 10,
+	4, 12, 4, 14, 4, 49, 11, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3,
+	5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3,
+	5, 3, 5, 5, 5, 72, 10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3,
+	6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3,
+	6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 104,
+	10, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8,
+	3, 8, 3, 8, 3, 8, 7, 8, 120, 10, 8, 12, 8, 14, 8, 123, 11, 8, 3, 9, 3,
+	9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 5,
+	9, 138, 10, 9, 3, 9, 3, 9, 3, 9, 3, 9, 3, 9, 7, 9, 145, 10, 9, 12, 9, 14,
+	9, 148, 11, 9, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10,
 	3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3,
-	10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10, 3, 10,
-	5, 10, 168, 10, 10, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3,
-	11, 3, 11, 3, 11, 3, 11, 3, 11, 5, 11, 182, 10, 11, 3, 12, 3, 12, 3, 12,
-	3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3,
-	12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 5, 12, 204, 10, 12, 3, 13,
-	3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 5, 13, 216,
-	10, 13, 3, 14, 3, 14, 3, 14, 3, 15, 3, 15, 3, 15, 3, 15, 3, 15, 3, 15,
-	3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3,
-	16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 5, 16, 245, 10, 16,
-	3, 16, 2, 4, 14, 16, 17, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26,
-	28, 30, 2, 2, 2, 268, 2, 32, 3, 2, 2, 2, 4, 35, 3, 2, 2, 2, 6, 43, 3, 2,
-	2, 2, 8, 67, 3, 2, 2, 2, 10, 99, 3, 2, 2, 2, 12, 101, 3, 2, 2, 2, 14, 106,
-	3, 2, 2, 2, 16, 133, 3, 2, 2, 2, 18, 167, 3, 2, 2, 2, 20, 181, 3, 2, 2,
-	2, 22, 203, 3, 2, 2, 2, 24, 215, 3, 2, 2, 2, 26, 217, 3, 2, 2, 2, 28, 220,
-	3, 2, 2, 2, 30, 244, 3, 2, 2, 2, 32, 33, 5, 6, 4, 2, 33, 34, 8, 2, 1, 2,
-	34, 3, 3, 2, 2, 2, 35, 36, 7, 22, 2, 2, 36, 37, 5, 6, 4, 2, 37, 38, 7,
-	23, 2, 2, 38, 39, 8, 3, 1, 2, 39, 5, 3, 2, 2, 2, 40, 42, 5, 8, 5, 2, 41,
-	40, 3, 2, 2, 2, 42, 45, 3, 2, 2, 2, 43, 41, 3, 2, 2, 2, 43, 44, 3, 2, 2,
-	2, 44, 46, 3, 2, 2, 2, 45, 43, 3, 2, 2, 2, 46, 47, 8, 4, 1, 2, 47, 7, 3,
-	2, 2, 2, 48, 49, 5, 10, 6, 2, 49, 50, 7, 27, 2, 2, 50, 51, 8, 5, 1, 2,
-	51, 68, 3, 2, 2, 2, 52, 53, 5, 12, 7, 2, 53, 54, 7, 27, 2, 2, 54, 55, 8,
-	5, 1, 2, 55, 68, 3, 2, 2, 2, 56, 57, 5, 26, 14, 2, 57, 58, 7, 27, 2, 2,
-	58, 59, 8, 5, 1, 2, 59, 68, 3, 2, 2, 2, 60, 61, 5, 24, 13, 2, 61, 62, 7,
-	27, 2, 2, 62, 63, 8, 5, 1, 2, 63, 68, 3, 2, 2, 2, 64, 65, 5, 30, 16, 2,
-	65, 66, 8, 5, 1, 2, 66, 68, 3, 2, 2, 2, 67, 48, 3, 2, 2, 2, 67, 52, 3,
-	2, 2, 2, 67, 56, 3, 2, 2, 2, 67, 60, 3, 2, 2, 2, 67, 64, 3, 2, 2, 2, 68,
-	9, 3, 2, 2, 2, 69, 70, 7, 3, 2, 2, 70, 71, 7, 19, 2, 2, 71, 72, 7, 26,
-	2, 2, 72, 73, 5, 20, 11, 2, 73, 74, 7, 36, 2, 2, 74, 75, 5, 16, 9, 2, 75,
-	76, 8, 6, 1, 2, 76, 100, 3, 2, 2, 2, 77, 78, 7, 3, 2, 2, 78, 79, 7, 4,
-	2, 2, 79, 80, 7, 19, 2, 2, 80, 81, 7, 26, 2, 2, 81, 82, 5, 20, 11, 2, 82,
-	83, 7, 36, 2, 2, 83, 84, 5, 16, 9, 2, 84, 85, 8, 6, 1, 2, 85, 100, 3, 2,
-	2, 2, 86, 87, 7, 3, 2, 2, 87, 88, 7, 4, 2, 2, 88, 89, 7, 19, 2, 2, 89,
-	90, 7, 36, 2, 2, 90, 91, 5, 16, 9, 2, 91, 92, 8, 6, 1, 2, 92, 100, 3, 2,
-	2, 2, 93, 94, 7, 3, 2, 2, 94, 95, 7, 19, 2, 2, 95, 96, 7, 36, 2, 2, 96,
-	97, 5, 16, 9, 2, 97, 98, 8, 6, 1, 2, 98, 100, 3, 2, 2, 2, 99, 69, 3, 2,
-	2, 2, 99, 77, 3, 2, 2, 2, 99, 86, 3, 2, 2, 2, 99, 93, 3, 2, 2, 2, 100,
-	11, 3, 2, 2, 2, 101, 102, 7, 19, 2, 2, 102, 103, 7, 36, 2, 2, 103, 104,
-	5, 16, 9, 2, 104, 105, 8, 7, 1, 2, 105, 13, 3, 2, 2, 2, 106, 107, 8, 8,
-	1, 2, 107, 108, 5, 16, 9, 2, 108, 109, 8, 8, 1, 2, 109, 117, 3, 2, 2, 2,
-	110, 111, 12, 4, 2, 2, 111, 112, 7, 28, 2, 2, 112, 113, 5, 16, 9, 2, 113,
-	114, 8, 8, 1, 2, 114, 116, 3, 2, 2, 2, 115, 110, 3, 2, 2, 2, 116, 119,
-	3, 2, 2, 2, 117, 115, 3, 2, 2, 2, 117, 118, 3, 2, 2, 2, 118, 15, 3, 2,
-	2, 2, 119, 117, 3, 2, 2, 2, 120, 121, 8, 9, 1, 2, 121, 122, 7, 35, 2, 2,
-	122, 123, 5, 16, 9, 5, 123, 124, 8, 9, 1, 2, 124, 134, 3, 2, 2, 2, 125,
-	126, 7, 20, 2, 2, 126, 127, 5, 16, 9, 2, 127, 128, 7, 21, 2, 2, 128, 129,
-	8, 9, 1, 2, 129, 134, 3, 2, 2, 2, 130, 131, 5, 22, 12, 2, 131, 132, 8,
-	9, 1, 2, 132, 134, 3, 2, 2, 2, 133, 120, 3, 2, 2, 2, 133, 125, 3, 2, 2,
-	2, 133, 130, 3, 2, 2, 2, 134, 142, 3, 2, 2, 2, 135, 136, 12, 6, 2, 2, 136,
-	137, 5, 18, 10, 2, 137, 138, 5, 16, 9, 7, 138, 139, 8, 9, 1, 2, 139, 141,
-	3, 2, 2, 2, 140, 135, 3, 2, 2, 2, 141, 144, 3, 2, 2, 2, 142, 140, 3, 2,
-	2, 2, 142, 143, 3, 2, 2, 2, 143, 17, 3, 2, 2, 2, 144, 142, 3, 2, 2, 2,
-	145, 146, 7, 39, 2, 2, 146, 168, 8, 10, 1, 2, 147, 148, 7, 40, 2, 2, 148,
-	168, 8, 10, 1, 2, 149, 150, 7, 41, 2, 2, 150, 168, 8, 10, 1, 2, 151, 152,
-	7, 42, 2, 2, 152, 168, 8, 10, 1, 2, 153, 154, 7, 43, 2, 2, 154, 168, 8,
-	10, 1, 2, 155, 156, 7, 31, 2, 2, 156, 168, 8, 10, 1, 2, 157, 158, 7, 33,
-	2, 2, 158, 168, 8, 10, 1, 2, 159, 160, 7, 34, 2, 2, 160, 168, 8, 10, 1,
-	2, 161, 162, 7, 32, 2, 2, 162, 168, 8, 10, 1, 2, 163, 164, 7, 37, 2, 2,
-	164, 168, 8, 10, 1, 2, 165, 166, 7, 38, 2, 2, 166, 168, 8, 10, 1, 2, 167,
-	145, 3, 2, 2, 2, 167, 147, 3, 2, 2, 2, 167, 149, 3, 2, 2, 2, 167, 151,
-	3, 2, 2, 2, 167, 153, 3, 2, 2, 2, 167, 155, 3, 2, 2, 2, 167, 157, 3, 2,
-	2, 2, 167, 159, 3, 2, 2, 2, 167, 161, 3, 2, 2, 2, 167, 163, 3, 2, 2, 2,
-	167, 165, 3, 2, 2, 2, 168, 19, 3, 2, 2, 2, 169, 170, 7, 7, 2, 2, 170, 182,
-	8, 11, 1, 2, 171, 172, 7, 8, 2, 2, 172, 182, 8, 11, 1, 2, 173, 174, 7,
-	9, 2, 2, 174, 182, 8, 11, 1, 2, 175, 176, 7, 10, 2, 2, 176, 182, 8, 11,
-	1, 2, 177, 178, 7, 11, 2, 2, 178, 182, 8, 11, 1, 2, 179, 180, 7, 12, 2,
-	2, 180, 182, 8, 11, 1, 2, 181, 169, 3, 2, 2, 2, 181, 171, 3, 2, 2, 2, 181,
-	173, 3, 2, 2, 2, 181, 175, 3, 2, 2, 2, 181, 177, 3, 2, 2, 2, 181, 179,
-	3, 2, 2, 2, 182, 21, 3, 2, 2, 2, 183, 184, 7, 15, 2, 2, 184, 204, 8, 12,
-	1, 2, 185, 186, 7, 16, 2, 2, 186, 204, 8, 12, 1, 2, 187, 188, 7, 17, 2,
-	2, 188, 204, 8, 12, 1, 2, 189, 190, 7, 18, 2, 2, 190, 204, 8, 12, 1, 2,
-	191, 192, 7, 13, 2, 2, 192, 204, 8, 12, 1, 2, 193, 194, 7, 14, 2, 2, 194,
-	204, 8, 12, 1, 2, 195, 196, 7, 19, 2, 2, 196, 204, 8, 12, 1, 2, 197, 198,
-	5, 26, 14, 2, 198, 199, 8, 12, 1, 2, 199, 204, 3, 2, 2, 2, 200, 201, 5,
-	24, 13, 2, 201, 202, 8, 12, 1, 2, 202, 204, 3, 2, 2, 2, 203, 183, 3, 2,
-	2, 2, 203, 185, 3, 2, 2, 2, 203, 187, 3, 2, 2, 2, 203, 189, 3, 2, 2, 2,
-	203, 191, 3, 2, 2, 2, 203, 193, 3, 2, 2, 2, 203, 195, 3, 2, 2, 2, 203,
-	197, 3, 2, 2, 2, 203, 200, 3, 2, 2, 2, 204, 23, 3, 2, 2, 2, 205, 206, 7,
-	19, 2, 2, 206, 207, 7, 20, 2, 2, 207, 208, 5, 14, 8, 2, 208, 209, 7, 21,
-	2, 2, 209, 210, 8, 13, 1, 2, 210, 216, 3, 2, 2, 2, 211, 212, 7, 19, 2,
-	2, 212, 213, 7, 20, 2, 2, 213, 214, 7, 21, 2, 2, 214, 216, 8, 13, 1, 2,
-	215, 205, 3, 2, 2, 2, 215, 211, 3, 2, 2, 2, 216, 25, 3, 2, 2, 2, 217, 218,
-	5, 28, 15, 2, 218, 219, 8, 14, 1, 2, 219, 27, 3, 2, 2, 2, 220, 221, 7,
-	5, 2, 2, 221, 222, 7, 20, 2, 2, 222, 223, 5, 14, 8, 2, 223, 224, 7, 21,
-	2, 2, 224, 225, 8, 15, 1, 2, 225, 29, 3, 2, 2, 2, 226, 227, 7, 6, 2, 2,
-	227, 228, 7, 19, 2, 2, 228, 229, 7, 20, 2, 2, 229, 230, 5, 14, 8, 2, 230,
-	231, 7, 21, 2, 2, 231, 232, 5, 4, 3, 2, 232, 233, 8, 16, 1, 2, 233, 245,
-	3, 2, 2, 2, 234, 235, 7, 6, 2, 2, 235, 236, 7, 19, 2, 2, 236, 237, 7, 20,
-	2, 2, 237, 238, 5, 14, 8, 2, 238, 239, 7, 21, 2, 2, 239, 240, 5, 4, 3,
-	2, 240, 241, 7, 24, 2, 2, 241, 242, 5, 20, 11, 2, 242, 243, 8, 16, 1, 2,
-	243, 245, 3, 2, 2, 2, 244, 226, 3, 2, 2, 2, 244, 234, 3, 2, 2, 2, 245,
-	31, 3, 2, 2, 2, 13, 43, 67, 99, 117, 133, 142, 167, 181, 203, 215, 244,
+	10, 3, 10, 3, 10, 3, 10, 5, 10, 172, 10, 10, 3, 11, 3, 11, 3, 11, 3, 11,
+	3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 5, 11, 186, 10,
+	11, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12,
+	3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 5,
+	12, 208, 10, 12, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13, 3, 13,
+	3, 13, 3, 13, 5, 13, 220, 10, 13, 3, 14, 3, 14, 3, 14, 3, 15, 3, 15, 3,
+	15, 3, 15, 3, 15, 3, 15, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16, 3, 16,
+	3, 16, 3, 16, 7, 16, 240, 10, 16, 12, 16, 14, 16, 243, 11, 16, 3, 17, 3,
+	17, 3, 17, 3, 17, 3, 17, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18,
+	3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3,
+	18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18,
+	3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 3, 18, 5, 18, 284, 10, 18, 3, 18, 2,
+	5, 14, 16, 30, 19, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28,
+	30, 32, 34, 2, 2, 2, 308, 2, 36, 3, 2, 2, 2, 4, 39, 3, 2, 2, 2, 6, 47,
+	3, 2, 2, 2, 8, 71, 3, 2, 2, 2, 10, 103, 3, 2, 2, 2, 12, 105, 3, 2, 2, 2,
+	14, 110, 3, 2, 2, 2, 16, 137, 3, 2, 2, 2, 18, 171, 3, 2, 2, 2, 20, 185,
+	3, 2, 2, 2, 22, 207, 3, 2, 2, 2, 24, 219, 3, 2, 2, 2, 26, 221, 3, 2, 2,
+	2, 28, 224, 3, 2, 2, 2, 30, 230, 3, 2, 2, 2, 32, 244, 3, 2, 2, 2, 34, 283,
+	3, 2, 2, 2, 36, 37, 5, 6, 4, 2, 37, 38, 8, 2, 1, 2, 38, 3, 3, 2, 2, 2,
+	39, 40, 7, 22, 2, 2, 40, 41, 5, 6, 4, 2, 41, 42, 7, 23, 2, 2, 42, 43, 8,
+	3, 1, 2, 43, 5, 3, 2, 2, 2, 44, 46, 5, 8, 5, 2, 45, 44, 3, 2, 2, 2, 46,
+	49, 3, 2, 2, 2, 47, 45, 3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 50, 3, 2, 2,
+	2, 49, 47, 3, 2, 2, 2, 50, 51, 8, 4, 1, 2, 51, 7, 3, 2, 2, 2, 52, 53, 5,
+	10, 6, 2, 53, 54, 7, 27, 2, 2, 54, 55, 8, 5, 1, 2, 55, 72, 3, 2, 2, 2,
+	56, 57, 5, 12, 7, 2, 57, 58, 7, 27, 2, 2, 58, 59, 8, 5, 1, 2, 59, 72, 3,
+	2, 2, 2, 60, 61, 5, 26, 14, 2, 61, 62, 7, 27, 2, 2, 62, 63, 8, 5, 1, 2,
+	63, 72, 3, 2, 2, 2, 64, 65, 5, 24, 13, 2, 65, 66, 7, 27, 2, 2, 66, 67,
+	8, 5, 1, 2, 67, 72, 3, 2, 2, 2, 68, 69, 5, 34, 18, 2, 69, 70, 8, 5, 1,
+	2, 70, 72, 3, 2, 2, 2, 71, 52, 3, 2, 2, 2, 71, 56, 3, 2, 2, 2, 71, 60,
+	3, 2, 2, 2, 71, 64, 3, 2, 2, 2, 71, 68, 3, 2, 2, 2, 72, 9, 3, 2, 2, 2,
+	73, 74, 7, 3, 2, 2, 74, 75, 7, 19, 2, 2, 75, 76, 7, 26, 2, 2, 76, 77, 5,
+	20, 11, 2, 77, 78, 7, 36, 2, 2, 78, 79, 5, 16, 9, 2, 79, 80, 8, 6, 1, 2,
+	80, 104, 3, 2, 2, 2, 81, 82, 7, 3, 2, 2, 82, 83, 7, 4, 2, 2, 83, 84, 7,
+	19, 2, 2, 84, 85, 7, 26, 2, 2, 85, 86, 5, 20, 11, 2, 86, 87, 7, 36, 2,
+	2, 87, 88, 5, 16, 9, 2, 88, 89, 8, 6, 1, 2, 89, 104, 3, 2, 2, 2, 90, 91,
+	7, 3, 2, 2, 91, 92, 7, 4, 2, 2, 92, 93, 7, 19, 2, 2, 93, 94, 7, 36, 2,
+	2, 94, 95, 5, 16, 9, 2, 95, 96, 8, 6, 1, 2, 96, 104, 3, 2, 2, 2, 97, 98,
+	7, 3, 2, 2, 98, 99, 7, 19, 2, 2, 99, 100, 7, 36, 2, 2, 100, 101, 5, 16,
+	9, 2, 101, 102, 8, 6, 1, 2, 102, 104, 3, 2, 2, 2, 103, 73, 3, 2, 2, 2,
+	103, 81, 3, 2, 2, 2, 103, 90, 3, 2, 2, 2, 103, 97, 3, 2, 2, 2, 104, 11,
+	3, 2, 2, 2, 105, 106, 7, 19, 2, 2, 106, 107, 7, 36, 2, 2, 107, 108, 5,
+	16, 9, 2, 108, 109, 8, 7, 1, 2, 109, 13, 3, 2, 2, 2, 110, 111, 8, 8, 1,
+	2, 111, 112, 5, 16, 9, 2, 112, 113, 8, 8, 1, 2, 113, 121, 3, 2, 2, 2, 114,
+	115, 12, 4, 2, 2, 115, 116, 7, 28, 2, 2, 116, 117, 5, 16, 9, 2, 117, 118,
+	8, 8, 1, 2, 118, 120, 3, 2, 2, 2, 119, 114, 3, 2, 2, 2, 120, 123, 3, 2,
+	2, 2, 121, 119, 3, 2, 2, 2, 121, 122, 3, 2, 2, 2, 122, 15, 3, 2, 2, 2,
+	123, 121, 3, 2, 2, 2, 124, 125, 8, 9, 1, 2, 125, 126, 7, 35, 2, 2, 126,
+	127, 5, 16, 9, 5, 127, 128, 8, 9, 1, 2, 128, 138, 3, 2, 2, 2, 129, 130,
+	7, 20, 2, 2, 130, 131, 5, 16, 9, 2, 131, 132, 7, 21, 2, 2, 132, 133, 8,
+	9, 1, 2, 133, 138, 3, 2, 2, 2, 134, 135, 5, 22, 12, 2, 135, 136, 8, 9,
+	1, 2, 136, 138, 3, 2, 2, 2, 137, 124, 3, 2, 2, 2, 137, 129, 3, 2, 2, 2,
+	137, 134, 3, 2, 2, 2, 138, 146, 3, 2, 2, 2, 139, 140, 12, 6, 2, 2, 140,
+	141, 5, 18, 10, 2, 141, 142, 5, 16, 9, 7, 142, 143, 8, 9, 1, 2, 143, 145,
+	3, 2, 2, 2, 144, 139, 3, 2, 2, 2, 145, 148, 3, 2, 2, 2, 146, 144, 3, 2,
+	2, 2, 146, 147, 3, 2, 2, 2, 147, 17, 3, 2, 2, 2, 148, 146, 3, 2, 2, 2,
+	149, 150, 7, 39, 2, 2, 150, 172, 8, 10, 1, 2, 151, 152, 7, 40, 2, 2, 152,
+	172, 8, 10, 1, 2, 153, 154, 7, 41, 2, 2, 154, 172, 8, 10, 1, 2, 155, 156,
+	7, 42, 2, 2, 156, 172, 8, 10, 1, 2, 157, 158, 7, 43, 2, 2, 158, 172, 8,
+	10, 1, 2, 159, 160, 7, 31, 2, 2, 160, 172, 8, 10, 1, 2, 161, 162, 7, 33,
+	2, 2, 162, 172, 8, 10, 1, 2, 163, 164, 7, 34, 2, 2, 164, 172, 8, 10, 1,
+	2, 165, 166, 7, 32, 2, 2, 166, 172, 8, 10, 1, 2, 167, 168, 7, 37, 2, 2,
+	168, 172, 8, 10, 1, 2, 169, 170, 7, 38, 2, 2, 170, 172, 8, 10, 1, 2, 171,
+	149, 3, 2, 2, 2, 171, 151, 3, 2, 2, 2, 171, 153, 3, 2, 2, 2, 171, 155,
+	3, 2, 2, 2, 171, 157, 3, 2, 2, 2, 171, 159, 3, 2, 2, 2, 171, 161, 3, 2,
+	2, 2, 171, 163, 3, 2, 2, 2, 171, 165, 3, 2, 2, 2, 171, 167, 3, 2, 2, 2,
+	171, 169, 3, 2, 2, 2, 172, 19, 3, 2, 2, 2, 173, 174, 7, 7, 2, 2, 174, 186,
+	8, 11, 1, 2, 175, 176, 7, 8, 2, 2, 176, 186, 8, 11, 1, 2, 177, 178, 7,
+	9, 2, 2, 178, 186, 8, 11, 1, 2, 179, 180, 7, 10, 2, 2, 180, 186, 8, 11,
+	1, 2, 181, 182, 7, 11, 2, 2, 182, 186, 8, 11, 1, 2, 183, 184, 7, 12, 2,
+	2, 184, 186, 8, 11, 1, 2, 185, 173, 3, 2, 2, 2, 185, 175, 3, 2, 2, 2, 185,
+	177, 3, 2, 2, 2, 185, 179, 3, 2, 2, 2, 185, 181, 3, 2, 2, 2, 185, 183,
+	3, 2, 2, 2, 186, 21, 3, 2, 2, 2, 187, 188, 7, 15, 2, 2, 188, 208, 8, 12,
+	1, 2, 189, 190, 7, 16, 2, 2, 190, 208, 8, 12, 1, 2, 191, 192, 7, 17, 2,
+	2, 192, 208, 8, 12, 1, 2, 193, 194, 7, 18, 2, 2, 194, 208, 8, 12, 1, 2,
+	195, 196, 7, 13, 2, 2, 196, 208, 8, 12, 1, 2, 197, 198, 7, 14, 2, 2, 198,
+	208, 8, 12, 1, 2, 199, 200, 7, 19, 2, 2, 200, 208, 8, 12, 1, 2, 201, 202,
+	5, 26, 14, 2, 202, 203, 8, 12, 1, 2, 203, 208, 3, 2, 2, 2, 204, 205, 5,
+	24, 13, 2, 205, 206, 8, 12, 1, 2, 206, 208, 3, 2, 2, 2, 207, 187, 3, 2,
+	2, 2, 207, 189, 3, 2, 2, 2, 207, 191, 3, 2, 2, 2, 207, 193, 3, 2, 2, 2,
+	207, 195, 3, 2, 2, 2, 207, 197, 3, 2, 2, 2, 207, 199, 3, 2, 2, 2, 207,
+	201, 3, 2, 2, 2, 207, 204, 3, 2, 2, 2, 208, 23, 3, 2, 2, 2, 209, 210, 7,
+	19, 2, 2, 210, 211, 7, 20, 2, 2, 211, 212, 5, 14, 8, 2, 212, 213, 7, 21,
+	2, 2, 213, 214, 8, 13, 1, 2, 214, 220, 3, 2, 2, 2, 215, 216, 7, 19, 2,
+	2, 216, 217, 7, 20, 2, 2, 217, 218, 7, 21, 2, 2, 218, 220, 8, 13, 1, 2,
+	219, 209, 3, 2, 2, 2, 219, 215, 3, 2, 2, 2, 220, 25, 3, 2, 2, 2, 221, 222,
+	5, 28, 15, 2, 222, 223, 8, 14, 1, 2, 223, 27, 3, 2, 2, 2, 224, 225, 7,
+	5, 2, 2, 225, 226, 7, 20, 2, 2, 226, 227, 5, 14, 8, 2, 227, 228, 7, 21,
+	2, 2, 228, 229, 8, 15, 1, 2, 229, 29, 3, 2, 2, 2, 230, 231, 8, 16, 1, 2,
+	231, 232, 5, 32, 17, 2, 232, 233, 8, 16, 1, 2, 233, 241, 3, 2, 2, 2, 234,
+	235, 12, 4, 2, 2, 235, 236, 7, 28, 2, 2, 236, 237, 5, 32, 17, 2, 237, 238,
+	8, 16, 1, 2, 238, 240, 3, 2, 2, 2, 239, 234, 3, 2, 2, 2, 240, 243, 3, 2,
+	2, 2, 241, 239, 3, 2, 2, 2, 241, 242, 3, 2, 2, 2, 242, 31, 3, 2, 2, 2,
+	243, 241, 3, 2, 2, 2, 244, 245, 7, 19, 2, 2, 245, 246, 7, 26, 2, 2, 246,
+	247, 5, 20, 11, 2, 247, 248, 8, 17, 1, 2, 248, 33, 3, 2, 2, 2, 249, 250,
+	7, 6, 2, 2, 250, 251, 7, 19, 2, 2, 251, 252, 7, 20, 2, 2, 252, 253, 5,
+	30, 16, 2, 253, 254, 7, 21, 2, 2, 254, 255, 5, 4, 3, 2, 255, 256, 8, 18,
+	1, 2, 256, 284, 3, 2, 2, 2, 257, 258, 7, 6, 2, 2, 258, 259, 7, 19, 2, 2,
+	259, 260, 7, 20, 2, 2, 260, 261, 7, 21, 2, 2, 261, 262, 5, 4, 3, 2, 262,
+	263, 8, 18, 1, 2, 263, 284, 3, 2, 2, 2, 264, 265, 7, 6, 2, 2, 265, 266,
+	7, 19, 2, 2, 266, 267, 7, 20, 2, 2, 267, 268, 5, 30, 16, 2, 268, 269, 7,
+	21, 2, 2, 269, 270, 5, 4, 3, 2, 270, 271, 7, 24, 2, 2, 271, 272, 5, 20,
+	11, 2, 272, 273, 8, 18, 1, 2, 273, 284, 3, 2, 2, 2, 274, 275, 7, 6, 2,
+	2, 275, 276, 7, 19, 2, 2, 276, 277, 7, 20, 2, 2, 277, 278, 7, 21, 2, 2,
+	278, 279, 5, 4, 3, 2, 279, 280, 7, 24, 2, 2, 280, 281, 5, 20, 11, 2, 281,
+	282, 8, 18, 1, 2, 282, 284, 3, 2, 2, 2, 283, 249, 3, 2, 2, 2, 283, 257,
+	3, 2, 2, 2, 283, 264, 3, 2, 2, 2, 283, 274, 3, 2, 2, 2, 284, 35, 3, 2,
+	2, 2, 14, 47, 71, 103, 121, 137, 146, 171, 185, 207, 219, 241, 283,
 }
 var literalNames = []string{
 	"", "'let'", "'mut'", "'println!'", "'fn'", "'i64'", "'f64'", "'bool'",
@@ -145,7 +162,7 @@ var symbolicNames = []string{
 var ruleNames = []string{
 	"start", "instructionsBlock", "instructions", "instruction", "declaration",
 	"assignment", "expList", "expression", "expOp", "valueType", "value", "functionCall",
-	"methods", "printlnCall", "function",
+	"methods", "printlnCall", "paramList", "param", "function",
 }
 
 type DBRustParser struct {
@@ -240,7 +257,9 @@ const (
 	DBRustParserRULE_functionCall      = 11
 	DBRustParserRULE_methods           = 12
 	DBRustParserRULE_printlnCall       = 13
-	DBRustParserRULE_function          = 14
+	DBRustParserRULE_paramList         = 14
+	DBRustParserRULE_param             = 15
+	DBRustParserRULE_function          = 16
 )
 
 // IStartContext is an interface to support dynamic dispatch.
@@ -355,7 +374,7 @@ func (p *DBRustParser) Start() (localctx IStartContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(30)
+		p.SetState(34)
 
 		var _x = p.Instructions()
 
@@ -486,18 +505,18 @@ func (p *DBRustParser) InstructionsBlock() (localctx IInstructionsBlockContext) 
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(33)
+		p.SetState(37)
 		p.Match(DBRustParserOPENBRACKET)
 	}
 	{
-		p.SetState(34)
+		p.SetState(38)
 
 		var _x = p.Instructions()
 
 		localctx.(*InstructionsBlockContext)._instructions = _x
 	}
 	{
-		p.SetState(35)
+		p.SetState(39)
 		p.Match(DBRustParserCLOSEBRACKET)
 	}
 
@@ -645,13 +664,13 @@ func (p *DBRustParser) Instructions() (localctx IInstructionsContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(41)
+	p.SetState(45)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<DBRustParserLET)|(1<<DBRustParserPRINTLN)|(1<<DBRustParserFN)|(1<<DBRustParserID))) != 0 {
 		{
-			p.SetState(38)
+			p.SetState(42)
 
 			var _x = p.Instruction()
 
@@ -659,7 +678,7 @@ func (p *DBRustParser) Instructions() (localctx IInstructionsContext) {
 		}
 		localctx.(*InstructionsContext).e = append(localctx.(*InstructionsContext).e, localctx.(*InstructionsContext)._instruction)
 
-		p.SetState(43)
+		p.SetState(47)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -870,20 +889,20 @@ func (p *DBRustParser) Instruction() (localctx IInstructionContext) {
 		}
 	}()
 
-	p.SetState(65)
+	p.SetState(69)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(46)
+			p.SetState(50)
 
 			var _x = p.Declaration()
 
 			localctx.(*InstructionContext).decltn = _x
 		}
 		{
-			p.SetState(47)
+			p.SetState(51)
 			p.Match(DBRustParserSEMI)
 		}
 		localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetDecltn().GetState()
@@ -891,14 +910,14 @@ func (p *DBRustParser) Instruction() (localctx IInstructionContext) {
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(50)
+			p.SetState(54)
 
 			var _x = p.Assignment()
 
 			localctx.(*InstructionContext).assign = _x
 		}
 		{
-			p.SetState(51)
+			p.SetState(55)
 			p.Match(DBRustParserSEMI)
 		}
 		localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetAssign().GetState()
@@ -906,14 +925,14 @@ func (p *DBRustParser) Instruction() (localctx IInstructionContext) {
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(54)
+			p.SetState(58)
 
 			var _x = p.Methods()
 
 			localctx.(*InstructionContext).mth = _x
 		}
 		{
-			p.SetState(55)
+			p.SetState(59)
 			p.Match(DBRustParserSEMI)
 		}
 		localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetMth().GetState()
@@ -921,14 +940,14 @@ func (p *DBRustParser) Instruction() (localctx IInstructionContext) {
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(58)
+			p.SetState(62)
 
 			var _x = p.FunctionCall()
 
 			localctx.(*InstructionContext).calls = _x
 		}
 		{
-			p.SetState(59)
+			p.SetState(63)
 			p.Match(DBRustParserSEMI)
 		}
 		localctx.(*InstructionContext).state = localctx.(*InstructionContext).GetCalls().GetState()
@@ -936,7 +955,7 @@ func (p *DBRustParser) Instruction() (localctx IInstructionContext) {
 	case 5:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(62)
+			p.SetState(66)
 
 			var _x = p.Function()
 
@@ -1111,39 +1130,39 @@ func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
 		}
 	}()
 
-	p.SetState(97)
+	p.SetState(101)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(67)
+			p.SetState(71)
 			p.Match(DBRustParserLET)
 		}
 		{
-			p.SetState(68)
+			p.SetState(72)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*DeclarationContext)._ID = _m
 		}
 		{
-			p.SetState(69)
+			p.SetState(73)
 			p.Match(DBRustParserCOLOM)
 		}
 		{
-			p.SetState(70)
+			p.SetState(74)
 
 			var _x = p.ValueType()
 
 			localctx.(*DeclarationContext)._valueType = _x
 		}
 		{
-			p.SetState(71)
+			p.SetState(75)
 			p.Match(DBRustParserEQUALS)
 		}
 		{
-			p.SetState(72)
+			p.SetState(76)
 
 			var _x = p.expression(0)
 
@@ -1168,37 +1187,37 @@ func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(75)
+			p.SetState(79)
 			p.Match(DBRustParserLET)
 		}
 		{
-			p.SetState(76)
+			p.SetState(80)
 			p.Match(DBRustParserMUT)
 		}
 		{
-			p.SetState(77)
+			p.SetState(81)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*DeclarationContext)._ID = _m
 		}
 		{
-			p.SetState(78)
+			p.SetState(82)
 			p.Match(DBRustParserCOLOM)
 		}
 		{
-			p.SetState(79)
+			p.SetState(83)
 
 			var _x = p.ValueType()
 
 			localctx.(*DeclarationContext)._valueType = _x
 		}
 		{
-			p.SetState(80)
+			p.SetState(84)
 			p.Match(DBRustParserEQUALS)
 		}
 		{
-			p.SetState(81)
+			p.SetState(85)
 
 			var _x = p.expression(0)
 
@@ -1223,26 +1242,26 @@ func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(84)
+			p.SetState(88)
 			p.Match(DBRustParserLET)
 		}
 		{
-			p.SetState(85)
+			p.SetState(89)
 			p.Match(DBRustParserMUT)
 		}
 		{
-			p.SetState(86)
+			p.SetState(90)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*DeclarationContext)._ID = _m
 		}
 		{
-			p.SetState(87)
+			p.SetState(91)
 			p.Match(DBRustParserEQUALS)
 		}
 		{
-			p.SetState(88)
+			p.SetState(92)
 
 			var _x = p.expression(0)
 
@@ -1267,22 +1286,22 @@ func (p *DBRustParser) Declaration() (localctx IDeclarationContext) {
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(91)
+			p.SetState(95)
 			p.Match(DBRustParserLET)
 		}
 		{
-			p.SetState(92)
+			p.SetState(96)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*DeclarationContext)._ID = _m
 		}
 		{
-			p.SetState(93)
+			p.SetState(97)
 			p.Match(DBRustParserEQUALS)
 		}
 		{
-			p.SetState(94)
+			p.SetState(98)
 
 			var _x = p.expression(0)
 
@@ -1440,18 +1459,18 @@ func (p *DBRustParser) Assignment() (localctx IAssignmentContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(99)
+		p.SetState(103)
 
 		var _m = p.Match(DBRustParserID)
 
 		localctx.(*AssignmentContext)._ID = _m
 	}
 	{
-		p.SetState(100)
+		p.SetState(104)
 		p.Match(DBRustParserEQUALS)
 	}
 	{
-		p.SetState(101)
+		p.SetState(105)
 
 		var _x = p.expression(0)
 
@@ -1622,7 +1641,7 @@ func (p *DBRustParser) expList(_p int) (localctx IExpListContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(105)
+		p.SetState(109)
 
 		var _x = p.expression(0)
 
@@ -1633,7 +1652,7 @@ func (p *DBRustParser) expList(_p int) (localctx IExpListContext) {
 	localctx.(*ExpListContext).l.Add(localctx.(*ExpListContext).Get_expression().GetState())
 
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(115)
+	p.SetState(119)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext())
 
@@ -1646,17 +1665,17 @@ func (p *DBRustParser) expList(_p int) (localctx IExpListContext) {
 			localctx = NewExpListContext(p, _parentctx, _parentState)
 			localctx.(*ExpListContext).list = _prevctx
 			p.PushNewRecursionContext(localctx, _startState, DBRustParserRULE_expList)
-			p.SetState(108)
+			p.SetState(112)
 
 			if !(p.Precpred(p.GetParserRuleContext(), 2)) {
 				panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 2)", ""))
 			}
 			{
-				p.SetState(109)
+				p.SetState(113)
 				p.Match(DBRustParserCOMMA)
 			}
 			{
-				p.SetState(110)
+				p.SetState(114)
 
 				var _x = p.expression(0)
 
@@ -1667,7 +1686,7 @@ func (p *DBRustParser) expList(_p int) (localctx IExpListContext) {
 			localctx.(*ExpListContext).l = localctx.(*ExpListContext).GetList().GetL()
 
 		}
-		p.SetState(117)
+		p.SetState(121)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext())
 	}
@@ -1886,17 +1905,17 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(131)
+	p.SetState(135)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserNOT:
 		{
-			p.SetState(119)
+			p.SetState(123)
 			p.Match(DBRustParserNOT)
 		}
 		{
-			p.SetState(120)
+			p.SetState(124)
 
 			var _x = p.expression(3)
 
@@ -1913,18 +1932,18 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 
 	case DBRustParserOPENPAR:
 		{
-			p.SetState(123)
+			p.SetState(127)
 			p.Match(DBRustParserOPENPAR)
 		}
 		{
-			p.SetState(124)
+			p.SetState(128)
 
 			var _x = p.expression(0)
 
 			localctx.(*ExpressionContext).exp = _x
 		}
 		{
-			p.SetState(125)
+			p.SetState(129)
 			p.Match(DBRustParserCLOSEPAR)
 		}
 
@@ -1938,7 +1957,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 
 	case DBRustParserPRINTLN, DBRustParserBFALSE, DBRustParserBTRUE, DBRustParserNUMBER, DBRustParserFLOAT, DBRustParserSTRING, DBRustParserCHAR, DBRustParserID:
 		{
-			p.SetState(128)
+			p.SetState(132)
 
 			var _x = p.Value()
 
@@ -1957,7 +1976,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(140)
+	p.SetState(144)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext())
 
@@ -1970,20 +1989,20 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 			localctx = NewExpressionContext(p, _parentctx, _parentState)
 			localctx.(*ExpressionContext).leftExp = _prevctx
 			p.PushNewRecursionContext(localctx, _startState, DBRustParserRULE_expression)
-			p.SetState(133)
+			p.SetState(137)
 
 			if !(p.Precpred(p.GetParserRuleContext(), 4)) {
 				panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
 			}
 			{
-				p.SetState(134)
+				p.SetState(138)
 
 				var _x = p.ExpOp()
 
 				localctx.(*ExpressionContext)._expOp = _x
 			}
 			{
-				p.SetState(135)
+				p.SetState(139)
 
 				var _x = p.expression(5)
 
@@ -1999,7 +2018,7 @@ func (p *DBRustParser) expression(_p int) (localctx IExpressionContext) {
 			}
 
 		}
-		p.SetState(142)
+		p.SetState(146)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext())
 	}
@@ -2140,14 +2159,14 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 		}
 	}()
 
-	p.SetState(165)
+	p.SetState(169)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserMUL:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(143)
+			p.SetState(147)
 			p.Match(DBRustParserMUL)
 		}
 
@@ -2156,7 +2175,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserDIV:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(145)
+			p.SetState(149)
 			p.Match(DBRustParserDIV)
 		}
 
@@ -2165,7 +2184,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserMOD:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(147)
+			p.SetState(151)
 			p.Match(DBRustParserMOD)
 		}
 
@@ -2174,7 +2193,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserADD:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(149)
+			p.SetState(153)
 			p.Match(DBRustParserADD)
 		}
 
@@ -2183,7 +2202,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserSUB:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(151)
+			p.SetState(155)
 			p.Match(DBRustParserSUB)
 		}
 
@@ -2192,7 +2211,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserNOTEQUALS:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(153)
+			p.SetState(157)
 			p.Match(DBRustParserNOTEQUALS)
 		}
 
@@ -2201,7 +2220,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserMOREOREQUALS:
 		p.EnterOuterAlt(localctx, 7)
 		{
-			p.SetState(155)
+			p.SetState(159)
 			p.Match(DBRustParserMOREOREQUALS)
 		}
 
@@ -2210,7 +2229,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserLESSOREQUALS:
 		p.EnterOuterAlt(localctx, 8)
 		{
-			p.SetState(157)
+			p.SetState(161)
 			p.Match(DBRustParserLESSOREQUALS)
 		}
 
@@ -2219,7 +2238,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserEQUALSEQUALS:
 		p.EnterOuterAlt(localctx, 9)
 		{
-			p.SetState(159)
+			p.SetState(163)
 			p.Match(DBRustParserEQUALSEQUALS)
 		}
 
@@ -2228,7 +2247,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserMAJOR:
 		p.EnterOuterAlt(localctx, 10)
 		{
-			p.SetState(161)
+			p.SetState(165)
 			p.Match(DBRustParserMAJOR)
 		}
 
@@ -2237,7 +2256,7 @@ func (p *DBRustParser) ExpOp() (localctx IExpOpContext) {
 	case DBRustParserMINOR:
 		p.EnterOuterAlt(localctx, 11)
 		{
-			p.SetState(163)
+			p.SetState(167)
 			p.Match(DBRustParserMINOR)
 		}
 
@@ -2363,14 +2382,14 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 		}
 	}()
 
-	p.SetState(179)
+	p.SetState(183)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case DBRustParserI64:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(167)
+			p.SetState(171)
 			p.Match(DBRustParserI64)
 		}
 
@@ -2379,7 +2398,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserF64:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(169)
+			p.SetState(173)
 			p.Match(DBRustParserF64)
 		}
 
@@ -2388,7 +2407,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserBOOL:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(171)
+			p.SetState(175)
 			p.Match(DBRustParserBOOL)
 		}
 
@@ -2397,7 +2416,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserCHARTYPE:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(173)
+			p.SetState(177)
 			p.Match(DBRustParserCHARTYPE)
 		}
 
@@ -2406,7 +2425,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserSTR:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(175)
+			p.SetState(179)
 			p.Match(DBRustParserSTR)
 		}
 
@@ -2415,7 +2434,7 @@ func (p *DBRustParser) ValueType() (localctx IValueTypeContext) {
 	case DBRustParserSTRCLASS:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(177)
+			p.SetState(181)
 			p.Match(DBRustParserSTRCLASS)
 		}
 
@@ -2664,56 +2683,56 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 		}
 	}()
 
-	p.SetState(201)
+	p.SetState(205)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 8, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(181)
+			p.SetState(185)
 
 			var _m = p.Match(DBRustParserNUMBER)
 
 			localctx.(*ValueContext)._NUMBER = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_NUMBER().GetLine(), localctx.(*ValueContext).Get_NUMBER().GetColumn(), I.INTEGER, (func() string {
+		localctx.(*ValueContext).state = I.Value{I.Token{"NUMBER", localctx.(*ValueContext).Get_NUMBER().GetLine(), localctx.(*ValueContext).Get_NUMBER().GetColumn()}, (func() string {
 			if localctx.(*ValueContext).Get_NUMBER() == nil {
 				return ""
 			} else {
 				return localctx.(*ValueContext).Get_NUMBER().GetText()
 			}
-		}())}
+		}()), I.INTEGER}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(183)
+			p.SetState(187)
 
 			var _m = p.Match(DBRustParserFLOAT)
 
 			localctx.(*ValueContext)._FLOAT = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_FLOAT().GetLine(), localctx.(*ValueContext).Get_FLOAT().GetColumn(), I.FLOAT, (func() string {
+		localctx.(*ValueContext).state = I.Value{I.Token{"FLOAT", localctx.(*ValueContext).Get_FLOAT().GetLine(), localctx.(*ValueContext).Get_FLOAT().GetColumn()}, (func() string {
 			if localctx.(*ValueContext).Get_FLOAT() == nil {
 				return ""
 			} else {
 				return localctx.(*ValueContext).Get_FLOAT().GetText()
 			}
-		}())}
+		}()), I.FLOAT}
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(185)
+			p.SetState(189)
 
 			var _m = p.Match(DBRustParserSTRING)
 
 			localctx.(*ValueContext)._STRING = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_STRING().GetLine(), localctx.(*ValueContext).Get_STRING().GetColumn(), I.STR, (func() string {
+		localctx.(*ValueContext).state = I.Value{I.Token{"SRING", localctx.(*ValueContext).Get_STRING().GetLine(), localctx.(*ValueContext).Get_STRING().GetColumn()}, (func() string {
 			if localctx.(*ValueContext).Get_STRING() == nil {
 				return ""
 			} else {
@@ -2725,19 +2744,19 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 			} else {
 				return localctx.(*ValueContext).Get_STRING().GetText()
 			}
-		}()))-1]}
+		}()))-1], I.STR}
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(187)
+			p.SetState(191)
 
 			var _m = p.Match(DBRustParserCHAR)
 
 			localctx.(*ValueContext)._CHAR = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_CHAR().GetLine(), localctx.(*ValueContext).Get_CHAR().GetColumn(), I.CHAR, (func() string {
+		localctx.(*ValueContext).state = I.Value{I.Token{"CHAR", localctx.(*ValueContext).Get_CHAR().GetLine(), localctx.(*ValueContext).Get_CHAR().GetColumn()}, (func() string {
 			if localctx.(*ValueContext).Get_CHAR() == nil {
 				return ""
 			} else {
@@ -2749,54 +2768,54 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 			} else {
 				return localctx.(*ValueContext).Get_CHAR().GetText()
 			}
-		}()))-1]}
+		}()))-1], I.CHAR}
 
 	case 5:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(189)
+			p.SetState(193)
 
 			var _m = p.Match(DBRustParserBFALSE)
 
 			localctx.(*ValueContext)._BFALSE = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_BFALSE().GetLine(), localctx.(*ValueContext).Get_BFALSE().GetColumn(), I.BOOL, false}
+		localctx.(*ValueContext).state = I.Value{I.Token{"BFALSE", localctx.(*ValueContext).Get_BFALSE().GetLine(), localctx.(*ValueContext).Get_BFALSE().GetColumn()}, false, I.BOOL}
 
 	case 6:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(191)
+			p.SetState(195)
 
 			var _m = p.Match(DBRustParserBTRUE)
 
 			localctx.(*ValueContext)._BTRUE = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_BTRUE().GetLine(), localctx.(*ValueContext).Get_BTRUE().GetColumn(), I.BOOL, true}
+		localctx.(*ValueContext).state = I.Value{I.Token{"BTRUE", localctx.(*ValueContext).Get_BTRUE().GetLine(), localctx.(*ValueContext).Get_BTRUE().GetColumn()}, false, I.BOOL}
 
 	case 7:
 		p.EnterOuterAlt(localctx, 7)
 		{
-			p.SetState(193)
+			p.SetState(197)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*ValueContext)._ID = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{localctx.(*ValueContext).Get_ID().GetLine(), localctx.(*ValueContext).Get_ID().GetColumn(), I.ID, (func() string {
+		localctx.(*ValueContext).state = I.Value{I.Token{"ID", localctx.(*ValueContext).Get_ID().GetLine(), localctx.(*ValueContext).Get_ID().GetColumn()}, (func() string {
 			if localctx.(*ValueContext).Get_ID() == nil {
 				return ""
 			} else {
 				return localctx.(*ValueContext).Get_ID().GetText()
 			}
-		}())}
+		}()), I.ID}
 
 	case 8:
 		p.EnterOuterAlt(localctx, 8)
 		{
-			p.SetState(195)
+			p.SetState(199)
 
 			var _x = p.Methods()
 
@@ -2808,7 +2827,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 	case 9:
 		p.EnterOuterAlt(localctx, 9)
 		{
-			p.SetState(198)
+			p.SetState(202)
 
 			var _x = p.FunctionCall()
 
@@ -2955,67 +2974,67 @@ func (p *DBRustParser) FunctionCall() (localctx IFunctionCallContext) {
 		}
 	}()
 
-	p.SetState(213)
+	p.SetState(217)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 9, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(203)
+			p.SetState(207)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*FunctionCallContext)._ID = _m
 		}
 		{
-			p.SetState(204)
+			p.SetState(208)
 			p.Match(DBRustParserOPENPAR)
 		}
 		{
-			p.SetState(205)
+			p.SetState(209)
 
 			var _x = p.expList(0)
 
 			localctx.(*FunctionCallContext)._expList = _x
 		}
 		{
-			p.SetState(206)
+			p.SetState(210)
 			p.Match(DBRustParserCLOSEPAR)
 		}
 
-		localctx.(*FunctionCallContext).state = I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{localctx.(*FunctionCallContext).Get_ID().GetLine(), localctx.(*FunctionCallContext).Get_ID().GetColumn(), I.VOID, (func() string {
+		localctx.(*FunctionCallContext).state = I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{I.Token{"FunctionCall", localctx.(*FunctionCallContext).Get_ID().GetLine(), localctx.(*FunctionCallContext).Get_ID().GetColumn()}, (func() string {
 			if localctx.(*FunctionCallContext).Get_ID() == nil {
 				return ""
 			} else {
 				return localctx.(*FunctionCallContext).Get_ID().GetText()
 			}
-		}())}, localctx.(*FunctionCallContext).Get_expList().GetL().ToArray()}
+		}()), I.VOID}, localctx.(*FunctionCallContext).Get_expList().GetL().ToArray()}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(209)
+			p.SetState(213)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*FunctionCallContext)._ID = _m
 		}
 		{
-			p.SetState(210)
+			p.SetState(214)
 			p.Match(DBRustParserOPENPAR)
 		}
 		{
-			p.SetState(211)
+			p.SetState(215)
 			p.Match(DBRustParserCLOSEPAR)
 		}
 
-		localctx.(*FunctionCallContext).state = I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{localctx.(*FunctionCallContext).Get_ID().GetLine(), localctx.(*FunctionCallContext).Get_ID().GetColumn(), I.VOID, (func() string {
+		localctx.(*FunctionCallContext).state = I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{I.Token{"FunctionCall", localctx.(*FunctionCallContext).Get_ID().GetLine(), localctx.(*FunctionCallContext).Get_ID().GetColumn()}, (func() string {
 			if localctx.(*FunctionCallContext).Get_ID() == nil {
 				return ""
 			} else {
 				return localctx.(*FunctionCallContext).Get_ID().GetText()
 			}
-		}())}, make([]interface{}, 0)}
+		}()), I.VOID}, make([]interface{}, 0)}
 
 	}
 
@@ -3134,7 +3153,7 @@ func (p *DBRustParser) Methods() (localctx IMethodsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(215)
+		p.SetState(219)
 
 		var _x = p.PrintlnCall()
 
@@ -3280,35 +3299,236 @@ func (p *DBRustParser) PrintlnCall() (localctx IPrintlnCallContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(218)
+		p.SetState(222)
 
 		var _m = p.Match(DBRustParserPRINTLN)
 
 		localctx.(*PrintlnCallContext)._PRINTLN = _m
 	}
 	{
-		p.SetState(219)
+		p.SetState(223)
 		p.Match(DBRustParserOPENPAR)
 	}
 	{
-		p.SetState(220)
+		p.SetState(224)
 
 		var _x = p.expList(0)
 
 		localctx.(*PrintlnCallContext)._expList = _x
 	}
 	{
-		p.SetState(221)
+		p.SetState(225)
 		p.Match(DBRustParserCLOSEPAR)
 	}
 
-	localctx.(*PrintlnCallContext).state = I.PrintlnCall{I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{localctx.(*PrintlnCallContext).Get_PRINTLN().GetLine(), localctx.(*PrintlnCallContext).Get_PRINTLN().GetColumn(), I.VOID, "Println"}, localctx.(*PrintlnCallContext).Get_expList().GetL().ToArray()}}
+	localctx.(*PrintlnCallContext).state = I.PrintlnCall{I.FunctionCall{I.Instruction{"FunctionCall"}, I.Value{I.Token{"Println", localctx.(*PrintlnCallContext).Get_PRINTLN().GetLine(), localctx.(*PrintlnCallContext).Get_PRINTLN().GetColumn()}, "Println", I.VOID}, localctx.(*PrintlnCallContext).Get_expList().GetL().ToArray()}}
 
 	return localctx
 }
 
-// IFunctionContext is an interface to support dynamic dispatch.
-type IFunctionContext interface {
+// IParamListContext is an interface to support dynamic dispatch.
+type IParamListContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetList returns the list rule contexts.
+	GetList() IParamListContext
+
+	// Get_param returns the _param rule contexts.
+	Get_param() IParamContext
+
+	// SetList sets the list rule contexts.
+	SetList(IParamListContext)
+
+	// Set_param sets the _param rule contexts.
+	Set_param(IParamContext)
+
+	// GetL returns the l attribute.
+	GetL() *arrayList.List
+
+	// SetL sets the l attribute.
+	SetL(*arrayList.List)
+
+	// IsParamListContext differentiates from other interfaces.
+	IsParamListContext()
+}
+
+type ParamListContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+	l      *arrayList.List
+	list   IParamListContext
+	_param IParamContext
+}
+
+func NewEmptyParamListContext() *ParamListContext {
+	var p = new(ParamListContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = DBRustParserRULE_paramList
+	return p
+}
+
+func (*ParamListContext) IsParamListContext() {}
+
+func NewParamListContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ParamListContext {
+	var p = new(ParamListContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = DBRustParserRULE_paramList
+
+	return p
+}
+
+func (s *ParamListContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *ParamListContext) GetList() IParamListContext { return s.list }
+
+func (s *ParamListContext) Get_param() IParamContext { return s._param }
+
+func (s *ParamListContext) SetList(v IParamListContext) { s.list = v }
+
+func (s *ParamListContext) Set_param(v IParamContext) { s._param = v }
+
+func (s *ParamListContext) GetL() *arrayList.List { return s.l }
+
+func (s *ParamListContext) SetL(v *arrayList.List) { s.l = v }
+
+func (s *ParamListContext) Param() IParamContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IParamContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IParamContext)
+}
+
+func (s *ParamListContext) COMMA() antlr.TerminalNode {
+	return s.GetToken(DBRustParserCOMMA, 0)
+}
+
+func (s *ParamListContext) ParamList() IParamListContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IParamListContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IParamListContext)
+}
+
+func (s *ParamListContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ParamListContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *ParamListContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.EnterParamList(s)
+	}
+}
+
+func (s *ParamListContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.ExitParamList(s)
+	}
+}
+
+func (p *DBRustParser) ParamList() (localctx IParamListContext) {
+	return p.paramList(0)
+}
+
+func (p *DBRustParser) paramList(_p int) (localctx IParamListContext) {
+	var _parentctx antlr.ParserRuleContext = p.GetParserRuleContext()
+	_parentState := p.GetState()
+	localctx = NewParamListContext(p, p.GetParserRuleContext(), _parentState)
+	var _prevctx IParamListContext = localctx
+	var _ antlr.ParserRuleContext = _prevctx // TODO: To prevent unused variable warning.
+	_startState := 28
+	p.EnterRecursionRule(localctx, 28, DBRustParserRULE_paramList, _p)
+
+	defer func() {
+		p.UnrollRecursionContexts(_parentctx)
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	var _alt int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(229)
+
+		var _x = p.Param()
+
+		localctx.(*ParamListContext)._param = _x
+	}
+
+	localctx.(*ParamListContext).l = arrayList.New()
+	localctx.(*ParamListContext).l.Add(localctx.(*ParamListContext).Get_param().GetState())
+
+	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
+	p.SetState(239)
+	p.GetErrorHandler().Sync(p)
+	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 10, p.GetParserRuleContext())
+
+	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
+		if _alt == 1 {
+			if p.GetParseListeners() != nil {
+				p.TriggerExitRuleEvent()
+			}
+			_prevctx = localctx
+			localctx = NewParamListContext(p, _parentctx, _parentState)
+			localctx.(*ParamListContext).list = _prevctx
+			p.PushNewRecursionContext(localctx, _startState, DBRustParserRULE_paramList)
+			p.SetState(232)
+
+			if !(p.Precpred(p.GetParserRuleContext(), 2)) {
+				panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 2)", ""))
+			}
+			{
+				p.SetState(233)
+				p.Match(DBRustParserCOMMA)
+			}
+			{
+				p.SetState(234)
+
+				var _x = p.Param()
+
+				localctx.(*ParamListContext)._param = _x
+			}
+
+			localctx.(*ParamListContext).GetList().GetL().Add(localctx.(*ParamListContext).Get_param().GetState())
+			localctx.(*ParamListContext).l = localctx.(*ParamListContext).GetList().GetL()
+
+		}
+		p.SetState(241)
+		p.GetErrorHandler().Sync(p)
+		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 10, p.GetParserRuleContext())
+	}
+
+	return localctx
+}
+
+// IParamContext is an interface to support dynamic dispatch.
+type IParamContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
@@ -3320,8 +3540,174 @@ type IFunctionContext interface {
 	// Set_ID sets the _ID token.
 	Set_ID(antlr.Token)
 
-	// Get_expList returns the _expList rule contexts.
-	Get_expList() IExpListContext
+	// Get_valueType returns the _valueType rule contexts.
+	Get_valueType() IValueTypeContext
+
+	// Set_valueType sets the _valueType rule contexts.
+	Set_valueType(IValueTypeContext)
+
+	// GetState returns the state attribute.
+	GetState() I.FunctionParam
+
+	// SetState sets the state attribute.
+	SetState(I.FunctionParam)
+
+	// IsParamContext differentiates from other interfaces.
+	IsParamContext()
+}
+
+type ParamContext struct {
+	*antlr.BaseParserRuleContext
+	parser     antlr.Parser
+	state      I.FunctionParam
+	_ID        antlr.Token
+	_valueType IValueTypeContext
+}
+
+func NewEmptyParamContext() *ParamContext {
+	var p = new(ParamContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = DBRustParserRULE_param
+	return p
+}
+
+func (*ParamContext) IsParamContext() {}
+
+func NewParamContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ParamContext {
+	var p = new(ParamContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = DBRustParserRULE_param
+
+	return p
+}
+
+func (s *ParamContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *ParamContext) Get_ID() antlr.Token { return s._ID }
+
+func (s *ParamContext) Set_ID(v antlr.Token) { s._ID = v }
+
+func (s *ParamContext) Get_valueType() IValueTypeContext { return s._valueType }
+
+func (s *ParamContext) Set_valueType(v IValueTypeContext) { s._valueType = v }
+
+func (s *ParamContext) GetState() I.FunctionParam { return s.state }
+
+func (s *ParamContext) SetState(v I.FunctionParam) { s.state = v }
+
+func (s *ParamContext) ID() antlr.TerminalNode {
+	return s.GetToken(DBRustParserID, 0)
+}
+
+func (s *ParamContext) COLOM() antlr.TerminalNode {
+	return s.GetToken(DBRustParserCOLOM, 0)
+}
+
+func (s *ParamContext) ValueType() IValueTypeContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IValueTypeContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IValueTypeContext)
+}
+
+func (s *ParamContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ParamContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *ParamContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.EnterParam(s)
+	}
+}
+
+func (s *ParamContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(DBRustListener); ok {
+		listenerT.ExitParam(s)
+	}
+}
+
+func (p *DBRustParser) Param() (localctx IParamContext) {
+	localctx = NewParamContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 30, DBRustParserRULE_param)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(242)
+
+		var _m = p.Match(DBRustParserID)
+
+		localctx.(*ParamContext)._ID = _m
+	}
+	{
+		p.SetState(243)
+		p.Match(DBRustParserCOLOM)
+	}
+	{
+		p.SetState(244)
+
+		var _x = p.ValueType()
+
+		localctx.(*ParamContext)._valueType = _x
+	}
+
+	localctx.(*ParamContext).SetState(I.FunctionParam{(func() string {
+		if localctx.(*ParamContext).Get_ID() == nil {
+			return ""
+		} else {
+			return localctx.(*ParamContext).Get_ID().GetText()
+		}
+	}()), localctx.(*ParamContext).Get_valueType().GetState()})
+
+	return localctx
+}
+
+// IFunctionContext is an interface to support dynamic dispatch.
+type IFunctionContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Get_FN returns the _FN token.
+	Get_FN() antlr.Token
+
+	// Get_ID returns the _ID token.
+	Get_ID() antlr.Token
+
+	// Set_FN sets the _FN token.
+	Set_FN(antlr.Token)
+
+	// Set_ID sets the _ID token.
+	Set_ID(antlr.Token)
+
+	// Get_paramList returns the _paramList rule contexts.
+	Get_paramList() IParamListContext
 
 	// Get_instructionsBlock returns the _instructionsBlock rule contexts.
 	Get_instructionsBlock() IInstructionsBlockContext
@@ -3329,8 +3715,8 @@ type IFunctionContext interface {
 	// Get_valueType returns the _valueType rule contexts.
 	Get_valueType() IValueTypeContext
 
-	// Set_expList sets the _expList rule contexts.
-	Set_expList(IExpListContext)
+	// Set_paramList sets the _paramList rule contexts.
+	Set_paramList(IParamListContext)
 
 	// Set_instructionsBlock sets the _instructionsBlock rule contexts.
 	Set_instructionsBlock(IInstructionsBlockContext)
@@ -3352,8 +3738,9 @@ type FunctionContext struct {
 	*antlr.BaseParserRuleContext
 	parser             antlr.Parser
 	state              I.Function
+	_FN                antlr.Token
 	_ID                antlr.Token
-	_expList           IExpListContext
+	_paramList         IParamListContext
 	_instructionsBlock IInstructionsBlockContext
 	_valueType         IValueTypeContext
 }
@@ -3380,11 +3767,15 @@ func NewFunctionContext(parser antlr.Parser, parent antlr.ParserRuleContext, inv
 
 func (s *FunctionContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *FunctionContext) Get_FN() antlr.Token { return s._FN }
+
 func (s *FunctionContext) Get_ID() antlr.Token { return s._ID }
+
+func (s *FunctionContext) Set_FN(v antlr.Token) { s._FN = v }
 
 func (s *FunctionContext) Set_ID(v antlr.Token) { s._ID = v }
 
-func (s *FunctionContext) Get_expList() IExpListContext { return s._expList }
+func (s *FunctionContext) Get_paramList() IParamListContext { return s._paramList }
 
 func (s *FunctionContext) Get_instructionsBlock() IInstructionsBlockContext {
 	return s._instructionsBlock
@@ -3392,7 +3783,7 @@ func (s *FunctionContext) Get_instructionsBlock() IInstructionsBlockContext {
 
 func (s *FunctionContext) Get_valueType() IValueTypeContext { return s._valueType }
 
-func (s *FunctionContext) Set_expList(v IExpListContext) { s._expList = v }
+func (s *FunctionContext) Set_paramList(v IParamListContext) { s._paramList = v }
 
 func (s *FunctionContext) Set_instructionsBlock(v IInstructionsBlockContext) {
 	s._instructionsBlock = v
@@ -3416,14 +3807,14 @@ func (s *FunctionContext) OPENPAR() antlr.TerminalNode {
 	return s.GetToken(DBRustParserOPENPAR, 0)
 }
 
-func (s *FunctionContext) ExpList() IExpListContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IExpListContext)(nil)).Elem(), 0)
+func (s *FunctionContext) ParamList() IParamListContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IParamListContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IExpListContext)
+	return t.(IParamListContext)
 }
 
 func (s *FunctionContext) CLOSEPAR() antlr.TerminalNode {
@@ -3476,7 +3867,7 @@ func (s *FunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *DBRustParser) Function() (localctx IFunctionContext) {
 	localctx = NewFunctionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 28, DBRustParserRULE_function)
+	p.EnterRule(localctx, 32, DBRustParserRULE_function)
 
 	defer func() {
 		p.ExitRule()
@@ -3494,107 +3885,204 @@ func (p *DBRustParser) Function() (localctx IFunctionContext) {
 		}
 	}()
 
-	p.SetState(242)
+	p.SetState(281)
 	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 10, p.GetParserRuleContext()) {
+	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 11, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(224)
-			p.Match(DBRustParserFN)
+			p.SetState(247)
+
+			var _m = p.Match(DBRustParserFN)
+
+			localctx.(*FunctionContext)._FN = _m
 		}
 		{
-			p.SetState(225)
+			p.SetState(248)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*FunctionContext)._ID = _m
 		}
 		{
-			p.SetState(226)
+			p.SetState(249)
 			p.Match(DBRustParserOPENPAR)
 		}
 		{
-			p.SetState(227)
+			p.SetState(250)
 
-			var _x = p.expList(0)
+			var _x = p.paramList(0)
 
-			localctx.(*FunctionContext)._expList = _x
+			localctx.(*FunctionContext)._paramList = _x
 		}
 		{
-			p.SetState(228)
+			p.SetState(251)
 			p.Match(DBRustParserCLOSEPAR)
 		}
 		{
-			p.SetState(229)
+			p.SetState(252)
 
 			var _x = p.InstructionsBlock()
 
 			localctx.(*FunctionContext)._instructionsBlock = _x
 		}
 
-		localctx.(*FunctionContext).SetState(I.Function{I.Instruction{"Function"}, (func() string {
+		localctx.(*FunctionContext).SetState(I.Function{I.Instruction{"Function"}, I.Token{"Function", localctx.(*FunctionContext).Get_FN().GetLine(), localctx.(*FunctionContext).Get_FN().GetColumn()}, (func() string {
 			if localctx.(*FunctionContext).Get_ID() == nil {
 				return ""
 			} else {
 				return localctx.(*FunctionContext).Get_ID().GetText()
 			}
-		}()), localctx.(*FunctionContext).Get_expList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID})
+		}()), localctx.(*FunctionContext).Get_paramList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID})
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(232)
-			p.Match(DBRustParserFN)
+			p.SetState(255)
+
+			var _m = p.Match(DBRustParserFN)
+
+			localctx.(*FunctionContext)._FN = _m
 		}
 		{
-			p.SetState(233)
+			p.SetState(256)
 
 			var _m = p.Match(DBRustParserID)
 
 			localctx.(*FunctionContext)._ID = _m
 		}
 		{
-			p.SetState(234)
+			p.SetState(257)
 			p.Match(DBRustParserOPENPAR)
 		}
 		{
-			p.SetState(235)
-
-			var _x = p.expList(0)
-
-			localctx.(*FunctionContext)._expList = _x
-		}
-		{
-			p.SetState(236)
+			p.SetState(258)
 			p.Match(DBRustParserCLOSEPAR)
 		}
 		{
-			p.SetState(237)
+			p.SetState(259)
+
+			var _x = p.InstructionsBlock()
+
+			localctx.(*FunctionContext)._instructionsBlock = _x
+		}
+
+		localctx.(*FunctionContext).SetState(I.Function{I.Instruction{"Function"}, I.Token{"Function", localctx.(*FunctionContext).Get_FN().GetLine(), localctx.(*FunctionContext).Get_FN().GetColumn()}, (func() string {
+			if localctx.(*FunctionContext).Get_ID() == nil {
+				return ""
+			} else {
+				return localctx.(*FunctionContext).Get_ID().GetText()
+			}
+		}()), make([]interface{}, 0), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID})
+
+	case 3:
+		p.EnterOuterAlt(localctx, 3)
+		{
+			p.SetState(262)
+
+			var _m = p.Match(DBRustParserFN)
+
+			localctx.(*FunctionContext)._FN = _m
+		}
+		{
+			p.SetState(263)
+
+			var _m = p.Match(DBRustParserID)
+
+			localctx.(*FunctionContext)._ID = _m
+		}
+		{
+			p.SetState(264)
+			p.Match(DBRustParserOPENPAR)
+		}
+		{
+			p.SetState(265)
+
+			var _x = p.paramList(0)
+
+			localctx.(*FunctionContext)._paramList = _x
+		}
+		{
+			p.SetState(266)
+			p.Match(DBRustParserCLOSEPAR)
+		}
+		{
+			p.SetState(267)
 
 			var _x = p.InstructionsBlock()
 
 			localctx.(*FunctionContext)._instructionsBlock = _x
 		}
 		{
-			p.SetState(238)
+			p.SetState(268)
 			p.Match(DBRustParserARROW)
 		}
 		{
-			p.SetState(239)
+			p.SetState(269)
 
 			var _x = p.ValueType()
 
 			localctx.(*FunctionContext)._valueType = _x
 		}
 
-		localctx.(*FunctionContext).SetState(I.Function{I.Instruction{"Function"}, (func() string {
+		localctx.(*FunctionContext).SetState(I.Function{I.Instruction{"Function"}, I.Token{"Function", localctx.(*FunctionContext).Get_FN().GetLine(), localctx.(*FunctionContext).Get_FN().GetColumn()}, (func() string {
 			if localctx.(*FunctionContext).Get_ID() == nil {
 				return ""
 			} else {
 				return localctx.(*FunctionContext).Get_ID().GetText()
 			}
-		}()), localctx.(*FunctionContext).Get_expList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState()})
+		}()), localctx.(*FunctionContext).Get_paramList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState()})
+
+	case 4:
+		p.EnterOuterAlt(localctx, 4)
+		{
+			p.SetState(272)
+
+			var _m = p.Match(DBRustParserFN)
+
+			localctx.(*FunctionContext)._FN = _m
+		}
+		{
+			p.SetState(273)
+
+			var _m = p.Match(DBRustParserID)
+
+			localctx.(*FunctionContext)._ID = _m
+		}
+		{
+			p.SetState(274)
+			p.Match(DBRustParserOPENPAR)
+		}
+		{
+			p.SetState(275)
+			p.Match(DBRustParserCLOSEPAR)
+		}
+		{
+			p.SetState(276)
+
+			var _x = p.InstructionsBlock()
+
+			localctx.(*FunctionContext)._instructionsBlock = _x
+		}
+		{
+			p.SetState(277)
+			p.Match(DBRustParserARROW)
+		}
+		{
+			p.SetState(278)
+
+			var _x = p.ValueType()
+
+			localctx.(*FunctionContext)._valueType = _x
+		}
+
+		localctx.(*FunctionContext).SetState(I.Function{I.Instruction{"Function"}, I.Token{"Function", localctx.(*FunctionContext).Get_FN().GetLine(), localctx.(*FunctionContext).Get_FN().GetColumn()}, (func() string {
+			if localctx.(*FunctionContext).Get_ID() == nil {
+				return ""
+			} else {
+				return localctx.(*FunctionContext).Get_ID().GetText()
+			}
+		}()), make([]interface{}, 0), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState()})
 
 	}
 
@@ -3617,6 +4105,13 @@ func (p *DBRustParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex 
 		}
 		return p.Expression_Sempred(t, predIndex)
 
+	case 14:
+		var t *ParamListContext = nil
+		if localctx != nil {
+			t = localctx.(*ParamListContext)
+		}
+		return p.ParamList_Sempred(t, predIndex)
+
 	default:
 		panic("No predicate with index: " + fmt.Sprint(ruleIndex))
 	}
@@ -3636,6 +4131,16 @@ func (p *DBRustParser) Expression_Sempred(localctx antlr.RuleContext, predIndex 
 	switch predIndex {
 	case 1:
 		return p.Precpred(p.GetParserRuleContext(), 4)
+
+	default:
+		panic("No predicate with index: " + fmt.Sprint(predIndex))
+	}
+}
+
+func (p *DBRustParser) ParamList_Sempred(localctx antlr.RuleContext, predIndex int) bool {
+	switch predIndex {
+	case 2:
+		return p.Precpred(p.GetParserRuleContext(), 2)
 
 	default:
 		panic("No predicate with index: " + fmt.Sprint(predIndex))

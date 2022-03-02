@@ -21,7 +21,7 @@ func (fn PrintlnCall) Execute(scope Scope) {
 
 // *VALUE -> OBTENER VALOR
 func (fn PrintlnCall) GetValue(scope Scope) interface{} {
-	return Value{0, 0, VOID, ""}
+	return Value{Token{"", 0, 0}, "", VOID}
 }
 
 // *VALUE -> OBTENER TIPO

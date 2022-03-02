@@ -23,6 +23,7 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 		Previous:  nil,
 		Name:      "Global",
 		Variables: make(map[string]I.IValue),
+		Functions: make(map[string]I.IInstruction),
 	}
 
 	// EJECUTAR INSTRUCCIONES
@@ -34,6 +35,10 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 
 		// EJECUTAR ASIGNACIONES
 		case I.Assignment:
+			instruction.Execute(globalScope)
+
+		// CREAR FUNCIONES
+		case I.Function:
 			instruction.Execute(globalScope)
 
 		// EJECUTAR LLAMADAS A FUNCIONES
@@ -68,8 +73,8 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 func (l *DBRustListener) VisitTerminal(ctx antlr.TerminalNode) {
 	var token antlr.Token = ctx.GetSymbol()
 	l.Tokens = append(l.Tokens, I.Token{
-		Value: token.GetText(),
-		Col:   token.GetColumn(),
-		Line:  token.GetLine(),
+		Name:   token.GetText(),
+		Column: token.GetColumn(),
+		Line:   token.GetLine(),
 	})
 }

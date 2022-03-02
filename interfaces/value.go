@@ -7,10 +7,9 @@ import (
 
 // VALOR BASE
 type Value struct {
-	Line   int
-	Column int
-	Type   ValueType
-	Value  interface{}
+	Token
+	Value interface{}
+	Type  ValueType
 }
 
 type ValueMut struct {
@@ -21,8 +20,14 @@ type ValueMut struct {
 type IValue interface {
 	GetLine() int
 	GetColumn() int
+	GetTokenName() string
 	GetValue(scope Scope) interface{}
 	GetType(Scope Scope) ValueType
+}
+
+// OBTENER NOMBRE DE TOKEN
+func (sym Value) GetTokenName() string {
+	return sym.Name
 }
 
 // OBTENER LINEA

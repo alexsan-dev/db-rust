@@ -213,25 +213,25 @@ valueType // TIPOS DE DATOS
 value
 	returns[I.IValue state]:
 	NUMBER { 
-		$state = I.Value{ $NUMBER.GetLine(), $NUMBER.GetColumn(), I.INTEGER, $NUMBER.text } 
+		$state = I.Value{ I.Token{ "NUMBER", $NUMBER.GetLine(), $NUMBER.GetColumn() }, $NUMBER.text, I.INTEGER } 
 	}
 	| FLOAT {	
-		$state = I.Value{ $FLOAT.GetLine(), $FLOAT.GetColumn(), I.FLOAT, $FLOAT.text } 
+		$state = I.Value{ I.Token{ "FLOAT", $FLOAT.GetLine(), $FLOAT.GetColumn() }, $FLOAT.text, I.FLOAT } 
 	}
 	| STRING { 
-		$state = I.Value{ $STRING.GetLine(), $STRING.GetColumn(), I.STR, $STRING.text[1:len($STRING.text)-1] } 
+		$state = I.Value{ I.Token{ "SRING", $STRING.GetLine(), $STRING.GetColumn() }, $STRING.text[1:len($STRING.text)-1], I.STR } 
 	}
 	| CHAR { 
-		$state = I.Value{ $CHAR.GetLine(), $CHAR.GetColumn(), I.CHAR, $CHAR.text[1:len($CHAR.text)-1] } 
+		$state = I.Value{ I.Token{ "CHAR", $CHAR.GetLine(), $CHAR.GetColumn() }, $CHAR.text[1:len($CHAR.text)-1], I.CHAR } 
 	}
 	| BFALSE { 
-		$state = I.Value{ $BFALSE.GetLine(), $BFALSE.GetColumn(), I.BOOL, false } 
+		$state = I.Value{ I.Token{ "BFALSE", $BFALSE.GetLine(), $BFALSE.GetColumn() }, false, I.BOOL } 
 	}
 	| BTRUE { 
-		$state = I.Value{ $BTRUE.GetLine(), $BTRUE.GetColumn(), I.BOOL, true } 
-		}
+		$state = I.Value{ I.Token{ "BTRUE", $BTRUE.GetLine(), $BTRUE.GetColumn() }, false, I.BOOL } 
+	}
 	| ID { 
-		$state = I.Value{ $ID.GetLine(), $ID.GetColumn(), I.ID, $ID.text } 
+		$state = I.Value{ I.Token{ "ID", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.ID } 
 	}
 	| methods {
 		$state = $methods.state;
@@ -244,10 +244,10 @@ value
 functionCall
 	returns[I.IFunctionCall state]:
 	ID OPENPAR expList CLOSEPAR {
-		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ $ID.GetLine(), $ID.GetColumn(), I.VOID, $ID.text }, $expList.l.ToArray() }
+		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, $expList.l.ToArray() }
   }
 	| ID OPENPAR CLOSEPAR {
-		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ $ID.GetLine(), $ID.GetColumn(), I.VOID, $ID.text }, make([]interface{}, 0) }
+		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, make([]interface{}, 0) }
 	};
 
 // FUNCIONES NATIVAS
@@ -259,15 +259,40 @@ methods
 printlnCall
 	returns[I.PrintlnCall state]:
 	PRINTLN OPENPAR expList CLOSEPAR {
-		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ $PRINTLN.GetLine(), $PRINTLN.GetColumn(), I.VOID, "Println" }, $expList.l.ToArray() } }
+		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "Println", $PRINTLN.GetLine(), $PRINTLN.GetColumn() }, "Println", I.VOID }, $expList.l.ToArray() } }
+	};
+
+// LISTA DE PARAMETROS
+paramList
+	returns[*arrayList.List l]:
+	list = paramList COMMA param { 
+		$list.l.Add($param.state)
+		$l = $list.l
+  }
+	| param { 
+		$l = arrayList.New()
+		$l.Add($param.state)
+	};
+
+// PARAMETRO
+param
+	returns[I.FunctionParam state]:
+	ID COLOM valueType {
+		$state = I.FunctionParam{ $ID.text, $valueType.state };
 	};
 
 // FUNCIONES
 function
 	returns[I.Function state]:
-	FN ID OPENPAR expList CLOSEPAR instructionsBlock {
-		$state = I.Function{ I.Instruction{"Function"}, $ID.text, $expList.l.ToArray(), $instructionsBlock.l.ToArray(), I.VOID };
+	FN ID OPENPAR paramList CLOSEPAR instructionsBlock {
+		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, $paramList.l.ToArray(), $instructionsBlock.l.ToArray(), I.VOID };
 	}
-	| FN ID OPENPAR expList CLOSEPAR instructionsBlock ARROW valueType {
-		$state = I.Function{ I.Instruction{"Function"}, $ID.text, $expList.l.ToArray(), $instructionsBlock.l.ToArray(), $valueType.state };
+	| FN ID OPENPAR CLOSEPAR instructionsBlock {
+		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, make([]interface{}, 0), $instructionsBlock.l.ToArray(), I.VOID };
+	}
+	| FN ID OPENPAR paramList CLOSEPAR instructionsBlock ARROW valueType {
+		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, $paramList.l.ToArray(), $instructionsBlock.l.ToArray(), $valueType.state };
+	}
+	| FN ID OPENPAR CLOSEPAR instructionsBlock ARROW valueType {
+		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, make([]interface{}, 0), $instructionsBlock.l.ToArray(), $valueType.state };
 	};

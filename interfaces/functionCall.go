@@ -4,23 +4,29 @@ package interfaces
 type FunctionCall struct {
 	Instruction
 	Value
-	Params []interface{}
+	Params []interface{} // []Expression
 }
 
 type IFunctionCall interface {
 	Execute(scope Scope)
 	GetLine() int
 	GetColumn() int
+	GetTokenName() string
 	GetValue(scope Scope) interface{}
 	GetType(scope Scope) ValueType
 }
 
-// *VALUE OBTENER LINEA
+// *VALUE -> OBTENER NOMBRE DE TOKEN
+func (fn FunctionCall) GetTokenName() string {
+	return fn.Name
+}
+
+// *VALUE -> OBTENER LINEA
 func (fn FunctionCall) GetLine() int {
 	return fn.Line
 }
 
-// *VALUE OBTENER COLUMNA
+// *VALUE -> OBTENER COLUMNA
 func (fn FunctionCall) GetColumn() int {
 	return fn.Column
 }

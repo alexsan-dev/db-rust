@@ -265,7 +265,7 @@ func (exp Expression) GetValue(scope Scope) IValue {
 								lType, exp.Operation.String(), rType), lLine, lCol})
 
 						// RETORNAR VALOR POR DEFECTO
-						return Value{lLine, 0, UNDEF, ""}
+						return Value{Token{"", lLine, 0}, "", UNDEF}
 					}
 				}
 			} else {
@@ -277,10 +277,10 @@ func (exp Expression) GetValue(scope Scope) IValue {
 			}
 
 			// VALOR FINAL
-			return Value{lLine, lCol, valueType, finalValue}
+			return Value{Token{left.GetTokenName(), lLine, lCol}, finalValue, valueType}
 		} else {
 			// RETORNAR VALOR POR DEFECTO
-			return Value{0, 0, UNDEF, ""}
+			return Value{Token{"", 0, 0}, "", UNDEF}
 		}
 	}
 }

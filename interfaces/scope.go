@@ -5,13 +5,14 @@ type Scope struct {
 	Previous  *Scope
 	Name      string
 	Variables map[string]IValue
+	Functions map[string]IInstruction
 }
 
 // GUARDAR VARIABLE
 func (scope Scope) AddVariable(id string, value IValue, mut bool) {
 	if _, ok := scope.Variables[id]; !ok {
 		scope.Variables[id] = ValueMut{Value{
-			value.GetLine(), value.GetColumn(), value.GetType(scope), value.GetValue(scope)}, mut}
+			Token{value.GetTokenName(), value.GetLine(), value.GetColumn()}, value.GetValue(scope), value.GetType(scope)}, mut}
 	}
 }
 
@@ -20,8 +21,15 @@ func (scope Scope) SetVariable(id string, value IValue) {
 	if _, ok := scope.Variables[id]; ok {
 		if scope.Variables[id].(ValueMut).Mut {
 			scope.Variables[id] = ValueMut{Value{
-				value.GetLine(), value.GetColumn(), value.GetType(scope), value.GetValue(scope)}, true}
+				Token{value.GetTokenName(), value.GetLine(), value.GetColumn()}, value.GetValue(scope), value.GetType(scope)}, true}
 		}
+	}
+}
+
+// GUARDAR FUNCION
+func (scope Scope) AddFunction(id string, fn IInstruction) {
+	if _, ok := scope.Functions[id]; !ok {
+		scope.Functions[id] = fn
 	}
 }
 
@@ -43,5 +51,27 @@ func (scope Scope) GetVariable(id string) IValue {
 	}
 
 	// VALOR POR DEFECTO
-	return ValueMut{Value{0, 0, UNDEF, ""}, false}
+	return ValueMut{Value{Token{"", 0, 0}, "", UNDEF}, false}
+}
+
+// OBTENER FUNCION
+func (scope Scope) GetFunction(id string) IInstruction {
+	// ENTORNO ACTUAL
+	var tmpScope Scope = scope
+
+	// BUSCAR EN PADRES
+	for {
+		if fn, ok := tmpScope.Functions[id]; ok {
+			return fn
+		}
+		if scope.Previous == nil {
+			break
+		} else {
+			tmpScope = *tmpScope.Previous
+		}
+	}
+
+	// VALOR POR DEFECTO
+	return Function{
+		Instruction{"Function"}, Token{"-NOFN", 0, 0}, "-NOFN", make([]interface{}, 0), make([]interface{}, 0), VOID}
 }
