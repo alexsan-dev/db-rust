@@ -13,8 +13,8 @@ type Value struct {
 }
 
 type ValueMut struct {
-	Value
-	Mut bool
+	Value IValue
+	Mut   bool
 }
 
 type IValue interface {
@@ -30,14 +30,26 @@ func (sym Value) GetTokenName() string {
 	return sym.Name
 }
 
+func (sym ValueMut) GetTokenName() string {
+	return sym.Value.GetTokenName()
+}
+
 // OBTENER LINEA
 func (sym Value) GetLine() int {
 	return sym.Line
 }
 
+func (sym ValueMut) GetLine() int {
+	return sym.Value.GetLine()
+}
+
 // OBTENER COLUMNA
 func (sym Value) GetColumn() int {
 	return sym.Column + 1
+}
+
+func (sym ValueMut) GetColumn() int {
+	return sym.Value.GetColumn()
 }
 
 // OBTENER VALOR DE SIMBOLO
@@ -86,6 +98,10 @@ func (sym Value) GetValue(scope Scope) interface{} {
 	}
 }
 
+func (sym ValueMut) GetValue(scope Scope) interface{} {
+	return sym.Value.GetValue(scope)
+}
+
 // OBTENER EL TIPO DE LA VARIABLE
 func (sym Value) GetType(scope Scope) ValueType {
 	if sym.Type != ID {
@@ -93,6 +109,10 @@ func (sym Value) GetType(scope Scope) ValueType {
 	} else {
 		return scope.GetVariable(fmt.Sprintf("%v", sym.Value)).GetType(scope)
 	}
+}
+
+func (sym ValueMut) GetType(scope Scope) ValueType {
+	return sym.Value.GetType(scope)
 }
 
 // ENUMS DE TIPO

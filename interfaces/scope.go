@@ -11,7 +11,7 @@ type Scope struct {
 // GUARDAR VARIABLE
 func (scope Scope) AddVariable(id string, value IValue, mut bool) {
 	if _, ok := scope.Variables[id]; !ok {
-		scope.Variables[id] = ValueMut{Value: value.(Value), Mut: mut}
+		scope.Variables[id] = ValueMut{value, mut}
 	}
 }
 
@@ -34,7 +34,7 @@ func (scope Scope) AddFunction(id string, fn IInstruction) {
 // OBTENER VARIABLE
 func (scope Scope) GetVariable(id string) IValue {
 	// ENTORNO ACTUAL
-	var tmpScope Scope = scope
+	tmpScope := scope
 
 	// BUSCAR EN PADRES
 	for {
@@ -55,7 +55,7 @@ func (scope Scope) GetVariable(id string) IValue {
 // OBTENER FUNCION
 func (scope Scope) GetFunction(id string) IInstruction {
 	// ENTORNO ACTUAL
-	var tmpScope Scope = scope
+	tmpScope := scope
 
 	// BUSCAR EN PADRES
 	for {

@@ -19,14 +19,14 @@ type DBRustListener struct {
 // EJECUTAR TODAS LAS INSTRUCCIONES
 func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 	// CREAR ENTORNO GLOBAL
-	var globalScope I.Scope = I.Scope{
+	globalScope := I.Scope{
 		Previous:  nil,
 		Name:      "Global",
 		Variables: make(map[string]I.IValue),
 		Functions: make(map[string]I.IInstruction),
 	}
 
-	// BUSCAR MAIN
+	// EJECUTAR DECLARACIONES DE FUNCIONES
 	mainName := "main"
 	for _, s := range ctx.GetList().ToArray() {
 		switch ins := s.(type) {
@@ -44,8 +44,8 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 				Line:   0,
 				Column: 0,
 			}, Value: mainName, Type: I.VOID},
+		Id:     mainName,
 		Params: make([]interface{}, 0),
-		Scope:  nil,
 	}
 
 	mainCall.Execute(globalScope)
@@ -70,7 +70,7 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 
 // AGREGAR TODOS LOS TOKENS
 func (l *DBRustListener) VisitTerminal(ctx antlr.TerminalNode) {
-	var token antlr.Token = ctx.GetSymbol()
+	token := ctx.GetSymbol()
 	l.Tokens = append(l.Tokens, I.Token{
 		Name:   token.GetText(),
 		Column: token.GetColumn(),

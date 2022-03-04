@@ -1,8 +1,8 @@
-fn chinchu(id:&str) {
-  println!(id);
+fn chinchulin(id:&str) -> &str {
+  return id;
 }
 
 fn main() {
-  let id2:&str = "hola2";
-  chinchu(id2);
+  let id:&str = chinchulin("hola");
+  println!(id);
 }

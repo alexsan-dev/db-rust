@@ -14,7 +14,7 @@ type Declaration struct {
 // *INSTRUCTION
 func (declaration Declaration) Execute(scope Scope) {
 	// VERIFICAR TIPOS
-	var value IValue = declaration.Expression.GetValue(scope)
+	value := declaration.Expression.GetValue(scope)
 
 	if scope.GetVariable(declaration.Id).GetType(scope) == UNDEF {
 		if declaration.Type == value.GetType(scope) || declaration.Type == UNDEF {

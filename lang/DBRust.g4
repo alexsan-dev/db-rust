@@ -38,10 +38,11 @@ instructions
 instruction
 	returns[I.IInstruction state]:
 	decltn = declaration SEMI { $state = $decltn.state }
+	| calls = functionCall SEMI { $state = $calls.state }
 	| assign = assignment SEMI { $state = $assign.state }
 	| mth = methods SEMI { $state = $mth.state }
-	| calls = functionCall SEMI { $state = $calls.state }
-	| fn = function { $state = $fn.state };
+	| fn = function { $state = $fn.state }
+	| rtn = returnValue SEMI { $state = $rtn.state };
 
 // DECLARACIONES
 declaration
@@ -49,7 +50,7 @@ declaration
 	LET ID COLOM valueType EQUALS expression {
 		expPoint := $expression.state
 		$state = I.Declaration{ 
-			Instruction: I.Instruction{"Declaration"},
+			Instruction: I.Instruction{ "Declaration" },
 			Mut: false,
 			Type: $valueType.state,
 			Id: $ID.text, 
@@ -59,7 +60,7 @@ declaration
 	| LET MUT ID COLOM valueType EQUALS expression {
 		expPoint := $expression.state
 		$state = I.Declaration{ 
-			Instruction: I.Instruction{"Declaration"},
+			Instruction: I.Instruction{ "Declaration" },
 			Mut: true,
 			Type: $valueType.state,
 			Id: $ID.text, 
@@ -69,7 +70,7 @@ declaration
 	| LET MUT ID EQUALS expression {
 		expPoint := $expression.state
 		$state = I.Declaration{ 
-			Instruction: I.Instruction{"Declaration"},
+			Instruction: I.Instruction{ "Declaration" },
 			Mut: true,
 			Type: I.UNDEF,
 			Id: $ID.text, 
@@ -79,7 +80,7 @@ declaration
 	| LET ID EQUALS expression {
 		expPoint := $expression.state
 		$state = I.Declaration{ 
-			Instruction: I.Instruction{"Declaration"},
+			Instruction: I.Instruction{ "Declaration" },
 			Mut: true,
 			Type:  I.UNDEF,
 			Id: $ID.text, 
@@ -93,7 +94,7 @@ assignment
 	ID EQUALS expression {
 		expPoint := $expression.state
 		$state = I.Assignment{ 
-			Instruction: I.Instruction{"Assignment"}, 
+			Instruction: I.Instruction{ "Assignment" }, 
 			Id: $ID.text, 
 			Expression: &expPoint,
 		}
@@ -244,10 +245,10 @@ value
 functionCall
 	returns[I.IFunctionCall state]:
 	ID OPENPAR expList CLOSEPAR {
-		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, $expList.l.ToArray(), nil }
+		$state = I.FunctionCall{ I.Instruction{ "FunctionCall" }, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, $ID.text, $expList.l.ToArray() }
   }
 	| ID OPENPAR CLOSEPAR {
-		$state = I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, make([]interface{}, 0), nil }
+		$state = I.FunctionCall{ I.Instruction{ "FunctionCall" }, I.Value{ I.Token{ "FunctionCall", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.VOID }, $ID.text, make([]interface{}, 0) }
 	};
 
 // FUNCIONES NATIVAS
@@ -259,7 +260,7 @@ methods
 printlnCall
 	returns[I.PrintlnCall state]:
 	PRINTLN OPENPAR expList CLOSEPAR {
-		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{"FunctionCall"}, I.Value{ I.Token{ "Println", $PRINTLN.GetLine(), $PRINTLN.GetColumn() }, "Println", I.VOID }, $expList.l.ToArray(), nil } }
+		$state = I.PrintlnCall{ I.FunctionCall{ I.Instruction{ "FunctionCall" }, I.Value{ I.Token{ "Println", $PRINTLN.GetLine(), $PRINTLN.GetColumn() }, "Println", I.VOID }, "Println", $expList.l.ToArray() } }
 	};
 
 // LISTA DE PARAMETROS
@@ -285,14 +286,21 @@ param
 function
 	returns[I.Function state]:
 	FN ID OPENPAR paramList CLOSEPAR instructionsBlock {
-		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, $paramList.l.ToArray(), $instructionsBlock.l.ToArray(), I.VOID };
+		$state = I.Function{ I.Instruction{ "Function" }, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, $paramList.l.ToArray(), $instructionsBlock.l.ToArray(), I.VOID };
 	}
 	| FN ID OPENPAR CLOSEPAR instructionsBlock {
-		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, make([]interface{}, 0), $instructionsBlock.l.ToArray(), I.VOID };
+		$state = I.Function{ I.Instruction{ "Function" }, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, make([]interface{}, 0), $instructionsBlock.l.ToArray(), I.VOID };
 	}
-	| FN ID OPENPAR paramList CLOSEPAR instructionsBlock ARROW valueType {
-		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, $paramList.l.ToArray(), $instructionsBlock.l.ToArray(), $valueType.state };
+	| FN ID OPENPAR paramList CLOSEPAR ARROW valueType instructionsBlock {
+		$state = I.Function{ I.Instruction{ "Function" }, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, $paramList.l.ToArray(), $instructionsBlock.l.ToArray(), $valueType.state };
 	}
-	| FN ID OPENPAR CLOSEPAR instructionsBlock ARROW valueType {
-		$state = I.Function{ I.Instruction{"Function"}, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, make([]interface{}, 0), $instructionsBlock.l.ToArray(), $valueType.state };
+	| FN ID OPENPAR CLOSEPAR ARROW valueType instructionsBlock {
+		$state = I.Function{ I.Instruction{ "Function" }, I.Token{ "Function", $FN.GetLine(), $FN.GetColumn() }, $ID.text, make([]interface{}, 0), $instructionsBlock.l.ToArray(), $valueType.state };
+	};
+
+// RETURN
+returnValue
+	returns[I.ReturnValue state]:
+	RETURN expression {
+		$state = I.ReturnValue{ I.Instruction{ "Return" }, I.Token{ "Return", $RETURN.GetLine(), $RETURN.GetColumn() }, $expression.state }
 	};

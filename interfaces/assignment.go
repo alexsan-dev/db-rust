@@ -12,8 +12,8 @@ type Assignment struct {
 // *INSTRUCTION
 func (assign Assignment) Execute(scope Scope) {
 	// OBTENER VARIABLES
-	var scopeVar IValue = scope.GetVariable(assign.Id)
-	var expValue IValue = assign.Expression.GetValue(scope)
+	scopeVar := scope.GetVariable(assign.Id)
+	expValue := assign.Expression.GetValue(scope)
 
 	// VERIFICAR TIPOS
 	if scopeVar.GetType(scope) != UNDEF {

@@ -16,7 +16,7 @@ type Expression struct {
 // *VALUE
 func (exp Expression) GetValue(scope Scope) IValue {
 	// VALORES DE SALIDA
-	var valueType ValueType = UNDEF
+	valueType := UNDEF
 	var finalValue interface{}
 
 	// VALOR UNICO
@@ -26,15 +26,15 @@ func (exp Expression) GetValue(scope Scope) IValue {
 		// VERIFICAR SI VIENE LEFT
 		if exp.Left != nil {
 			// VARIABLES DE LEFT
-			var left = exp.Left.GetValue(scope)
-			var lType, lVal = left.GetType(scope), left.GetValue(scope)
-			var lLine, lCol = left.GetLine(), left.GetColumn()
+			left := exp.Left.GetValue(scope)
+			lType, lVal := left.GetType(scope), left.GetValue(scope)
+			lLine, lCol := left.GetLine(), left.GetColumn()
 
 			// OPERACIONES UNARIAS
 			if exp.Right != nil {
 				// VALORES DE RIGHT
-				var right = exp.Right.GetValue(scope)
-				var rType, rVal = right.GetType(scope), right.GetValue(scope)
+				right := exp.Right.GetValue(scope)
+				rType, rVal := right.GetType(scope), right.GetValue(scope)
 
 				// TABLA DE OPERACIONES
 				switch exp.Operation {

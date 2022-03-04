@@ -5,6 +5,7 @@ LET: 'let';
 MUT: 'mut';
 PRINTLN: 'println!';
 FN: 'fn';
+RETURN: 'return';
 
 // TIPOS
 I64: 'i64';

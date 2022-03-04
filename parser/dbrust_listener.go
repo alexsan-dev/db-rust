@@ -59,6 +59,9 @@ type DBRustListener interface {
 	// EnterFunction is called when entering the function production.
 	EnterFunction(c *FunctionContext)
 
+	// EnterReturnValue is called when entering the returnValue production.
+	EnterReturnValue(c *ReturnValueContext)
+
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
@@ -109,4 +112,7 @@ type DBRustListener interface {
 
 	// ExitFunction is called when exiting the function production.
 	ExitFunction(c *FunctionContext)
+
+	// ExitReturnValue is called when exiting the returnValue production.
+	ExitReturnValue(c *ReturnValueContext)
 }
