@@ -79,7 +79,7 @@ func (fn FunctionCall) GetRuntimeValue(scope Scope) interface{} {
 
 				// GUARDAR PARAMETROS
 				for index, param := range fn.Params {
-					paramValue := param.(Expression).GetValue(scope).(IValue)
+					paramValue := param.(Expression).GetValue(scope)
 					fnScope.AddVariable(localFn.Params[index].(FunctionParam).Id, Value{Token{paramValue.GetTokenName(), paramValue.GetLine(), paramValue.GetColumn()}, paramValue.GetValue(scope), paramValue.GetType(scope)}, false)
 				}
 
