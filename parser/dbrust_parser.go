@@ -3988,7 +3988,7 @@ func (p *DBRustParser) Function() (localctx IFunctionContext) {
 			} else {
 				return localctx.(*FunctionContext).Get_ID().GetText()
 			}
-		}()), localctx.(*FunctionContext).Get_paramList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID})
+		}()), localctx.(*FunctionContext).Get_paramList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID, nil})
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
@@ -4028,7 +4028,7 @@ func (p *DBRustParser) Function() (localctx IFunctionContext) {
 			} else {
 				return localctx.(*FunctionContext).Get_ID().GetText()
 			}
-		}()), make([]interface{}, 0), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID})
+		}()), make([]interface{}, 0), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), I.VOID, nil})
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
@@ -4086,7 +4086,7 @@ func (p *DBRustParser) Function() (localctx IFunctionContext) {
 			} else {
 				return localctx.(*FunctionContext).Get_ID().GetText()
 			}
-		}()), localctx.(*FunctionContext).Get_paramList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState()})
+		}()), localctx.(*FunctionContext).Get_paramList().GetL().ToArray(), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState(), nil})
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
@@ -4137,7 +4137,7 @@ func (p *DBRustParser) Function() (localctx IFunctionContext) {
 			} else {
 				return localctx.(*FunctionContext).Get_ID().GetText()
 			}
-		}()), make([]interface{}, 0), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState()})
+		}()), make([]interface{}, 0), localctx.(*FunctionContext).Get_instructionsBlock().GetL().ToArray(), localctx.(*FunctionContext).Get_valueType().GetState(), nil})
 
 	}
 

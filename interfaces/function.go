@@ -10,12 +10,14 @@ type Function struct {
 	Params     []interface{} // []FunctionParam
 	Body       []interface{} // []Instruction
 	ReturnType ValueType
+	Scope      *Scope
 }
 
 // *INSTRUCTION
 func (fn Function) Execute(scope Scope) {
 	// GUARDAR FUNCION
 	if scope.GetFunction(fn.Id).(Function).GetID() == "-NOFN" {
+		fn.Scope = &scope
 		scope.AddFunction(fn.Id, fn)
 	} else {
 		Errors = append(Errors, Error{

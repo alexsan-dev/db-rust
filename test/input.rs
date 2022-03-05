@@ -1,8 +1,13 @@
 fn chinchulin(id:&str) -> &str {
-  return id;
+
+  fn chinchulin2(id2:&str) -> &str {
+    return id2;
+  }
+
+  return id + chinchulin2(" mundo");
 }
 
 fn main() {
-  let id:&str = chinchulin("hola");
-  println!(id);
+  let id:&str = "hola";
+  println!(chinchulin(id));
 }

@@ -34,7 +34,7 @@ func (fn FunctionCall) GetColumn() int {
 	return fn.Column
 }
 
-// *VALUE -> EJECUTAR FUNCION
+// *INTRUCTION -> EJECUTAR FUNCION
 func (fn FunctionCall) Execute(scope Scope) {
 	fn.GetRuntimeValue(scope)
 }
@@ -75,7 +75,7 @@ func (fn FunctionCall) GetRuntimeValue(scope Scope) interface{} {
 
 			if validParams {
 				// CREAR SCOPE
-				fnScope := Scope{&scope, "Function", make(map[string]IValue), make(map[string]IInstruction)}
+				fnScope := Scope{localFn.Scope, "Function", make(map[string]IValue), make(map[string]IInstruction)}
 
 				// GUARDAR PARAMETROS
 				for index, param := range fn.Params {

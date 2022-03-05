@@ -71,5 +71,5 @@ func (scope Scope) GetFunction(id string) IInstruction {
 
 	// VALOR POR DEFECTO
 	return Function{
-		Instruction{"Function"}, Token{"-NOFN", 0, 0}, "-NOFN", make([]interface{}, 0), make([]interface{}, 0), VOID}
+		Instruction{"Function"}, Token{"-NOFN", 0, 0}, "-NOFN", make([]interface{}, 0), make([]interface{}, 0), VOID, nil}
 }
