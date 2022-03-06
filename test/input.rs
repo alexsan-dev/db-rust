@@ -1,13 +1,16 @@
 fn chinchulin(id:&str) -> &str {
-
-  fn chinchulin2(id2:&str) -> &str {
-    return id2;
+  if id == "hola!" {
+    println!("siuu");
+  } else if id  == "hol"+"a" && !false {
+    println!("alv2");
+  } else {
+    println!("alv");
   }
 
-  return id + chinchulin2(" mundo");
+  return id;
 }
 
 fn main() {
-  let id:&str = "hola";
-  println!(chinchulin(id));
+  let text:&str = "hola";
+  println!(chinchulin(text));
 }

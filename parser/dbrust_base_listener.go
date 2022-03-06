@@ -69,11 +69,23 @@ func (s *BaseDBRustListener) EnterExpression(ctx *ExpressionContext) {}
 // ExitExpression is called when production expression is exited.
 func (s *BaseDBRustListener) ExitExpression(ctx *ExpressionContext) {}
 
-// EnterExpOp is called when production expOp is entered.
-func (s *BaseDBRustListener) EnterExpOp(ctx *ExpOpContext) {}
+// EnterExpOpAlgb1 is called when production expOpAlgb1 is entered.
+func (s *BaseDBRustListener) EnterExpOpAlgb1(ctx *ExpOpAlgb1Context) {}
 
-// ExitExpOp is called when production expOp is exited.
-func (s *BaseDBRustListener) ExitExpOp(ctx *ExpOpContext) {}
+// ExitExpOpAlgb1 is called when production expOpAlgb1 is exited.
+func (s *BaseDBRustListener) ExitExpOpAlgb1(ctx *ExpOpAlgb1Context) {}
+
+// EnterExpOpAlgb2 is called when production expOpAlgb2 is entered.
+func (s *BaseDBRustListener) EnterExpOpAlgb2(ctx *ExpOpAlgb2Context) {}
+
+// ExitExpOpAlgb2 is called when production expOpAlgb2 is exited.
+func (s *BaseDBRustListener) ExitExpOpAlgb2(ctx *ExpOpAlgb2Context) {}
+
+// EnterExpOpRel1 is called when production expOpRel1 is entered.
+func (s *BaseDBRustListener) EnterExpOpRel1(ctx *ExpOpRel1Context) {}
+
+// ExitExpOpRel1 is called when production expOpRel1 is exited.
+func (s *BaseDBRustListener) ExitExpOpRel1(ctx *ExpOpRel1Context) {}
 
 // EnterValueType is called when production valueType is entered.
 func (s *BaseDBRustListener) EnterValueType(ctx *ValueTypeContext) {}
@@ -128,3 +140,21 @@ func (s *BaseDBRustListener) EnterReturnValue(ctx *ReturnValueContext) {}
 
 // ExitReturnValue is called when production returnValue is exited.
 func (s *BaseDBRustListener) ExitReturnValue(ctx *ReturnValueContext) {}
+
+// EnterConditions is called when production conditions is entered.
+func (s *BaseDBRustListener) EnterConditions(ctx *ConditionsContext) {}
+
+// ExitConditions is called when production conditions is exited.
+func (s *BaseDBRustListener) ExitConditions(ctx *ConditionsContext) {}
+
+// EnterConditionList is called when production conditionList is entered.
+func (s *BaseDBRustListener) EnterConditionList(ctx *ConditionListContext) {}
+
+// ExitConditionList is called when production conditionList is exited.
+func (s *BaseDBRustListener) ExitConditionList(ctx *ConditionListContext) {}
+
+// EnterElseIf is called when production elseIf is entered.
+func (s *BaseDBRustListener) EnterElseIf(ctx *ElseIfContext) {}
+
+// ExitElseIf is called when production elseIf is exited.
+func (s *BaseDBRustListener) ExitElseIf(ctx *ElseIfContext) {}

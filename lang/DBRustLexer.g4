@@ -6,6 +6,8 @@ MUT: 'mut';
 PRINTLN: 'println!';
 FN: 'fn';
 RETURN: 'return';
+IF: 'if';
+ELSE: 'else';
 
 // TIPOS
 I64: 'i64';
@@ -34,21 +36,21 @@ DOT: '.';
 COLOM: ':';
 SEMI: ';';
 COMMA: ',';
-AND: '&&';
-OR: '||';
-NOTEQUALS: '!=';
-EQUALSEQUALS: '==';
-MOREOREQUALS: '>=';
-LESSOREQUALS: '<=';
-NOT: '!';
-EQUALS: '=';
-MAJOR: '>';
-MINOR: '<';
 MUL: '*';
 DIV: '/';
 MOD: '%';
 ADD: '+';
 SUB: '-';
+LESSOREQUALS: '<=';
+MINOR: '<';
+MOREOREQUALS: '>=';
+MAJOR: '>';
+EQUALSEQUALS: '==';
+NOTEQUALS: '!=';
+EQUALS: '=';
+NOT: '!';
+AND: '&&';
+OR: '||';
 
 WHITESPACE: [ \r\n\t]+ -> skip;
 

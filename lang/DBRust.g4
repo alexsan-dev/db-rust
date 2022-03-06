@@ -42,7 +42,8 @@ instruction
 	| assign = assignment SEMI { $state = $assign.state }
 	| mth = methods SEMI { $state = $mth.state }
 	| fn = function { $state = $fn.state }
-	| rtn = returnValue SEMI { $state = $rtn.state };
+	| rtn = returnValue SEMI { $state = $rtn.state }
+	| cdtn = conditions { $state  = $cdtn.state };
 
 // DECLARACIONES
 declaration
@@ -115,14 +116,35 @@ expList
 // EXPRESIONES
 expression
 	returns[I.Expression state]:
-	leftExp = expression expOp rightExp = expression {
+	leftExp = expression expOpAlgb1 rightExp = expression {
 		left, right := $leftExp.state, $rightExp.state;
 		$state = I.Expression{ 
 			Value: nil, 
 			Left: &left,
 			Right: &right, 
-			Operation: $expOp.state,
+			Operation: $expOpAlgb1.state,
 		} 
+	}
+	| leftExp = expression expOpAlgb2 rightExp = expression {
+		left, right := $leftExp.state, $rightExp.state;
+		$state = I.Expression{ 
+			Value: nil, 
+			Left: &left,
+			Right: &right, 
+			Operation: $expOpAlgb2.state,
+		} 
+		}
+	| leftExp = expression expOpRel1 rightExp = expression {
+		left, right := $leftExp.state, $rightExp.state;
+		$state = I.Expression{ 
+			Value: nil, 
+			Left: &left,
+			Right: &right, 
+			Operation: $expOpRel1.state,
+		} 
+	}
+	| OPENPAR exp = expression CLOSEPAR {
+		$state = $exp.state
 	}
 	| NOT exp = expression {
 		exp := $exp.state
@@ -131,15 +153,6 @@ expression
 			Left: &exp,
 			Right: nil, 
 			Operation: I.UNOT,
-		} 
-	}
-	| OPENPAR exp = expression CLOSEPAR {
-		exp := $exp.state
-		$state = I.Expression{ 
-			Value: nil, 
-			Left: &exp,
-			Right: nil, 
-			Operation: I.NOOP,
 		} 
 	}
 	| value { 
@@ -153,7 +166,7 @@ expression
 	};
 
 // OPERADORES
-expOp
+expOpAlgb1
 	returns[I.Operation state]:
 	MUL {	
 		$state = I.MUL 
@@ -163,30 +176,42 @@ expOp
 	}
 	| MOD {	
 		$state = I.MOD 
-	}
-	| ADD {	
+	};
+
+expOpAlgb2
+	returns[I.Operation state]:
+	ADD {	
 		$state = I.ADD 
 	}
 	| SUB {	
 		$state = I.SUB 
-	}
-	| NOTEQUALS {	
-			$state = I.NOTEQUALS 
+		};
+
+expOpRel1
+	returns[I.Operation state]:
+	NOTEQUALS {	
+		$state = I.NOTEQUALS 
 	}
 	| MOREOREQUALS {	
-			$state = I.MOREOREQUALS 
+		$state = I.MOREOREQUALS 
 	}
 	| LESSOREQUALS {	
-			$state = I.LESSOREQUALS 
+		$state = I.LESSOREQUALS 
 	}
 	| EQUALSEQUALS {	
-			$state = I.EQUALSEQUALS 
+		$state = I.EQUALSEQUALS 
 	}
 	| MAJOR {	
-			$state = I.MAJOR 
+		$state = I.MAJOR 
 	}
 	| MINOR {	
-				$state = I.MINOR 
+		$state = I.MINOR 
+	}
+	| AND {	
+		$state = I.AND 
+	}
+	| OR {	
+		$state = I.OR 
 	};
 
 valueType // TIPOS DE DATOS
@@ -239,6 +264,9 @@ value
 	}
 	| functionCall {
 		$state = $functionCall.state;
+	}
+	| conditions {
+		$state = $conditions.state;
 	};
 
 // LLAMADAS A FUNCIONES
@@ -303,4 +331,39 @@ returnValue
 	returns[I.ReturnValue state]:
 	RETURN expression {
 		$state = I.ReturnValue{ I.Instruction{ "Return" }, I.Token{ "Return", $RETURN.GetLine(), $RETURN.GetColumn() }, $expression.state }
+	};
+
+// CONDICIONALES
+conditions
+	returns[I.IfControl state]:
+	IF expression insBody = instructionsBlock {
+		$state = I.IfControl{ I.Instruction{ "Control" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $expression.state, $insBody.l.ToArray(), make([]interface{}, 0), make([]interface{}, 0) };
+	}
+	| IF expression insBody = instructionsBlock conditionList {
+		$state = I.IfControl{ I.Instruction{ "Control" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $expression.state, $insBody.l.ToArray(), $conditionList.l.ToArray(), make([]interface{}, 0) };
+	}
+	| IF expression insBody = instructionsBlock ELSE elseBody = instructionsBlock {
+		$state = I.IfControl{ I.Instruction{ "Control" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $expression.state, $insBody.l.ToArray(), make([]interface{}, 0), $elseBody.l.ToArray() };
+	}
+	| IF expression insBody = instructionsBlock conditionList ELSE elseBody = instructionsBlock {
+		$state = I.IfControl{ I.Instruction{ "Control" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $expression.state, $insBody.l.ToArray(), $conditionList.l.ToArray(), $elseBody.l.ToArray() };
+	};
+
+// LISTA DE ELSE IFS
+conditionList
+	returns[*arrayList.List l]:
+	list = conditionList elseIf { 
+		$list.l.Add($elseIf.state)
+		$l = $list.l
+  }
+	| elseIf { 
+		$l = arrayList.New()
+		$l.Add($elseIf.state)
+	};
+
+// ELSE IF
+elseIf
+	returns[I.IfControlFallBack state]:
+	ELSE IF expression instructionsBlock {
+		$state = I.IfControlFallBack{ I.Token{ "ElseIf", $IF.GetLine(), $IF.GetColumn() }, $expression.state, $instructionsBlock.l.ToArray() };
 	};
