@@ -133,7 +133,7 @@ expression
 			Right: &right, 
 			Operation: $expOpAlgb2.state,
 		} 
-		}
+	}
 	| leftExp = expression expOpRel1 rightExp = expression {
 		left, right := $leftExp.state, $rightExp.state;
 		$state = I.Expression{ 
@@ -185,7 +185,7 @@ expOpAlgb2
 	}
 	| SUB {	
 		$state = I.SUB 
-		};
+	};
 
 expOpRel1
 	returns[I.Operation state]:
@@ -265,8 +265,8 @@ value
 	| functionCall {
 		$state = $functionCall.state;
 	}
-	| conditions {
-		$state = $conditions.state;
+	| ternaryConditions {
+		$state = $ternaryConditions.state;
 	};
 
 // LLAMADAS A FUNCIONES
@@ -349,6 +349,30 @@ conditions
 		$state = I.IfControl{ I.Instruction{ "Control" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $expression.state, $insBody.l.ToArray(), $conditionList.l.ToArray(), $elseBody.l.ToArray() };
 	};
 
+// CONDICIONALES TERNARIOS
+ternaryConditions
+	returns[I.IfTernaryControl state]:
+	IF firstExp = expression OPENBRACKET insBody = instructions ternExp = expression CLOSEBRACKET {
+		trueExp := $ternExp.state;
+		$state = I.IfTernaryControl{ I.IfControl{ I.Instruction{ "TernaryControl" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $firstExp.state, $insBody.l.ToArray(), make([]interface{}, 0), make([]interface{}, 0) }, &trueExp, nil };
+	}
+	| IF firstExp = expression OPENBRACKET insBody = instructions ternExp = expression CLOSEBRACKET
+		ternConditionList {
+		trueExp := $ternExp.state;
+		$state = I.IfTernaryControl{ I.IfControl{ I.Instruction{ "TernaryControl" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $firstExp.state, $insBody.l.ToArray(), $ternConditionList.l.ToArray(), make([]interface{}, 0) }, &trueExp, nil };
+	}
+	| IF firstExp = expression OPENBRACKET insBody = instructions ternExp = expression CLOSEBRACKET
+		ELSE OPENBRACKET elseBody = instructions elseTernExp = expression CLOSEBRACKET {
+		trueExp, elseExp := $ternExp.state, $elseTernExp.state;
+		$state = I.IfTernaryControl{ I.IfControl{ I.Instruction{ "TernaryControl" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $firstExp.state, $insBody.l.ToArray(), make([]interface{}, 0), $elseBody.l.ToArray() }, &trueExp, &elseExp };
+	}
+	| IF firstExp = expression OPENBRACKET insBody = instructions ternExp = expression CLOSEBRACKET
+		ternConditionList ELSE OPENBRACKET elseBody = instructions elseTernExp = expression
+		CLOSEBRACKET {
+		trueExp, elseExp := $ternExp.state, $elseTernExp.state;
+		$state = I.IfTernaryControl{ I.IfControl{ I.Instruction{ "TernaryControl" }, I.Value{ I.Token{ "IF", $IF.GetLine(), $IF.GetColumn() }, "If", I.VOID }, $firstExp.state, $insBody.l.ToArray(), $ternConditionList.l.ToArray(), $elseBody.l.ToArray() }, &trueExp, &elseExp };
+	};
+
 // LISTA DE ELSE IFS
 conditionList
 	returns[*arrayList.List l]:
@@ -361,9 +385,27 @@ conditionList
 		$l.Add($elseIf.state)
 	};
 
+ternConditionList
+	returns[*arrayList.List l]:
+	list = ternConditionList ternElseIf { 
+		$list.l.Add($ternElseIf.state)
+		$l = $list.l
+  }
+	| ternElseIf { 
+		$l = arrayList.New()
+		$l.Add($ternElseIf.state)
+	};
+
 // ELSE IF
 elseIf
 	returns[I.IfControlFallBack state]:
 	ELSE IF expression instructionsBlock {
-		$state = I.IfControlFallBack{ I.Token{ "ElseIf", $IF.GetLine(), $IF.GetColumn() }, $expression.state, $instructionsBlock.l.ToArray() };
+		$state = I.IfControlFallBack{ I.Token{ "ElseIf", $IF.GetLine(), $IF.GetColumn() }, $expression.state, $instructionsBlock.l.ToArray(), nil };
+	};
+
+ternElseIf
+	returns[I.IfControlFallBack state]:
+	ELSE IF firstExp = expression OPENBRACKET instructions ternExp = expression CLOSEBRACKET {
+		trueExp := $ternExp.state
+		$state = I.IfControlFallBack{ I.Token{ "ElseIf", $IF.GetLine(), $IF.GetColumn() }, $firstExp.state, $instructions.l.ToArray(), &trueExp };
 	};

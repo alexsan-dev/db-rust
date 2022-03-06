@@ -147,14 +147,32 @@ func (s *BaseDBRustListener) EnterConditions(ctx *ConditionsContext) {}
 // ExitConditions is called when production conditions is exited.
 func (s *BaseDBRustListener) ExitConditions(ctx *ConditionsContext) {}
 
+// EnterTernaryConditions is called when production ternaryConditions is entered.
+func (s *BaseDBRustListener) EnterTernaryConditions(ctx *TernaryConditionsContext) {}
+
+// ExitTernaryConditions is called when production ternaryConditions is exited.
+func (s *BaseDBRustListener) ExitTernaryConditions(ctx *TernaryConditionsContext) {}
+
 // EnterConditionList is called when production conditionList is entered.
 func (s *BaseDBRustListener) EnterConditionList(ctx *ConditionListContext) {}
 
 // ExitConditionList is called when production conditionList is exited.
 func (s *BaseDBRustListener) ExitConditionList(ctx *ConditionListContext) {}
 
+// EnterTernConditionList is called when production ternConditionList is entered.
+func (s *BaseDBRustListener) EnterTernConditionList(ctx *TernConditionListContext) {}
+
+// ExitTernConditionList is called when production ternConditionList is exited.
+func (s *BaseDBRustListener) ExitTernConditionList(ctx *TernConditionListContext) {}
+
 // EnterElseIf is called when production elseIf is entered.
 func (s *BaseDBRustListener) EnterElseIf(ctx *ElseIfContext) {}
 
 // ExitElseIf is called when production elseIf is exited.
 func (s *BaseDBRustListener) ExitElseIf(ctx *ElseIfContext) {}
+
+// EnterTernElseIf is called when production ternElseIf is entered.
+func (s *BaseDBRustListener) EnterTernElseIf(ctx *TernElseIfContext) {}
+
+// ExitTernElseIf is called when production ternElseIf is exited.
+func (s *BaseDBRustListener) ExitTernElseIf(ctx *TernElseIfContext) {}

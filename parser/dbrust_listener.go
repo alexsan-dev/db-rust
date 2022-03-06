@@ -71,11 +71,20 @@ type DBRustListener interface {
 	// EnterConditions is called when entering the conditions production.
 	EnterConditions(c *ConditionsContext)
 
+	// EnterTernaryConditions is called when entering the ternaryConditions production.
+	EnterTernaryConditions(c *TernaryConditionsContext)
+
 	// EnterConditionList is called when entering the conditionList production.
 	EnterConditionList(c *ConditionListContext)
 
+	// EnterTernConditionList is called when entering the ternConditionList production.
+	EnterTernConditionList(c *TernConditionListContext)
+
 	// EnterElseIf is called when entering the elseIf production.
 	EnterElseIf(c *ElseIfContext)
+
+	// EnterTernElseIf is called when entering the ternElseIf production.
+	EnterTernElseIf(c *TernElseIfContext)
 
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
@@ -140,9 +149,18 @@ type DBRustListener interface {
 	// ExitConditions is called when exiting the conditions production.
 	ExitConditions(c *ConditionsContext)
 
+	// ExitTernaryConditions is called when exiting the ternaryConditions production.
+	ExitTernaryConditions(c *TernaryConditionsContext)
+
 	// ExitConditionList is called when exiting the conditionList production.
 	ExitConditionList(c *ConditionListContext)
 
+	// ExitTernConditionList is called when exiting the ternConditionList production.
+	ExitTernConditionList(c *TernConditionListContext)
+
 	// ExitElseIf is called when exiting the elseIf production.
 	ExitElseIf(c *ElseIfContext)
+
+	// ExitTernElseIf is called when exiting the ternElseIf production.
+	ExitTernElseIf(c *TernElseIfContext)
 }
