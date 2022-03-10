@@ -1309,7 +1309,7 @@ public class DBRustParser extends Parser {
 				setState(247);
 				((ValueContext)_localctx).BTRUE = match(BTRUE);
 				 
-						_localctx.state = I.Value{ I.Token{ "BTRUE", ((ValueContext)_localctx).BTRUE.GetLine(), ((ValueContext)_localctx).BTRUE.GetColumn() }, false, I.BOOL } 
+						_localctx.state = I.Value{ I.Token{ "BTRUE", ((ValueContext)_localctx).BTRUE.GetLine(), ((ValueContext)_localctx).BTRUE.GetColumn() }, true, I.BOOL } 
 					
 				}
 				break;
@@ -2567,7 +2567,8 @@ public class DBRustParser extends Parser {
 			setState(491);
 			((MatchCaseContext)_localctx).instructionsBlock = instructionsBlock();
 
-					((MatchCaseContext)_localctx).state =  I.CaseMatchControl{ I.Token{ "MatchCase", ((MatchCaseContext)_localctx).DBLARROW.GetLine(), ((MatchCaseContext)_localctx).DBLARROW.GetColumn() }, ((MatchCaseContext)_localctx).expression.state, ((MatchCaseContext)_localctx).instructionsBlock.l.ToArray() };
+					body := ((MatchCaseContext)_localctx).instructionsBlock.l.ToArray()
+					((MatchCaseContext)_localctx).state =  I.CaseMatchControl{ I.Token{ "MatchCase", ((MatchCaseContext)_localctx).DBLARROW.GetLine(), ((MatchCaseContext)_localctx).DBLARROW.GetColumn() }, ((MatchCaseContext)_localctx).expression.state, &body, nil };
 				
 			}
 		}

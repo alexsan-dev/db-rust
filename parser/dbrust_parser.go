@@ -3359,7 +3359,7 @@ func (p *DBRustParser) Value() (localctx IValueContext) {
 			localctx.(*ValueContext)._BTRUE = _m
 		}
 
-		localctx.(*ValueContext).state = I.Value{I.Token{"BTRUE", localctx.(*ValueContext).Get_BTRUE().GetLine(), localctx.(*ValueContext).Get_BTRUE().GetColumn()}, false, I.BOOL}
+		localctx.(*ValueContext).state = I.Value{I.Token{"BTRUE", localctx.(*ValueContext).Get_BTRUE().GetLine(), localctx.(*ValueContext).Get_BTRUE().GetColumn()}, true, I.BOOL}
 
 	case 7:
 		p.EnterOuterAlt(localctx, 7)
@@ -7102,7 +7102,8 @@ func (p *DBRustParser) MatchCase() (localctx IMatchCaseContext) {
 		localctx.(*MatchCaseContext)._instructionsBlock = _x
 	}
 
-	localctx.(*MatchCaseContext).SetState(I.CaseMatchControl{I.Token{"MatchCase", localctx.(*MatchCaseContext).Get_DBLARROW().GetLine(), localctx.(*MatchCaseContext).Get_DBLARROW().GetColumn()}, localctx.(*MatchCaseContext).Get_expression().GetState(), localctx.(*MatchCaseContext).Get_instructionsBlock().GetL().ToArray()})
+	body := localctx.(*MatchCaseContext).Get_instructionsBlock().GetL().ToArray()
+	localctx.(*MatchCaseContext).SetState(I.CaseMatchControl{I.Token{"MatchCase", localctx.(*MatchCaseContext).Get_DBLARROW().GetLine(), localctx.(*MatchCaseContext).Get_DBLARROW().GetColumn()}, localctx.(*MatchCaseContext).Get_expression().GetState(), &body, nil})
 
 	return localctx
 }

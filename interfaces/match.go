@@ -15,7 +15,8 @@ type MatchControl struct {
 type CaseMatchControl struct {
 	Token
 	Condition Expression
-	Body      []interface{} // []Instruction
+	Body      *[]interface{} // []Instruction
+	LastExp   *Expression
 }
 
 // *INSTRUCTION -> Ejecutar
@@ -39,7 +40,7 @@ func (mth MatchControl) Execute(scope Scope) {
 			expValue := caseExp.(CaseMatchControl).Condition.GetValue(scope)
 			if evValueType == expValue.GetType(scope) {
 				if evValueVal == expValue.GetValue(scope) {
-					for _, caseBody := range caseExp.(CaseMatchControl).Body {
+					for _, caseBody := range *caseExp.(CaseMatchControl).Body {
 						caseBody.(IInstruction).Execute(scope)
 					}
 

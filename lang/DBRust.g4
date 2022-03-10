@@ -255,7 +255,7 @@ value
 		$state = I.Value{ I.Token{ "BFALSE", $BFALSE.GetLine(), $BFALSE.GetColumn() }, false, I.BOOL } 
 	}
 	| BTRUE { 
-		$state = I.Value{ I.Token{ "BTRUE", $BTRUE.GetLine(), $BTRUE.GetColumn() }, false, I.BOOL } 
+		$state = I.Value{ I.Token{ "BTRUE", $BTRUE.GetLine(), $BTRUE.GetColumn() }, true, I.BOOL } 
 	}
 	| ID { 
 		$state = I.Value{ I.Token{ "ID", $ID.GetLine(), $ID.GetColumn() }, $ID.text, I.ID } 
@@ -437,5 +437,6 @@ matchCaseList
 matchCase
 	returns[I.CaseMatchControl state]:
 	expression DBLARROW instructionsBlock {
-		$state = I.CaseMatchControl{ I.Token{ "MatchCase", $DBLARROW.GetLine(), $DBLARROW.GetColumn() }, $expression.state, $instructionsBlock.l.ToArray() };
+		body := $instructionsBlock.l.ToArray()
+		$state = I.CaseMatchControl{ I.Token{ "MatchCase", $DBLARROW.GetLine(), $DBLARROW.GetColumn() }, $expression.state, &body, nil };
 	};
