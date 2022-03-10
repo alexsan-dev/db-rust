@@ -57,7 +57,7 @@ func (l *DBRustListener) ExitStart(ctx *parser.StartContext) {
 		d2 := C.New(C.FgWhite)
 		d2.Print(e.Msg + " at ")
 		d3 := C.New(C.FgCyan, C.Bold)
-		d3.Printf("Line: %d, Column: %d", e.Line, e.Column)
+		d3.Printf("Line: %d, Column: %d", e.Line, e.Column+1)
 		df := C.New(C.FgWhite)
 		df.Println("")
 	}
@@ -73,7 +73,7 @@ func (l *DBRustListener) VisitTerminal(ctx antlr.TerminalNode) {
 	token := ctx.GetSymbol()
 	l.Tokens = append(l.Tokens, I.Token{
 		Name:   token.GetText(),
-		Column: token.GetColumn(),
+		Column: token.GetColumn() + 1,
 		Line:   token.GetLine(),
 	})
 }

@@ -43,7 +43,8 @@ instruction
 	| mth = methods SEMI { $state = $mth.state }
 	| fn = function { $state = $fn.state }
 	| rtn = returnValue SEMI { $state = $rtn.state }
-	| cdtn = conditions { $state  = $cdtn.state };
+	| cdtn = conditions { $state  = $cdtn.state }
+	| mtch = matchExp { $state = $mtch.state };
 
 // DECLARACIONES
 declaration
@@ -408,4 +409,33 @@ ternElseIf
 	ELSE IF firstExp = expression OPENBRACKET instructions ternExp = expression CLOSEBRACKET {
 		trueExp := $ternExp.state
 		$state = I.IfControlFallBack{ I.Token{ "ElseIf", $IF.GetLine(), $IF.GetColumn() }, $firstExp.state, $instructions.l.ToArray(), &trueExp };
+	};
+
+// MATCH
+matchExp
+	returns[I.MatchControl state]:
+	MATCH trueExp = expression OPENBRACKET matchCaseList UNDERSCORE DBLARROW defBody =
+		instructionsBlock CLOSEBRACKET {
+		defCase := $defBody.l.ToArray()
+		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), &defCase }; 
+	}
+	| MATCH trueExp = expression OPENBRACKET matchCaseList CLOSEBRACKET {
+		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), nil }; 
+	};
+
+matchCaseList
+	returns[*arrayList.List l]:
+	list = matchCaseList matchCase { 
+		$list.l.Add($matchCase.state)
+		$l = $list.l
+  }
+	| matchCase { 
+		$l = arrayList.New()
+		$l.Add($matchCase.state)
+	};
+
+matchCase
+	returns[I.CaseMatchControl state]:
+	expression DBLARROW instructionsBlock {
+		$state = I.CaseMatchControl{ I.Token{ "MatchCase", $DBLARROW.GetLine(), $DBLARROW.GetColumn() }, $expression.state, $instructionsBlock.l.ToArray() };
 	};

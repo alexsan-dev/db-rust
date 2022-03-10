@@ -176,3 +176,21 @@ func (s *BaseDBRustListener) EnterTernElseIf(ctx *TernElseIfContext) {}
 
 // ExitTernElseIf is called when production ternElseIf is exited.
 func (s *BaseDBRustListener) ExitTernElseIf(ctx *TernElseIfContext) {}
+
+// EnterMatchExp is called when production matchExp is entered.
+func (s *BaseDBRustListener) EnterMatchExp(ctx *MatchExpContext) {}
+
+// ExitMatchExp is called when production matchExp is exited.
+func (s *BaseDBRustListener) ExitMatchExp(ctx *MatchExpContext) {}
+
+// EnterMatchCaseList is called when production matchCaseList is entered.
+func (s *BaseDBRustListener) EnterMatchCaseList(ctx *MatchCaseListContext) {}
+
+// ExitMatchCaseList is called when production matchCaseList is exited.
+func (s *BaseDBRustListener) ExitMatchCaseList(ctx *MatchCaseListContext) {}
+
+// EnterMatchCase is called when production matchCase is entered.
+func (s *BaseDBRustListener) EnterMatchCase(ctx *MatchCaseContext) {}
+
+// ExitMatchCase is called when production matchCase is exited.
+func (s *BaseDBRustListener) ExitMatchCase(ctx *MatchCaseContext) {}

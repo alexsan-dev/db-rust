@@ -86,6 +86,15 @@ type DBRustListener interface {
 	// EnterTernElseIf is called when entering the ternElseIf production.
 	EnterTernElseIf(c *TernElseIfContext)
 
+	// EnterMatchExp is called when entering the matchExp production.
+	EnterMatchExp(c *MatchExpContext)
+
+	// EnterMatchCaseList is called when entering the matchCaseList production.
+	EnterMatchCaseList(c *MatchCaseListContext)
+
+	// EnterMatchCase is called when entering the matchCase production.
+	EnterMatchCase(c *MatchCaseContext)
+
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
@@ -163,4 +172,13 @@ type DBRustListener interface {
 
 	// ExitTernElseIf is called when exiting the ternElseIf production.
 	ExitTernElseIf(c *TernElseIfContext)
+
+	// ExitMatchExp is called when exiting the matchExp production.
+	ExitMatchExp(c *MatchExpContext)
+
+	// ExitMatchCaseList is called when exiting the matchCaseList production.
+	ExitMatchCaseList(c *MatchCaseListContext)
+
+	// ExitMatchCase is called when exiting the matchCase production.
+	ExitMatchCase(c *MatchCaseContext)
 }

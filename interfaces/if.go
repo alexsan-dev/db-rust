@@ -1,6 +1,6 @@
 package interfaces
 
-// LLAMADA A FUNCION BASE
+// LLAMADA A IF BASE
 type IfControl struct {
 	Instruction
 	Value

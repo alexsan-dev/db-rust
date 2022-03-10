@@ -8,6 +8,7 @@ FN: 'fn';
 RETURN: 'return';
 IF: 'if';
 ELSE: 'else';
+MATCH: 'match';
 
 // TIPOS
 I64: 'i64';
@@ -18,6 +19,7 @@ STR: '&str';
 STRCLASS: 'String';
 
 // VALORES
+UNDERSCORE: '_';
 BFALSE: 'false';
 BTRUE: 'true';
 NUMBER: [0-9]+;
@@ -32,6 +34,8 @@ CLOSEPAR: ')';
 OPENBRACKET: '{';
 CLOSEBRACKET: '}';
 ARROW: '->';
+DBLARROW: '=>';
+
 DOT: '.';
 COLOM: ':';
 SEMI: ';';

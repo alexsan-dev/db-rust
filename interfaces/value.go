@@ -45,7 +45,7 @@ func (sym ValueMut) GetLine() int {
 
 // OBTENER COLUMNA
 func (sym Value) GetColumn() int {
-	return sym.Column + 1
+	return sym.Column
 }
 
 func (sym ValueMut) GetColumn() int {
