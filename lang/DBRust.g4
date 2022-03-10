@@ -268,7 +268,8 @@ value
 	}
 	| ternaryConditions {
 		$state = $ternaryConditions.state;
-	};
+	}
+	| matchExp { $state = $matchExp.state };
 
 // LLAMADAS A FUNCIONES
 functionCall
@@ -417,10 +418,15 @@ matchExp
 	MATCH trueExp = expression OPENBRACKET matchCaseList UNDERSCORE DBLARROW defBody =
 		instructionsBlock CLOSEBRACKET {
 		defCase := $defBody.l.ToArray()
-		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), &defCase }; 
+		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), &defCase, nil }; 
+	}
+	| MATCH trueExp = expression OPENBRACKET matchCaseList UNDERSCORE DBLARROW defExp = expression
+		COMMA CLOSEBRACKET {
+		defCase := $defExp.state;
+		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), nil, &defCase }; 
 	}
 	| MATCH trueExp = expression OPENBRACKET matchCaseList CLOSEBRACKET {
-		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), nil }; 
+		$state = I.MatchControl{ I.Instruction{ "Match" }, I.Value{ I.Token{ "Match", $MATCH.GetLine(), $MATCH.GetColumn() }, "Match", I.VOID }, $trueExp.state, $matchCaseList.l.ToArray(), nil, nil }; 
 	};
 
 matchCaseList
@@ -439,4 +445,8 @@ matchCase
 	expression DBLARROW instructionsBlock {
 		body := $instructionsBlock.l.ToArray()
 		$state = I.CaseMatchControl{ I.Token{ "MatchCase", $DBLARROW.GetLine(), $DBLARROW.GetColumn() }, $expression.state, &body, nil };
+	}
+	| caseExp = expression DBLARROW lastExp = expression COMMA {
+		lastExpVal := $lastExp.state
+		$state = I.CaseMatchControl{ I.Token{ "MatchCase", $DBLARROW.GetLine(), $DBLARROW.GetColumn() }, $caseExp.state, nil, &lastExpVal };
 	};

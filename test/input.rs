@@ -1,20 +1,13 @@
 fn chinchulin(id:&str) -> &str {
-  let n:i64 = 1;
-  let mut s:&str = 
-  if n == 1 { 
-    if !false { 
-      println!("prueba2");
-    }
-
-    println!("prueba");
-    "texto1"
-  } 
-
-  else if n == 2 { "texto2" };
-
-  if true {
-    println!("prueba true");
-  }
+  let n:i64 = 3;
+  let mut s:&str =  if n == 1 { "texto1" } else { "texto2" };
+  let mut p:&str = match s {
+    "texto1" => "case1",
+    "texto2" => "case2",
+    "texto3" => "case3",
+    _ => "def",
+  };
+  println!(p);
 
   return s;
 }

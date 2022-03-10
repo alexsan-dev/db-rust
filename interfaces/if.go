@@ -85,7 +85,8 @@ func (ctrl IfControl) Execute(scope Scope) {
 }
 
 // OBTENER VALOR FINAL
-func (ctrl IfControl) GetExecute(scope Scope, trueExp *Expression, elseExp *Expression) IValue {
+func (ctrl IfControl) GetExecute(execScope Scope, trueExp *Expression, elseExp *Expression) IValue {
+	scope := Scope{&execScope, "Control", make(map[string]IValue), make(map[string]IInstruction)}
 	defaultValue := Value{Token{"", 0, 0}, "", UNDEF}
 	trueValue := ctrl.TrueCondition.GetValue(scope)
 
